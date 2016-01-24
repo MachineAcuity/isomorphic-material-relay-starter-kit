@@ -33,6 +33,8 @@ class Home_Screen extends React.Component
             <li><a href="https://github.com/denvned/isomorphic-relay">Isomorphic Relay</a></li>
             <li><a href="http://www.material-ui.com/">Material-UI</a></li>
             <li><a href="https://jwt.io/">JSON Web Tokens</a></li>
+            <li><a href="https://nodejs.org/">Node Js</a></li>
+            <li><a href="http://cassandra.apache.org/">Apache Cassandra</a></li>
           </ul>
           The project source is <a href="https://github.com/codefoundries/isomorphic-material-relay-starter-kit">available on GitHub</a>.
         </CardText>

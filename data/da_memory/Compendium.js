@@ -1,47 +1,36 @@
-import generateUUID from './generateUUID'
-import { DA_User_GetUUIDByID } from './User';
+import { Uuid } from '../da_cassandra/_client.js';
+
 import Compendium from '../model/Compendium'
 
-// Mock data
 
 var Compendium_listById = { };
 var Compendium_IDsByUser = { };
-Compendium_IDsByUser[ DA_User_GetUUIDByID( 0 ) ] = [ ];
-Compendium_IDsByUser[ DA_User_GetUUIDByID( 1 ) ] = [ ];
-Compendium_IDsByUser[ DA_User_GetUUIDByID( 2 ) ] = [ ];
-
-for( let User_id = 0 ; User_id < 3; User_id++ )
-  DA_Compendium_add( {
-    id: generateUUID( ),
-    Compendium_User_id: DA_User_GetUUIDByID( User_id ),
-    Compendium_FirstTextInput: "I am first with five",
-    Compendium_RangedNumber: 35,
-    Compendium_Excitement: 3,
-    Compendium_FollowUpQuestion: "Then seven in the middle",
-    Compendium_FavoriteMammal: 3,
-    Compendium_FavoriteMammalOtherText: "",
-    Compendium_LastText: "Five again to end",
-    Compendium_LikedSunset_Ocean: false,
-    Compendium_LikedSunset_Lake: false,
-    Compendium_LikedSunset_Mountains: false,
-    Compendium_LikedSunset_Plains: false,
-    Compendium_LikedSunset_Purple: false,
-    Compendium_LikedSunset_Green: false,
-    Compendium_LikedSunset_Other: false,
-    Compendium_LikedSunset_OtherText: "",
-  } );
 
 
 // Data access functions
+
+function DA_Compendium_add_no_promise( fields )
+{
+  var a_Compendium = new Compendium( fields );
+
+  a_Compendium.id = Uuid.random( );
+
+  Compendium_listById[ a_Compendium.id ] = a_Compendium;
+
+  let a_Compendium_IDsByUser = Compendium_IDsByUser[ a_Compendium.Compendium_User_id ];
+  if( a_Compendium_IDsByUser == null )
+    a_Compendium_IDsByUser = Compendium_IDsByUser[ a_Compendium.Compendium_User_id ] = [ ];
+
+  a_Compendium_IDsByUser.push( a_Compendium.id );
+
+  return a_Compendium;
+}
 
 export function DA_Compendium_add( fields )
 {
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
-    var a_Compendium = new Compendium( fields );
-
-    Compendium_listById[ a_Compendium.id ] = a_Compendium;
-    Compendium_IDsByUser[ a_Compendium.Compendium_User_id ].push( a_Compendium.id );
+    DA_Compendium_add_no_promise( fields );
 
     resolve( );
   }, 100 ) );
@@ -85,6 +74,34 @@ export function DA_Compendium_list_get( Compendium_User_id )
 {
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
-    resolve( Compendium_IDsByUser[ Compendium_User_id ].map( id => Compendium_listById[ id ] ) );
+    let a_Compendium_IDsByUser = Compendium_IDsByUser[ Compendium_User_id ];
+
+    if( a_Compendium_IDsByUser == null )
+    {
+      DA_Compendium_add_no_promise( {
+        id: Uuid.random( ),
+        Compendium_User_id: Compendium_User_id,
+        Compendium_FirstTextInput: "",
+        Compendium_RangedNumber: 0,
+        Compendium_Excitement: 0,
+        Compendium_FollowUpQuestion: "",
+        Compendium_FavoriteMammal: 0,
+        Compendium_FavoriteMammalOtherText: "",
+        Compendium_LastText: "",
+        Compendium_LikedSunset_Ocean: false,
+        Compendium_LikedSunset_Lake: false,
+        Compendium_LikedSunset_Mountains: false,
+        Compendium_LikedSunset_Plains: false,
+        Compendium_LikedSunset_Purple: false,
+        Compendium_LikedSunset_Green: false,
+        Compendium_LikedSunset_Other: false,
+        Compendium_LikedSunset_OtherText: "",
+      } );
+
+      // Should not be null any more
+      a_Compendium_IDsByUser = Compendium_IDsByUser[ Compendium_User_id ];
+    }
+
+    resolve( a_Compendium_IDsByUser.map( id => Compendium_listById[ id ] ) );
   }, 100 ) );
 }

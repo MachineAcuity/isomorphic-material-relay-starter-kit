@@ -1,54 +1,31 @@
-import { runQuery, runQueryOneResult, runQueryNoResult } from './_client.js';
+import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from './_client.js';
 
 import ToDo from '../model/ToDo'
-
-
-
-// ->->-> To be removed later
-
-import generateUUID from './generateUUID'
-// Helper function to make sure we get our proper FK ID values
-// The are constant so that we can use our cookies between server restarts
-export function DA_User_GetUUIDByID( id )
-{
-  if( id === 0 )
-  return '00000000-0000-0000-0000-000000000000'; // Anonymous user uses UUID also
-  if( id === 1 )
-    return 'd362e1df-1fa8-466b-b311-af90b2a71e8e';
-  if( id === 2 )
-    return '33171548-39d3-45d8-ab5c-5eedefe01dfc';
-}
-
-
-// Mock data
-
-var ToDo_listById = { };
-var ToDo_id_by_User_id = { };
-ToDo_id_by_User_id[ DA_User_GetUUIDByID( 0 ) ] = [ ];
-ToDo_id_by_User_id[ DA_User_GetUUIDByID( 1 ) ] = [ ];
-ToDo_id_by_User_id[ DA_User_GetUUIDByID( 2 ) ] = [ ];
-
-// <-<-<- To be removed later
 
 
 // Data access functions
 
 export function DA_ToDo_add( fields )
 {
-  const id = generateUUID( );
+  const id = Uuid.random( );
   let cqlText = 'INSERT INTO "ToDo" (id, "ToDo_User_id", "ToDo_Text", "ToDo_Complete" ) VALUES (?, ?, ?, false);';
   let cqlParams = [
-    generateUUID( ),
+    id,
     fields.ToDo_User_id,
     fields.ToDo_Text,
   ];
-  return runQueryNoResult( cqlText, cqlParams ).then( ( ) => id );
+  return runQueryNoResult( cqlText, cqlParams )
+  .then( ( ) => {
+    return id;
+  } )
+  ;
 }
 
 export function DA_ToDo_update( id, fields )
 {
   // We will not update ToDo_User_id since it makes no sense to update it
   let cqlText = 'UPDATE "ToDo" SET ';
+  let cqlParams = [ ];
 
   let followingItem = false;
 
@@ -121,12 +98,15 @@ export function DA_ToDo_list_updateMarkAll( User_id, ToDo_Complete )
   return changedToDos.map(a_ToDo => a_ToDo.id);
 }
 
+// <-<-<- To be modified later
+
 export function DA_ToDo_list_deleteCompleted( User_id )
 {
-  // TODO this needs to be done in CQL
-  var ToDo_listToRemove = DA_ToDo_list_get( User_id ).filter( a_ToDo => a_ToDo.ToDo_Complete );
-  ToDo_listToRemove.forEach( a_ToDo => DA_ToDo_delete( User_id, a_ToDo.id ) );
-  return ToDo_listToRemove.map( a_ToDo => a_ToDo.id );
+  throw new Error( "The code below should be re-written with promises" );
+  return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
+  {
+    var ToDo_listToRemove = DA_ToDo_list_get( User_id ).filter( a_ToDo => a_ToDo.ToDo_Complete );
+    ToDo_listToRemove.forEach( a_ToDo => DA_ToDo_delete( User_id, a_ToDo.id ) );
+    resolve( ToDo_listToRemove.map( a_ToDo => a_ToDo.id ) );
+  }, 100 ) );
 }
-
-// <-<-<- To be modified later

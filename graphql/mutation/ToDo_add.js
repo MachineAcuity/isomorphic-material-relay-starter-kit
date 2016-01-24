@@ -1,6 +1,9 @@
+import chalk from 'chalk';
+
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
 import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
+import { cursorForObjectInConnectionWithUuidComparison } from '../helper/mutation_helper';
 import { DA_User_get } from '../../data/da/User';
 import { DA_ToDo_add, DA_ToDo_get, DA_ToDo_list_get } from '../../data/da/ToDo';
 
@@ -20,14 +23,14 @@ export default mutationWithClientMutationId( {
       {
         let a_ToDo;
         return DA_ToDo_get( localToDoId )
-          .then( ( retrieved_ToDo ) => {
-            a_ToDo = retrieved_ToDo;
-          } )
-          .then( ( ) => DA_ToDo_list_get( user_id ) )
-          .then( ( arr_ToDo ) => ( {
-            cursor: cursorForObjectInConnection( arr_ToDo, a_ToDo ),
-            node: a_ToDo,
-          } ) )
+        .then( ( retrieved_ToDo ) => {
+          a_ToDo = retrieved_ToDo;
+        } )
+        .then( ( ) => DA_ToDo_list_get( user_id ) )
+        .then( ( arr_ToDo ) => ( {
+          cursor: cursorForObjectInConnectionWithUuidComparison( arr_ToDo, a_ToDo ),
+          node: a_ToDo,
+        } ) )
         ;
       }
     },

@@ -8,12 +8,16 @@ IMRSK started as an off-shoot of multiple projects and boilerplates we use at [C
 | Run locally | [Local Setup](./doc/Setup-Local.md) |
 | Run on [Heroku](https://www.heroku.com/nodejs) | [Heroku Setup](./doc/Setup-Heroku.md) |
 
-Apache Cassandra is not part of this project yet. We are hoping to be able to bring it in soon.
-
 # WARNING: Since version 0.6.4 we changed the user_id s so the auth_token cookies are invalid and will crash the client. Please delete the cookies first.
 
 Naturally the server should be able to figure it out. Coming soon to a repository near you.
 
+## Articles
+
+The following articles explain in detail certain aspects of this repository:
+
+* [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html).
+* [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html).
 
 
 ## Underlying technologies
@@ -121,7 +125,7 @@ In order to set up the project locally, perform the following steps:
 |------------------------|------------|
 | `start-webpack`        | Starts the webpack development server, responsible for asset compilation and hot reload. |
 | `start-dev`            | Starts the application server in development mode. |
-| `dev`                  | Starts the task at the same time: `start-webpack` and` start-dev` |
+| `dev`                  | Starts the task at the same time: `start-webpack` and` start-dev`. The color coding achieved with chalk will not be available with this task. |
 | `start`                | Run in production mode. |
 
 ### Running in development mode
@@ -147,6 +151,8 @@ The following environment variables can be used to control the server:
 | JWT_SECRET                     | Secret used for JWT tokens.                                     |
 | CASSANDRA_CONNECTION_POINTS    | Cassandra connection point. `localhost` if on the same machine. |
 | CASSANDRA_KEYSPACE             | Cassandra keyspace/database.                                    |
+| CASSANDRA_USER                 | Optional Cassandra username.                                    |
+| CASSANDRA_PASSWORD             | Optional Cassandra password.                                    |
 
 They can be set in the `.env` file in the root of the project. `Example.env` in
 the documents folder contains an example of such file. It is copied to `.env` in `postinstall`.
@@ -172,7 +178,7 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `data/da/{Entity}.js`                         | Data access functions for {Entity}. Exported functions are named DA_{Entity}_*. Simply points either into memory, or Cassandra. |
 | `data/da_cassandra/_client.js`                | Promisified Cassandra client. | [*](./data/da_cassandra/_client.js) |
 | `data/da_cassandra/{Entity}.js`               | Data access functions for {Entity} implemented for Cassandra. |
-| `data/da_memory/generateUUID.js`              | Simple function for generating UUIDs. | [*](./data/da_memory/generateUUID.js) |
+| `data/da_memory/generateUUID.js`              | This file has been removed. It was used for UUID generation. UUID generation for the -in memory implementation is achieved through Cassandra types: `Uuid.random( )`. | |
 | `data/da_memory/{Entity}.js`                  | Data access functions for {Entity} implemented as in-memory transient storage. |
 | `data/model/`                                 | Models | [*](./data/model/) |
 | `data/model/{Entity}.js`                      | Model for {Entity}. Default class for that entity is exported. |
@@ -211,6 +217,10 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `webapp/styles/main.css`                      | Example style included in the app. Currently not used. | [*](./webapp/styles/main.css) |
 | `webapp/views/`                               | Views served by the express web app. | [*](./webapp/views/) |
 | `webapp/views/index.ejs`                      | Template for the HTML served by the isomorphic server rendered. | [*](./webapp/views/index.ejs) |
+| `webapp/app.js`                               | Starts the client-side SPA using data generated during server rendering. | [*](./webapp/app.js) |
+| `webapp/renderOnServer.js`                    | Performs server-side rendering. | [*](./webapp/renderOnServer.js) |
+| `webapp/routes.js`                            | Routes in a data structure consumed both by express router and react router. | [*](./webapp/routes.js) |
+| `webapp/server.js`                            | Server for the web app. | [*](./webapp/server.js) |
 
 
 
