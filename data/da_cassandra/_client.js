@@ -11,10 +11,22 @@ squel.registerValueHandler( cassandraDriver.types.Uuid, function( uuid ){ return
 export const sql = squel;
 export const Uuid = cassandraDriver.types.Uuid;
 
-export const client = new cassandraDriver.Client( {
-  contactPoints: process.env.CASSANDRA_CONNECTION_POINTS.split( ',' ),
+let options =
+{
+  contactPoints: process.env.CASSANDRA_CONNECTION_POINTS.split(','),
   keyspace: process.env.CASSANDRA_KEYSPACE
-} );
+};
+
+if (process.env.CASSANDRA_USER) 
+{
+  options.authProvider =
+    new cassandraDriver.auth.PlainTextAuthProvider(
+      process.env.CASSANDRA_USER,
+      process.env.CASSANDRA_PASSWORD
+    );
+}
+
+export const client = new cassandraDriver.Client(options);
 
 function ensureNoErrorOrReport( qText, qVar, err, reject )
 {

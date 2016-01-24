@@ -151,6 +151,8 @@ The following environment variables can be used to control the server:
 | JWT_SECRET                     | Secret used for JWT tokens.                                     |
 | CASSANDRA_CONNECTION_POINTS    | Cassandra connection point. `localhost` if on the same machine. |
 | CASSANDRA_KEYSPACE             | Cassandra keyspace/database.                                    |
+| CASSANDRA_USER                 | Optional Cassandra username.                                    |
+| CASSANDRA_PASSWORD             | Optional Cassandra password.                                    |
 
 They can be set in the `.env` file in the root of the project. `Example.env` in
 the documents folder contains an example of such file. It is copied to `.env` in `postinstall`.
