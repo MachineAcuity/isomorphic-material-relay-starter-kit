@@ -55,7 +55,7 @@ The following articles explain in detail certain aspects of this repository:
 | Responsive Design | Mainly through the features of the Material UI library, the examples in IMRSK work well on different form factors, ranging from desktop browsers to mobile phones. |
 | Hot Reload | The webpack development server supports hot reload when components are changed. The IMRSK is configured with hot reload. |
 | Built for speed | The starter kit is configured to use established practices for optimizing speed like caching and compression. This entails certain requirements about how it is used, read in the Speed and Building section below. |
-| Cassandra/In Memory | The starter kit is intended for use with Cassandra, but simple in-memory data structures are provided also for light testing and experimentation. |
+| Cassandra/In Memory | The starter kit can be used with both Cassandra-based data storage, as well as in-memory structures. The latter are right now used only for testing, but can be later used for setting up mock tests cases for unit and regression testing. |
 
 
 
