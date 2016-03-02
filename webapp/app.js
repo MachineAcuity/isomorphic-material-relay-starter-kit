@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { browserHistory } from 'react-router';
 
 // First load isomorphic-relay:
@@ -23,11 +25,22 @@ var isoVars = isomorphicVars( );
 import injectTapEventPlugin from 'react-tap-event-plugin';
 injectTapEventPlugin( );
 
-// This will ensure that on the client Relay is passing the HttpOnly cookie with auth
-let GraphQL_URL = ( isoVars.public_url == null ) ? '/graphql' : isoVars.public_url + '/graphql';
-Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer( GraphQL_URL, { credentials: 'same-origin' } ) );
-
+// Retrieve prepared data
 const data = JSON.parse( document.getElementById( 'preloadedData' ).textContent );
+
+// Ensure that on the client Relay is passing the HttpOnly cookie with auth, and the user auth token
+let GraphQL_URL = ( isoVars.public_url == null ) ? '/graphql' : isoVars.public_url + '/graphql';
+Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer(
+  GraphQL_URL,
+  {
+    credentials: 'same-origin',
+    headers: {
+      user_auth_token: data[ 0 ].result.Viewer.User_AuthToken, // It is important that User_AuthToken is retrieved in Chrome.jsx
+    },
+  }
+) );
+
+// Pass prepared data to relay
 IsomorphicRelay.injectPreparedData( data );
 
 const rootElement = document.getElementById('root');

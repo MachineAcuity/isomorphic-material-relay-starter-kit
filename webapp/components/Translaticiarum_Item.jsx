@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
@@ -7,20 +9,12 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import NavigationMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
 
-
-import ActionAccountBalance from 'material-ui/lib/svg-icons/action/account-balance'; // Speak in senate
-import ActionAccessibility from 'material-ui/lib/svg-icons/action/accessibility'; // Exercise
-import ActionDoneAll from 'material-ui/lib/svg-icons/action/done-all'; // Get things done
-import ActionTrendingUp from 'material-ui/lib/svg-icons/action/trending-up'; // Play the stock market
-import ContentCreate from 'material-ui/lib/svg-icons/content/create'; // Write poems
-import HardwareHeadset from 'material-ui/lib/svg-icons/hardware/headset'; // Listen to music
-import ImageLandscape from 'material-ui/lib/svg-icons/image/landscape'; // Hike
-
-import dateFromUTCString from '../scripts/dateFromUTCString'
+import { dateFromUTCString, dateUTCToLocal } from '../scripts/DateTimeHelpers'
 
 import Translaticiarum_deleteMutation from '../mutations/Translaticiarum_deleteMutation';
 import Translaticiarum_updateMutation from '../mutations/Translaticiarum_updateMutation';
 
+import Translaticiarum_Icon from './Translaticiarum_Icon';
 import Translaticiarum_Properties from './Translaticiarum_Properties.jsx';
 
 
@@ -45,11 +39,9 @@ class Translaticiarum_Item extends React.Component
     switch( item.ref )
     {
       case 'edit':
-        console.log( 'edit' );
         this.refs.Translaticiarum_Properties._handle_Open( );
         break;
       case 'delete':
-        console.log( 'delete' );
         this._Translaticiarum_delete( );
         break;
       default:
@@ -61,22 +53,16 @@ class Translaticiarum_Item extends React.Component
   {
     const theDate = dateFromUTCString( this.props.Translaticiarum.Translaticiarum_Date );
     const theTime = dateFromUTCString( this.props.Translaticiarum.Translaticiarum_Time );
-    const theDateTime = new Date( theDate.getTime( ) + theTime.getTime( ) );
 
-    const theType = this.props.Translaticiarum.Translaticiarum_Type;
-    let itemIcon;
-    if( theType == 1 ) itemIcon = <ActionAccountBalance />; // Speak in senate
-    else if( theType == 2 ) itemIcon = <ActionAccessibility />; // Exercise
-    else if( theType == 3 ) itemIcon = <ActionDoneAll />; // Get things done
-    else if( theType == 4 ) itemIcon = <ActionTrendingUp />; // Speak in senate
-    else if( theType == 5 ) itemIcon = <ActionTrendingUp />; // Play the stock market
-    else if( theType == 6 ) itemIcon = <ContentCreate />; // Write poems
-    else if( theType == 7 ) itemIcon = <HardwareHeadset />; // Listen to music
-    else if( theType == 8 ) itemIcon = <ImageLandscape />; // Hike
+    const theDateTime = dateUTCToLocal( new Date( theDate.getTime( ) + theTime.getTime( ) ) );
+    // theDate.setHours( theTime.getHours( ) );
+    // theDate.setMinutes( theTime.getMinutes( ) );
+    // theDate.setSeconds( theTime.getSeconds( ) );
+    // theDate.setMilliseconds( theTime.getMilliseconds( ) );
 
     const rightIconMenu = (
       <IconMenu
-        iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
+        iconButtonElement={ <IconButton><NavigationMoreVert /></IconButton> }
         onItemTouchTap={ this._handle_onItemTouchTap }
       >
         <MenuItem ref="edit" index={0}>Edit</MenuItem>
@@ -87,8 +73,8 @@ class Translaticiarum_Item extends React.Component
     return (
       <div>
         <ListItem
-          leftIcon={ itemIcon }
-          primaryText={ theDateTime.toUTCString( ) }
+          leftIcon={ Translaticiarum_Icon( this.props.Translaticiarum.Translaticiarum_Type ) }
+          primaryText={ theDateTime.toString( ) }
           rightIconButton={ rightIconMenu }
         />
         <Translaticiarum_Properties

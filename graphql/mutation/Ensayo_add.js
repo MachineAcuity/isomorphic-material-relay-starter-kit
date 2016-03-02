@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import chalk from 'chalk';
 
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
@@ -18,7 +20,7 @@ export default mutationWithClientMutationId( {
   inputFields: {
     Ensayo_Content: { type: new GraphQLNonNull( GraphQLString ) },
     Ensayo_Title: { type: new GraphQLNonNull( GraphQLString ) },
-    Ensayo_Keywords: { type: new GraphQLNonNull( GraphQLString ) },
+    Ensayo_Description: { type: new GraphQLNonNull( GraphQLString ) },
   },
   outputFields: {
     EnsayosEdge: {
@@ -26,7 +28,7 @@ export default mutationWithClientMutationId( {
       resolve: ( {localEnsayoId}, args, { rootValue: {user_id} } ) =>
       {
         let a_Ensayo;
-        return DA_Ensayo_get( localEnsayoId )
+        return DA_Ensayo_get( user_id, localEnsayoId )
         .then( ( retrieved_Ensayo ) => {
           a_Ensayo = retrieved_Ensayo;
         } )
@@ -43,12 +45,12 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
     },
   },
-  mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Keywords }, { rootValue: {user_id} } ) =>
-    DA_Ensayo_add( {
+  mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Description }, { rootValue: {user_id} } ) =>
+    DA_Ensayo_add( user_id, {
       Ensayo_User_id: user_id,
       Ensayo_Content: Ensayo_Content,
       Ensayo_Title: Ensayo_Title,
-      Ensayo_Keywords: Ensayo_Keywords,
+      Ensayo_Description: Ensayo_Description,
     } )
     .then( ( localEnsayoId ) => ( {localEnsayoId} ) )
 } );

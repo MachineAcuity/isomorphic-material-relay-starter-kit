@@ -1,16 +1,20 @@
 # Isomorphic Material Relay Starter Kit (IMRSK)
 
-IMRSK started as an off-shoot of multiple projects and boilerplates we use at [Code Foundries](http://codefoundries.com). It is an attempt to provide and organize a well thought out starting point for future projects. It also contains samples of techniques that tie all the underlying technologies together. Baseline functionality like user log in, authentication, etc. is included.
+IMRSK started as an off-shoot of multiple projects and boilerplates we use at [Code Foundries](http://codefoundries.com) and is developed with the help of the [contributors](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/graphs/contributors). It is an attempt to provide and organize a well thought out starting point for future projects. It also contains samples of techniques that tie all the underlying technologies together. Baseline functionality like user log in, authentication, etc. is included.
 
 | How to try     | **Link**|
 |----------------|----------------|
-| Live Demo | [http://isomorphic-material-relay.herokuapp.com/](http://isomorphic-material-relay.herokuapp.com/) This is a free dyno, so give it some time to spin up. |
+| Live Demo on [Heroku](https://www.heroku.com/) | [http://isomorphic-material-relay.herokuapp.com/](http://isomorphic-material-relay.herokuapp.com/). Configured with in-memory data store. This is a free dyno, so give it some time to spin up. |
+| Live Demo on [Open Shift](https://www.openshift.com/) | [http://app-imrsk.rhcloud.com/](http://app-imrsk.rhcloud.com/). Configured with Cassandra data store. Under active development, might be down. |
 | Run locally | [Local Setup](#local-setup) |
 | Run on [Heroku](https://www.heroku.com/nodejs) | [Heroku Setup](#heroku-setup) |
 
-# WARNING: Since version 0.6.4 we changed the user_id s so the auth_token cookies are invalid and will crash the client. Please delete the cookies first.
 
-Naturally the server should be able to figure it out. Coming soon to a repository near you.
+
+## Help wanted
+
+If you like to help, please review the list of items where [help is needed](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/labels/Help%20wanted).
+
 
 ## Articles
 
@@ -18,6 +22,7 @@ The following articles explain in detail certain aspects of this repository:
 
 * [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html).
 * [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html).
+* [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html).
 
 
 ## Underlying technologies
@@ -33,11 +38,12 @@ The following articles explain in detail certain aspects of this repository:
 | [Isomorphic Relay](https://github.com/denvned/isomorphic-relay) | Adds server side rendering support to React Relay. IMRSK fully utilizes this library, while waiting for [https://github.com/facebook/relay/issues/589](https://github.com/facebook/relay/issues/589). The eventual goal is to have full isomorphism with authentication. |
 | [JWT](https://jwt.io/) | JSON Web Tokens is an industry standard [RFC 7519](https://tools.ietf.org/html/rfc7519) method for representing claims securely between two parties. |
 | [React Helmet](https://github.com/nfl/react-helmet) | Reusable React component will manage all of your changes to the document head with support for document title, meta, link, script, and base tags. |
+| [Flow](http://flowtype.org/) | Static type checker, designed to find type errors in JavaScript programs. |
 | [Babel](http://babeljs.io) | Compiles ES6/ES7 to ES5. Allows using features from ES6 and ES7 today. |
 | [Webpack](http://webpack.github.io) | Bundles npm packages and the application Java Script into a single file. Includes hot reloading via [react-transform-hmr](https://www.npmjs.com/package/react-transform-hmr). Also, Webpack can bundle any required CSS. |
 | [Node.js](https://nodejs.org)| Event-driven, non-blocking I/O runtime based on JavaScript that is lightweight and efficient. |
 | [npm Scripts](https://docs.npmjs.com/misc/scripts)| Glues all this together in a handy automated build. |
-| [Apache Cassandra](http://cassandra.apache.org/) | The database you are looking for. Work in progress. |
+| [Apache Cassandra](http://cassandra.apache.org/) | The right choice when you need scalability and high availability without compromising performance. Linear scalability and proven fault-tolerance on commodity hardware or cloud infrastructure make it the perfect platform for mission-critical data. Cassandra's support for replicating across multiple datacenters is best-in-class, providing lower latency for your users and the peace of mind of knowing that you can survive regional outages. |
 
 
 
@@ -189,6 +195,7 @@ The following environment variables can be used to control the server:
 | PORT                           | Port for serving the SPA web application and API.                                                       |
 | HOST                           | Host for for serving, for instance `127.0.0.1`.                                                         |
 | PUBLIC_URL                     | URL through which browsers and other clients can access the server - isomorphic pages, public, GraphQL. Optional. Should not be empty. Example: `https://example.com` |
+| USER_AUTH_SECRET               | Secret passed by server rendered to GraphQL server telling it to trust the auth_token without requiring the user_auth_token in the header to be correct. Instead it constains this very secret. |
 | JWT_SECRET                     | Secret used for JWT tokens.                                                                             |
 | CASSANDRA_CONNECTION_POINTS    | Cassandra connection point comma separated list. `localhost` if on the same machine.                    |
 | CASSANDRA_KEYSPACE             | Cassandra keyspace/database.                                                                            |
@@ -235,7 +242,8 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `graphql/type/ViewerType.js`                  | Current user and entry point for any information retrieved. | [*](./graphql/type/ViewerType.js) |
 | `graphql/type/{Entity}Type.js`                | Type for an entity. |
 | `graphql/types/*Connection.js`                | Connection between two types. |
-| `graphql/schema.graphql`                      | Human readable representation of the schema. Not checked into git. Generated by `build-schema`. |
+| `graphql/schema.graphql`                      | Human readable representation of the schema. Generated by `build-schema`. | [*](./graphql/schema.graphql) |
+| `graphql/server.js`                           | The GraphQL Express server. | [*](./graphql/server.js) |
 | `graphql/schema.js`                           | Entry point for the schema, points at the query type and the mutation type. | [*](./graphql/schema.js) |
 | `graphql/schema.json`                         | Schema in JSON format. Must exist for `build-schema` to run, but is re-generated by it. | [*](./graphql/schema.json) |
 | `public/`                                     | This folder is served as root of the website. | [*](./public/) |
@@ -247,7 +255,7 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `scripts/cassandra-init.cql`                  | CQL Script for creating and seeding the Cassandra database. | [*](./scripts/cassandra-init.cql) |
 | `server/`                                     | The Node.js server serving isomorphic content, GraphQL, public files and authentication requests. | [*](./server/) |
 | `server/auth.js`                              | Authentication service, verifies user name and password and creates JWT tokens. | [*](./server/auth.js) |
-| `server/server.js`                            | Main script. | [*](./server/server.js) |
+| `server/server.js`                            | Main script. Loads all other servers. | [*](./server/server.js) |
 | `webapp/`                                     | Root for the entire web application. | [*](./webapp/) |
 | `webapp/components/`                          | All the JSX components used by the web app. | [*](./webapp/components/) |
 | `webapp/mutations/`                           | Client side GraphQL mutations. | [*](./webapp/mutations/) |
@@ -256,12 +264,34 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `webapp/scripts/`                             | Scripts used by the client. | [*](./webapp/scripts/) |
 | `webapp/styles/`                              | Styles used by the client. | [*](./webapp/styles/) |
 | `webapp/styles/main.css`                      | Example style included in the app. Currently not used. | [*](./webapp/styles/main.css) |
+| `webapp/styles/RawMUITheme.js`                | Theme for Material-UI. | [*](./webapp/styles/RawMUITheme.js) |
 | `webapp/views/`                               | Views served by the express web app. | [*](./webapp/views/) |
 | `webapp/views/index.ejs`                      | Template for the HTML served by the isomorphic server rendered. | [*](./webapp/views/index.ejs) |
 | `webapp/app.js`                               | Starts the client-side SPA using data generated during server rendering. | [*](./webapp/app.js) |
 | `webapp/renderOnServer.js`                    | Performs server-side rendering. | [*](./webapp/renderOnServer.js) |
 | `webapp/routes.js`                            | Routes in a data structure consumed both by express router and react router. | [*](./webapp/routes.js) |
 | `webapp/server.js`                            | Server for the web app. | [*](./webapp/server.js) |
+
+
+
+## Customizing the look and feel
+
+Material-UI provides powerful means for [customizing the colors and the overall look of the application](http://www.material-ui.com/#/customization/themes). The IMRSK uses a custom theme defined in [./webapp/styles/RawMUITheme.js](./webapp/styles/RawMUITheme.js):
+
+``` Javascript
+primary1Color: Colors.blue500,
+primary2Color: Colors.blue700,
+primary3Color: Colors.lightBlack,
+accent1Color: Colors.purpleA200,
+accent2Color: Colors.blueGrey100,
+accent3Color: Colors.blueGrey500,
+textColor: Colors.darkBlack,
+alternateTextColor: Colors.white,
+canvasColor: Colors.white,
+borderColor: Colors.grey300,
+disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
+pickerHeaderColor: Colors.blue500,
+```
 
 
 
@@ -300,7 +330,7 @@ It contains a boilerplate with several simple code examples. It consists of modi
 * [Xpepermint's isomorphic-react-relay-boilerplate](https://github.com/xpepermint/isomorphic-react-relay-boilerplate). The project organization was initially borrowed from this project, although it has since diverged.
 * [coryhouse's react-slingshot](https://github.com/coryhouse/react-slingshot). Ideas about he documentation are borrowed from this project.
 * [ryancole's league](https://github.com/ryancole/league). The organization of the GraphQL schema is borrowed from this project.
-* [itayadler's cassandra-paginating-static-columns](https://github.com/itayadler/cassandra-paginating-static-columns/blob/master/index.js). The general approach to working with Cassandra is borrowed from this project, with some changes.
+* [itayadler's cassandra-paginating-static-columns](https://github.com/itayadler/cassandra-paginating-static-columns/blob/master/index.js). The general approach to working with Cassandra was initially borrowed from this project. However, over time the implementation became very different.
 
 Examples from other open source projects have also been incorporated.
 

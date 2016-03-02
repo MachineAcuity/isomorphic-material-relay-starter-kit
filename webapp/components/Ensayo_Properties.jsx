@@ -1,15 +1,17 @@
+/* @flow weak */
+
 import React from 'react';
 
 import Dialog from 'material-ui/lib/dialog';
-import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
 import TextField from 'material-ui/lib/text-field';
 
-import dateFromUTCString from '../scripts/dateFromUTCString'
+import { dateFromUTCString } from '../scripts/DateTimeHelpers'
 
 
 export default class Ensayo_Properties extends React.Component
 {
-  constructor( props )
+  constructor( props : any )
   {
     super( props );
 
@@ -18,12 +20,12 @@ export default class Ensayo_Properties extends React.Component
     };
   }
 
-  _handle_Open( )
+  _handle_Open = ( ) =>
   {
     this.setState( {
       Dialog_IsOpen: true
     } );
-  }
+  };
 
   _handle_onTouchTap_Cancel = ( ) =>
   {
@@ -37,7 +39,7 @@ export default class Ensayo_Properties extends React.Component
     this.props.updateHandler( {
       Ensayo_Content: this.refs.Ensayo_Content.getValue( ),
       Ensayo_Title: this.refs.Ensayo_Title.getValue( ),
-      Ensayo_Keywords: this.refs.Ensayo_Keywords.getValue( ),
+      Ensayo_Description: this.refs.Ensayo_Description.getValue( ),
     } );
 
     this.setState( {
@@ -53,8 +55,8 @@ export default class Ensayo_Properties extends React.Component
           open={ this.state.Dialog_IsOpen }
           title="Ensayo"
           actions={ [
-            <RaisedButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_Cancel } />,
-            <RaisedButton key="OK" label="OK" primary={true} onTouchTap={ this._handle_onTouchTap_OK } />,
+            <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_Cancel } />,
+            <FlatButton key="OK" label="OK" primary={true} onTouchTap={ this._handle_onTouchTap_OK } />,
           ] }
         >
           <TextField
@@ -64,9 +66,9 @@ export default class Ensayo_Properties extends React.Component
             fullWidth={ true }
           />
           <TextField
-            ref="Ensayo_Keywords"
-            defaultValue={ this.props.Ensayo_Keywords }
-            floatingLabelText="Keywords"
+            ref="Ensayo_Description"
+            defaultValue={ this.props.Ensayo_Description }
+            floatingLabelText="Description"
             fullWidth={ true }
           />
           <TextField
@@ -80,3 +82,10 @@ export default class Ensayo_Properties extends React.Component
     );
   }
 }
+
+Ensayo_Properties.propTypes = {
+  Ensayo_Title: React.PropTypes.string.isRequired,
+  Ensayo_Description: React.PropTypes.string.isRequired,
+  Ensayo_Content: React.PropTypes.string.isRequired,
+  updateHandler: React.PropTypes.func.isRequired,
+};

@@ -1,4 +1,6 @@
-import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
+/* @flow weak */
+
+import { toGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 
 import { DA_User_get } from '../../data/da/User';

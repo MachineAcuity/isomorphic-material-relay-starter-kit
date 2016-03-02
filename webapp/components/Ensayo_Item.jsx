@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
@@ -7,16 +9,6 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import NavigationMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
 
-
-import ActionAccountBalance from 'material-ui/lib/svg-icons/action/account-balance'; // Speak in senate
-import ActionAccessibility from 'material-ui/lib/svg-icons/action/accessibility'; // Exercise
-import ActionDoneAll from 'material-ui/lib/svg-icons/action/done-all'; // Get things done
-import ActionTrendingUp from 'material-ui/lib/svg-icons/action/trending-up'; // Play the stock market
-import ContentCreate from 'material-ui/lib/svg-icons/content/create'; // Write poems
-import HardwareHeadset from 'material-ui/lib/svg-icons/hardware/headset'; // Listen to music
-import ImageLandscape from 'material-ui/lib/svg-icons/image/landscape'; // Hike
-
-import dateFromUTCString from '../scripts/dateFromUTCString'
 
 import Ensayo_deleteMutation from '../mutations/Ensayo_deleteMutation';
 import Ensayo_updateMutation from '../mutations/Ensayo_updateMutation';
@@ -59,10 +51,6 @@ class Ensayo_Item extends React.Component
 
   render( )
   {
-    const theDate = dateFromUTCString( this.props.Ensayo.Ensayo_Title );
-    const theTime = dateFromUTCString( this.props.Ensayo.Ensayo_Keywords );
-    const theDateTime = new Date( theDate.getTime( ) + theTime.getTime( ) );
-
     const rightIconMenu = (
       <IconMenu
         iconButtonElement={<IconButton><NavigationMoreVert /></IconButton>}
@@ -83,7 +71,7 @@ class Ensayo_Item extends React.Component
           ref="Ensayo_Properties"
           Ensayo_Content={ this.props.Ensayo.Ensayo_Content }
           Ensayo_Title={ this.props.Ensayo.Ensayo_Title }
-          Ensayo_Keywords={ this.props.Ensayo.Ensayo_Keywords }
+          Ensayo_Description={ this.props.Ensayo.Ensayo_Description }
           updateHandler={ this._handle_updateHandler_Ensayo }
         />
       </div>
@@ -97,7 +85,7 @@ export default Relay.createContainer( Ensayo_Item, {
       fragment on Ensayo {
         id,
         Ensayo_Title,
-        Ensayo_Keywords,
+        Ensayo_Description,
         Ensayo_Content,
         ${Ensayo_deleteMutation.getFragment('Ensayo')},
         ${Ensayo_updateMutation.getFragment('Ensayo')},

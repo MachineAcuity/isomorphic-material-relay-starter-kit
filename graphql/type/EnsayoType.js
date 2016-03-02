@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { globalIdField } from "graphql-relay";
 import { GraphQLString, GraphQLObjectType } from "graphql";
 
@@ -12,7 +14,7 @@ export default new GraphQLObjectType( {
   fields: {
     id: globalIdField('Ensayo'),
     Ensayo_Title: { type: GraphQLString, resolve: (obj) => obj.Ensayo_Title },
-    Ensayo_Keywords: { type: GraphQLString, resolve: (obj) => obj.Ensayo_Keywords },
+    Ensayo_Description: { type: GraphQLString, resolve: (obj) => obj.Ensayo_Description },
     Ensayo_Content: { type: GraphQLString, resolve: (obj) => obj.Ensayo_Content },
   },
 } );

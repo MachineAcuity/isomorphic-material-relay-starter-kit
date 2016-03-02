@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
@@ -9,21 +11,39 @@ import ToDo_addMutation from '../mutations/ToDo_addMutation';
 
 class ToDo_Screen extends React.Component
 {
+  constructor( props )
+  {
+     super( props );
+
+     this.state = {
+       ToDo_Text_New: '',
+     };
+   }
+
+
   _handle_onEnterKeyDown_AddToDo = ( ) =>
   {
     Relay.Store.commitUpdate(
       new ToDo_addMutation( {
-        ToDo_Text: this.refs.addToDo.getValue( ),
+        ToDo_Text: this.state.ToDo_Text_New,
         Viewer: this.props.Viewer
       } )
     );
 
-    this.refs.addToDo.setValue( '' );
+    this.setState({
+      ToDo_Text_New: '',
+    });
+  };
+
+  _handle_OnChange = ( event ) =>
+  {
+    this.setState({
+      ToDo_Text_New: event.target.value,
+    });
   };
 
   render( )
   {
-    // TODO: Add button for clearing completed items
     return (
       <Card>
 
@@ -33,10 +53,11 @@ class ToDo_Screen extends React.Component
 
         <div style={ { marginLeft: 4, marginRight: 4, } }>
           <TextField
-            ref="addToDo"
             floatingLabelText="What needs to be done?"
+            value={ this.state.ToDo_Text_New }
             fullWidth={ true }
             onEnterKeyDown={ this._handle_onEnterKeyDown_AddToDo }
+            onChange={ this._handle_OnChange }
           />
         </div>
 

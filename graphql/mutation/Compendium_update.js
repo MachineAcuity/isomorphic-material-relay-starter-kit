@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLID, GraphQLNonNull } from "graphql";
 
@@ -29,7 +31,7 @@ export default mutationWithClientMutationId( {
   outputFields: {
     Compendium: {
       type: CompendiumType,
-      resolve: ( {localId} ) => DA_Compendium_get( localId ),
+      resolve: ( {localId}, { ...args }, { rootValue: {user_id} } ) => DA_Compendium_get( user_id, localId ),
     },
   },
   mutateAndGetPayload: ( {
@@ -49,9 +51,10 @@ export default mutationWithClientMutationId( {
     Compendium_LikedSunset_Green,
     Compendium_LikedSunset_Other,
     Compendium_LikedSunset_OtherText,
-  } ) => {
+  }, { rootValue: {user_id} } ) => {
     var localId = fromGlobalId( id ).id;
     return DA_Compendium_update(
+      user_id,
       localId,
       {
         Compendium_FirstTextInput,

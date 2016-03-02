@@ -1,10 +1,9 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
-//import Checkbox from 'material-ui/lib/checkbox';
 import List from 'material-ui/lib/lists/list';
-//import Tabs from 'material-ui/lib/tabs/tabs';
-//import Tab from 'material-ui/lib/tabs/tab';
 
 import Translaticiarum_Item from './Translaticiarum_Item.jsx';
 

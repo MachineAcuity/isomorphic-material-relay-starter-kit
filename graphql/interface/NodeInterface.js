@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import {GraphQLID, GraphQLNonNull, GraphQLInterfaceType} from "graphql";
 
 export default new GraphQLInterfaceType( {
