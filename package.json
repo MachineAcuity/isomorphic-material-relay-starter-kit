@@ -59,7 +59,7 @@
       }
     },
     "start-webpack": {
-      "command": "./node_modules/.bin/webpack-dev-server --hot --inline --progress --colors"
+      "command": "./node_modules/.bin/webpack-dev-server --hot --inline --no-info --colors"
     }
   },
   "metadata": {
