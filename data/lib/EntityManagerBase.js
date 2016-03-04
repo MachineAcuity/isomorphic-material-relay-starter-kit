@@ -28,11 +28,12 @@ export default class EntityManagerBase
   getLoader( entityName: string, fieldName: string )
   {
     let loaders = this.entityDefinitions[ entityName ].loaders;
+    const ObjectType = this.entityDefinitions[ entityName ].EntityType;
 
     let loader = loaders[ fieldName ];
     if( loader == null )
     {
-      loader = new DataLoader( values => EntityAccess_get( this.Viewer_User_id, fieldName, values ) );
+      loader = new DataLoader( values => EntityAccess_get( entityName, ObjectType, fieldName, values ) );
       loaders[ fieldName ] = loader;
     }
 
@@ -44,13 +45,6 @@ export default class EntityManagerBase
     const loader = this.getLoader( entityName, 'id' );
 
     return loader.load( id.toString( ) );
-  }
-
-  getListBy( entityName: string, fieldName: string, searchVaue: string )
-  {
-    const loader = this.getLoader( entityName, fieldName );
-
-    return loader.load( searchVaue );
   }
 
   add( entityName: string, fields: any )

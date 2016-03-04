@@ -15,6 +15,23 @@ import graphql from '../graphql/server'; // GraphQL server
 // Read environment
 require( 'dotenv' ).load( );
 
+// Area for testing DataLoader vvvvvvv
+
+import EntityManager from '../data/EntityManager';
+import { Uuid } from '../data/da_cassandra/_client';
+
+const anEntityManager = new EntityManager( );
+
+anEntityManager.getOneById( 'Ensayo', Uuid.fromString( 'fa666f10-483d-43bd-8ee2-4e4921c9cf84' ) )
+.then( ensayo => console.log( 'First: ' + ensayo.Ensayo_Title ) );
+
+anEntityManager.getOneById( 'Ensayo', Uuid.fromString( 'fa666f10-483d-43bd-8ee2-4e4921c9cf84' ) )
+.then( ensayo => console.log( 'Second: ' + ensayo.Ensayo_Title ) );
+
+// ^^^^^^^^^^ Area for testing DataLoader
+
+
+// Simply a test for Winston here
 log.log( 'info', 'Message for Winston - test - starting app' );
 
 console.log( chalk.blue( '----------------------------------------------------------------------------------------------------' ) );

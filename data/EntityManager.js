@@ -4,11 +4,11 @@ import EntityManagerBase from './lib/EntityManagerBase';
 
 import Ensayo from './model/Ensayo';
 
-export class EntityManager extends EntityManagerBase
+export default class EntityManager extends EntityManagerBase
 {
-  constructor( )
+  constructor( Viewer_User_id )
   {
-    super( );
+    super( Viewer_User_id );
 
     this.registerEntity( 'Ensayo', Ensayo );
   }
