@@ -3,6 +3,7 @@
 import chalk from 'chalk';
 import express from 'express';
 import graphQLHTTP from 'express-graphql';
+import ObjectManager from '../data/ObjectManager';
 import jwt from 'jwt-simple';
 
 import { DA_User_get } from '../data/da/User';
@@ -55,7 +56,7 @@ router.use( '/', ( req, res, next ) =>
     graphQLHTTP( request => {
       return( {
         schema: schema,
-        rootValue: { user_id: user_id },
+        rootValue: { user_id: user_id, objectManager: new ObjectManager( ) },
         pretty: true,
         graphiql: true,
       } )

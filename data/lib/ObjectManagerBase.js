@@ -4,9 +4,9 @@ import DataLoader from 'dataloader';
 
 import { Uuid } from '../da_cassandra/_client.js';
 
-import { EntityAccess_get } from '../da/EntityAccess.js';
+import { ObjectPersister_get } from '../da/ObjectPersister.js';
 
-export default class EntityManagerBase
+export default class ObjectManagerBase
 {
   entityDefinitions: any;
   Viewer_User_id: Uuid;
@@ -33,7 +33,7 @@ export default class EntityManagerBase
     let loader = loaders[ fieldName ];
     if( loader == null )
     {
-      loader = new DataLoader( values => EntityAccess_get( entityName, ObjectType, fieldName, values ) );
+      loader = new DataLoader( values => ObjectPersister_get( entityName, ObjectType, fieldName, values ) );
       loaders[ fieldName ] = loader;
     }
 

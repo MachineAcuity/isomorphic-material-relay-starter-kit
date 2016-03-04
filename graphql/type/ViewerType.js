@@ -59,11 +59,7 @@ export default new GraphQLObjectType( {
     Ensayo: {
       type: EnsayoType,
       args: { ...{ id: { type: GraphQLID } } },
-      resolve: ( parent, { id }, { rootValue: {user_id} } ) =>
-      {
-        var localId = fromGlobalId(id).id;
-        return DA_Ensayo_get( user_id, localId );
-      }
+      resolve: ( parent, { id }, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'Ensayo', fromGlobalId(id).id ),
     },
 
     // <-<-<- Ensayo access through user

@@ -1,10 +1,10 @@
 /* @flow weak */
 
-import EntityManagerBase from './lib/EntityManagerBase';
+import ObjectManagerBase from './lib/ObjectManagerBase';
 
 import Ensayo from './model/Ensayo';
 
-export default class EntityManager extends EntityManagerBase
+export default class ObjectManager extends ObjectManagerBase
 {
   constructor( Viewer_User_id )
   {
