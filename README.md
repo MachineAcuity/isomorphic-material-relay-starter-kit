@@ -43,7 +43,7 @@ The following articles explain in detail certain aspects of this repository:
 | [Webpack](http://webpack.github.io) | Bundles npm packages and the application Java Script into a single file. Includes hot reloading via [react-transform-hmr](https://www.npmjs.com/package/react-transform-hmr). Also, Webpack can bundle any required CSS. |
 | [Node.js](https://nodejs.org)| Event-driven, non-blocking I/O runtime based on JavaScript that is lightweight and efficient. |
 | [npm Scripts](https://docs.npmjs.com/misc/scripts)| Glues all this together in a handy automated build. |
-| [Apache Cassandra](http://cassandra.apache.org/) | The database you are looking for. Work in progress. |
+| [Apache Cassandra](http://cassandra.apache.org/) | The right choice when you need scalability and high availability without compromising performance. Linear scalability and proven fault-tolerance on commodity hardware or cloud infrastructure make it the perfect platform for mission-critical data. Cassandra's support for replicating across multiple datacenters is best-in-class, providing lower latency for your users and the peace of mind of knowing that you can survive regional outages. |
 
 
 
@@ -61,7 +61,7 @@ The following articles explain in detail certain aspects of this repository:
 | Responsive Design | Mainly through the features of the Material UI library, the examples in IMRSK work well on different form factors, ranging from desktop browsers to mobile phones. |
 | Hot Reload | The webpack development server supports hot reload when components are changed. The IMRSK is configured with hot reload. |
 | Built for speed | The starter kit is configured to use established practices for optimizing speed like caching and compression. This entails certain requirements about how it is used, read in the Speed and Building section below. |
-| Cassandra/In Memory | The starter kit is intended for use with Cassandra, but simple in-memory data structures are provided also for light testing and experimentation. |
+| Cassandra/In Memory | The starter kit can be used with both Cassandra-based data storage, as well as in-memory structures. The latter are right now used only for testing, but can be later used for setting up mock tests cases for unit and regression testing. |
 
 
 
