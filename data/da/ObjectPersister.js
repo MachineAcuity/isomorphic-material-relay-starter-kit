@@ -2,6 +2,7 @@
 
 import {
   ObjectPersister_get,
+  ObjectPersister_getList,
   ObjectPersister_add,
   ObjectPersister_update,
   ObjectPersister_delete,
@@ -9,6 +10,7 @@ import {
 
 export {
   ObjectPersister_get,
+  ObjectPersister_getList,
   ObjectPersister_add,
   ObjectPersister_update,
   ObjectPersister_delete,

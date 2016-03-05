@@ -4,7 +4,7 @@ import DataLoader from 'dataloader';
 
 import { Uuid } from '../da_cassandra/_client.js';
 
-import { ObjectPersister_get } from '../da/ObjectPersister.js';
+import { ObjectPersister_get, ObjectPersister_getList } from '../da/ObjectPersister.js';
 
 export default class ObjectManagerBase
 {
@@ -21,20 +21,25 @@ export default class ObjectManagerBase
   {
     this.entityDefinitions[ entityName ] = {
       EntityType: EntityType,
-      loaders: { }
+      loaders: { loadersSingle: { }, loadersMultiple: { } }
     };
   }
 
-  getLoader( entityName: string, fieldName: string )
+  getLoader( entityName: string, fieldName: string, multipleResults: boolean )
   {
-    let loaders = this.entityDefinitions[ entityName ].loaders;
+    const loaders = this.entityDefinitions[ entityName ].loaders;
     const ObjectType = this.entityDefinitions[ entityName ].EntityType;
 
-    let loader = loaders[ fieldName ];
+    let loadersList = multipleResults ? loaders.loadersMultiple : loaders.loadersSingle;
+    let loader = loadersList[ fieldName ];
     if( loader == null )
     {
-      loader = new DataLoader( values => ObjectPersister_get( entityName, ObjectType, fieldName, values ) );
-      loaders[ fieldName ] = loader;
+      if( multipleResults )
+        loader = new DataLoader( values => ObjectPersister_getList( entityName, ObjectType, fieldName, values ) );
+      else
+        loader = new DataLoader( values => ObjectPersister_get( entityName, ObjectType, fieldName, values ) );
+
+      loadersList[ fieldName ] = loader;
     }
 
     return loader;
@@ -42,9 +47,16 @@ export default class ObjectManagerBase
 
   getOneById( entityName: string, id: Uuid )
   {
-    const loader = this.getLoader( entityName, 'id' );
+    const loader = this.getLoader( entityName, 'id', false );
 
     return loader.load( id.toString( ) );
+  }
+
+  getListBy( entityName: string, fieldName: string, value: string )
+  {
+    const loader = this.getLoader( entityName, fieldName, true );
+
+    return loader.load( value );
   }
 
   add( entityName: string, fields: any )
