@@ -41,7 +41,7 @@ export function ObjectPersister_getList( entityName, ObjectType, fieldName, valu
 
   console.log( 'ObjectPersister_getList: ' + cqlText + ', param: ' + values.join( ) );
 
-  runQuery( ObjectType, cqlText, cqlParams )
+  return runQuery( ObjectType, cqlText, cqlParams )
   .then( arrObjects => {
     // Prepare a bucket where all the lists will be stored
     let resultsByField = { };
