@@ -2,11 +2,6 @@
 
 import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from '../../da_cassandra/_client.js';
 
-// For in operator syntax in CQL:
-// http://stackoverflow.com/questions/23874137/cassandra-in-clause-on-index
-// http://mechanics.flite.com/blog/2014/01/08/the-in-operator-in-cassandra-cql/
-// The approach using IN has limitations, might get changed to batching of queries.
-
 export function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
 {
   let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" = ?;';
@@ -29,7 +24,7 @@ export function ObjectPersister_getList( entityName: string, ObjectType: any, fi
   return Promise.all( resultPromises );
 }
 
-export function ObjectPersister_add( entityName: string, fields: any )
+export function ObjectPersister_create( entityName: string, fields: any )
 {
   const id = Uuid.random( );
 
@@ -80,7 +75,7 @@ export function ObjectPersister_update( entityName: string, fields: any )
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function ObjectPersister_delete( entityName: string, fields: any )
+export function ObjectPersister_remove( entityName: string, fields: any )
 {
   const cqlText = 'DELETE FROM "' + entityName + '" WHERE id = ?;';
   const cqlParams = [ fields.id ];

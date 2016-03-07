@@ -25,14 +25,16 @@ export default mutationWithClientMutationId( {
   outputFields: {
     EnsayosEdge: {
       type: EnsayosConnection.edgeType,
-      resolve: ( {localEnsayoId}, args, { rootValue: {user_id} } ) =>
+      resolve: ( {localEnsayoId}, args, { rootValue: {user_id, objectManager} } ) =>
       {
         let a_Ensayo;
-        return DA_Ensayo_get( user_id, localEnsayoId )
+        //return DA_Ensayo_get( user_id, localEnsayoId )
+        return objectManager.getOneById( 'Ensayo', localEnsayoId )
         .then( ( retrieved_Ensayo ) => {
           a_Ensayo = retrieved_Ensayo;
         } )
-        .then( ( ) => DA_Ensayo_list_get( user_id ) )
+        //.then( ( ) => DA_Ensayo_list_get( user_id ) )
+        .then( ( ) => objectManager.getListBy( 'Ensayo', 'Ensayo_User_id', user_id.toString( ) ) )
         .then( ( arr_Ensayo ) => ( {
           cursor: cursorForObjectInConnectionWithUuidComparison( arr_Ensayo, a_Ensayo ),
           node: a_Ensayo,
@@ -45,7 +47,7 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
     },
   },
-  mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Description }, { rootValue: {user_id} } ) =>
+  mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Description }, { rootValue: {user_id, objectManager} } ) =>
     DA_Ensayo_add( user_id, {
       Ensayo_User_id: user_id,
       Ensayo_Content: Ensayo_Content,

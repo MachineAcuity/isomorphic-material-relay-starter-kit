@@ -4,7 +4,13 @@ import DataLoader from 'dataloader';
 
 import { Uuid } from '../da_cassandra/_client.js';
 
-import { ObjectPersister_get, ObjectPersister_getList } from '../da/ObjectPersister.js';
+import {
+  ObjectPersister_get,
+  ObjectPersister_getList,
+  ObjectPersister_create,
+  ObjectPersister_update,
+  ObjectPersister_remove
+} from '../da/ObjectPersister.js';
 
 export default class ObjectManagerBase
 {
@@ -59,23 +65,49 @@ export default class ObjectManagerBase
     return loader.load( value );
   }
 
-  add( entityName: string, fields: any )
+  invalidateLoaderCache( entityName: string, fields: any )
   {
-    throw new Error( "Not supported" );
+    const loaders = this.entityDefinitions[ entityName ].loaders;
+
+    // At this moment there is no obvious way of knowing what to clear from lists, so delete them all
+    loaders.loadersMultiple = { };
+
+    const loadersSingle = loaders.loadersSingle;
+    for( let loaderFieldName in loadersSingle )
+    {
+      if( loaderFieldName === 'id' )
+        loadersSingle[ loaderFieldName ].clear( fields.id );
+      else
+        delete loadersSingle[ loaderFieldName ];
+    }
   }
 
-  update( entityName: string, id: Uuid )
+  create( entityName: string, fields: any )
   {
-    throw new Error( "Not supported" );
+    return ObjectPersister_create( entityName, fields )
+    .then( id => {
+      fields.id = id;
+      this.invalidateLoaderCache( entityName, fields );
+      return id;
+    } )
+    ;
   }
 
-  remove( entityName: string, id: Uuid )
+  update( entityName: string, fields: any )
   {
-    throw new Error( "Not supported" );
+    return ObjectPersister_update( entityName, fields )
+    .then( ( ) => {
+      this.invalidateLoaderCache( entityName, fields );
+    } )
+    ;
   }
 
-  list_get( entityName: string )
+  remove( entityName: string, fields: any )
   {
-    throw new Error( "Not supported" );
+    return ObjectPersister_remove( entityName, fields )
+    .then( ( ) => {
+      this.invalidateLoaderCache( entityName, fields );
+    } )
+    ;
   }
 }

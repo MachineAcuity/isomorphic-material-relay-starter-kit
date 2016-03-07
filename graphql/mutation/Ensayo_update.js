@@ -19,7 +19,8 @@ export default mutationWithClientMutationId( {
   outputFields: {
     Ensayo: {
       type: EnsayoType,
-      resolve: ( {localEnsayoId}, { ...args }, { rootValue: {user_id} } ) => DA_Ensayo_get( user_id, localEnsayoId ),
+      //resolve: ( {localEnsayoId}, { ...args }, { rootValue: {user_id} } ) => DA_Ensayo_get( user_id, localEnsayoId ),
+      resolve: ( {localEnsayoId}, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'Ensayo', localEnsayoId ),
     }
   },
   mutateAndGetPayload: ( {id, Ensayo_Content, Ensayo_Title, Ensayo_Description }, { rootValue: {user_id} } ) => {

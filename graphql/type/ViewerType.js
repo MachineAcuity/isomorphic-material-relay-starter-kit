@@ -54,7 +54,7 @@ export default new GraphQLObjectType( {
     Ensayos: {
       type: EnsayosConnection.connectionType,
       args: { ...connectionArgs },
-      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'Ensayo', 'Ensayo_User_id', user_id.toString( ) ).then( ( arrEnsayos ) => connectionFromArray( arrEnsayos, args ) )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'Ensayo', 'Ensayo_User_id', user_id.toString( ) ).then( ( arr_Ensayos ) => connectionFromArray( arr_Ensayos, args ) )
     },
     Ensayo: {
       type: EnsayoType,

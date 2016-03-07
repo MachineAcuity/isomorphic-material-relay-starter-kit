@@ -3,15 +3,15 @@
 import {
   ObjectPersister_get,
   ObjectPersister_getList,
-  ObjectPersister_add,
+  ObjectPersister_create,
   ObjectPersister_update,
-  ObjectPersister_delete,
+  ObjectPersister_remove,
 } from '../lib/da_cassandra/ObjectPersister'
 
 export {
   ObjectPersister_get,
   ObjectPersister_getList,
-  ObjectPersister_add,
+  ObjectPersister_create,
   ObjectPersister_update,
-  ObjectPersister_delete,
+  ObjectPersister_remove,
 };
