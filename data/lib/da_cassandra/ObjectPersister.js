@@ -20,56 +20,13 @@ export function ObjectPersister_get( entityName: string, ObjectType: any, fieldN
 
 export function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
 {
-  let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" IN (';
-  let cqlTextParams = [ ];
-  let cqlParams = [ ];
+  let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" = ?;';
+  let resultPromises = [ ];
 
   for( let value of values )
-  {
-    cqlTextParams.push( '?' );
-    cqlParams.push( value );
-  }
+    resultPromises.push( runQuery( ObjectType, cqlText, [ value ] ) );
 
-  cqlText += cqlTextParams.join( ',' ) + ') ALLOW FILTERING;';
-
-  return runQuery( ObjectType, cqlText, cqlParams )
-  .then( arrObjects => {
-    // Prepare a bucket where all the lists will be stored
-    let resultsByField = { };
-
-    // Organize all the results by the field value
-    for( let anObject of arrObjects )
-    {
-      // Get the field value - for UUID make sure it is converted to string
-      let fieldValue = anObject[ fieldName ];
-      if( fieldValue instanceof Uuid )
-        fieldValue = fieldValue.toString( );
-
-      // Ensure the bucket exists
-      let bucketForID = resultsByField[ fieldValue ];
-      if( bucketForID == null )
-        bucketForID = resultsByField[ fieldValue ] = [ ];
-
-      // Add to bucket
-      bucketForID.push( anObject );
-    }
-
-    // Now create array with results which is in the same order as the values
-    let arrResult: Array<any> = [ ];
-    for( let fieldValue of values )
-    {
-      if( fieldValue instanceof Uuid )
-        fieldValue = fieldValue.toString( );
-
-      let bucketForID = resultsByField[ fieldValue ];
-      if( bucketForID == null )
-        bucketForID = [ ];
-
-      arrResult.push( bucketForID );
-    }
-
-    return arrResult;
-  } )
+  return Promise.all( resultPromises );
 }
 
 export function ObjectPersister_add( entityName: string, fields: any )
@@ -118,15 +75,15 @@ export function ObjectPersister_update( entityName: string, fields: any )
     }
 
   cqlText += ' WHERE id = ?;';
-  cqlParams.push( id );
+  cqlParams.push( fields.id );
 
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function ObjectPersister_delete( entityName: string, id : Uuid )
+export function ObjectPersister_delete( entityName: string, fields: any )
 {
   const cqlText = 'DELETE FROM "' + entityName + '" WHERE id = ?;';
-  const cqlParams = [ id ];
+  const cqlParams = [ fields.id ];
 
   return runQueryNoResult( cqlText, cqlParams );
 }

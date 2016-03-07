@@ -53,13 +53,16 @@ ON "Compendium"( "Compendium_User_id" );
 
 
 CREATE TABLE "Ensayo"(
-  id uuid,
+  id uuid PRIMARY KEY,
   "Ensayo_User_id" uuid,
   "Ensayo_Title" varchar,
   "Ensayo_Description" varchar,
-  "Ensayo_Content" varchar,
-  PRIMARY KEY( (id), "Ensayo_User_id" )
+  "Ensayo_Content" varchar
 );
+
+CREATE INDEX "Ensayo_Ensayo_User_id_ix"
+ON "Ensayo"( "Ensayo_User_id" );
+
 
 insert into "Ensayo"( id, "Ensayo_User_id", "Ensayo_Title", "Ensayo_Description", "Ensayo_Content" )
 values ( uuid( ), d362e1df-1fa8-466b-b311-af90b2a71e8e, 'Awesome sauce', 'awesome, sauce, secret, secret sauce', 'A long article about the secret sauce' );
