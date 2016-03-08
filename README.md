@@ -10,6 +10,10 @@ IMRSK started as an off-shoot of multiple projects and boilerplates we use at [C
 | Run on [Heroku](https://www.heroku.com/nodejs) | [Heroku Setup](#heroku-setup) |
 
 
+## Big changes ahead
+
+All the code for accessing Cassandra will be moved to the newly introduced data loader wrapper. The existing database access code will no longer be supported. Once this is complete, version 1.0 will be finally introduced.
+
 
 ## Help wanted
 
