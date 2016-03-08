@@ -15,6 +15,7 @@ import graphql from '../graphql/server'; // GraphQL server
 // Read environment
 require( 'dotenv' ).load( );
 
+// Simply a test for Winston here
 log.log( 'info', 'Message for Winston - test - starting app' );
 
 console.log( chalk.blue( '----------------------------------------------------------------------------------------------------' ) );
