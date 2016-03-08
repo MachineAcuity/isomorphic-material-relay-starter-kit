@@ -2,7 +2,7 @@
 
 import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from '../../da_cassandra/_client.js';
 
-export function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
+export function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values: Array<any> )
 {
   let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" = ?;';
   let resultPromises = [ ];
@@ -13,7 +13,7 @@ export function ObjectPersister_get( entityName: string, ObjectType: any, fieldN
   return Promise.all( resultPromises );
 }
 
-export function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
+export function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values: Array<any> )
 {
   let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" = ?;';
   let resultPromises = [ ];
@@ -24,7 +24,7 @@ export function ObjectPersister_getList( entityName: string, ObjectType: any, fi
   return Promise.all( resultPromises );
 }
 
-export function ObjectPersister_add( entityName: string, fields: any )
+export function ObjectPersister_add( entityName: string, fields: any, ObjectType: any )
 {
   const id = Uuid.random( );
 

@@ -84,7 +84,9 @@ export default class ObjectManagerBase
 
   add( entityName: string, fields: any )
   {
-    return ObjectPersister_add( entityName, fields )
+    const ObjectType = this.entityDefinitions[ entityName ].EntityType;
+
+    return ObjectPersister_add( entityName, fields, ObjectType )
     .then( id => {
       fields.id = id;
       this.invalidateLoaderCache( entityName, fields );
