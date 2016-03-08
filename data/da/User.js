@@ -6,7 +6,7 @@ import {
   DA_User_get,
   DA_User_update,
   DA_User_updatePassword,
-} from '../da_cassandra/User';
+} from '../da_memory/User';
 
 export {
   DA_User_add,

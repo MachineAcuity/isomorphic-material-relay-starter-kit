@@ -12,7 +12,7 @@ import TranslaticiarumType from '../type/TranslaticiarumType';
 export default mutationWithClientMutationId( {
   name: 'Translaticiarum_update',
   inputFields: {
-    id: { type: new GraphQLNonNull( GraphQLID ) },
+    id:                   { type: new GraphQLNonNull( GraphQLID ) },
     Translaticiarum_Type: { type: new GraphQLNonNull( GraphQLInt ) },
     Translaticiarum_Date: { type: new GraphQLNonNull( GraphQLDateTime ) },
     Translaticiarum_Time: { type: new GraphQLNonNull( GraphQLDateTime ) },
@@ -26,6 +26,7 @@ export default mutationWithClientMutationId( {
   mutateAndGetPayload: ( {id, Translaticiarum_Type, Translaticiarum_Date, Translaticiarum_Time }, { rootValue: {objectManager} } ) => {
     var local_id = fromGlobalId(id).id;
     return objectManager.update( 'Translaticiarum', {
+      id: local_id,
       Translaticiarum_Type,
       Translaticiarum_Date,
       Translaticiarum_Time,
