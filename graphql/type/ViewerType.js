@@ -1,15 +1,17 @@
+/* @flow weak */
+
 import { globalIdField } from "graphql-relay";
-import { GraphQLBoolean, GraphQLInt, GraphQLString, GraphQLObjectType } from "graphql";
-import { connectionArgs, connectionFromArray } from "graphql-relay";
+import { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLString, GraphQLObjectType } from "graphql";
+import { fromGlobalId, connectionArgs, connectionFromArray } from "graphql-relay";
 
 
 import CompendiumsConnection from "./CompendiumsConnection";
 import { DA_Compendium_list_get } from '../../data/da/Compendium';
-import { DA_Ensayo_list_get } from '../../data/da/Ensayo';
 import { DA_ToDo_list_get } from '../../data/da/ToDo';
-import { DA_Translaticiarum_list_get } from '../../data/da/Translaticiarum';
+//import { DA_Translaticiarum_list_get } from '../../data/da/Translaticiarum';
 import NodeInterface from "../interface/NodeInterface";
 import EnsayosConnection from "./EnsayosConnection";
+import EnsayoType from "./EnsayoType";
 import ToDosConnection from "./ToDosConnection";
 import TranslaticiarumsConnection from "./TranslaticiarumsConnection";
 import User from '../../data/model/User';
@@ -31,6 +33,7 @@ export default new GraphQLObjectType( {
     User_ProfilePhoto: { type: GraphQLString,  resolve: (obj) => obj.User_ProfilePhoto },
     User_Email:        { type: GraphQLString,  resolve: (obj) => obj.User_Email },
     User_Locale:       { type: GraphQLString,  resolve: (obj) => obj.User_Locale },
+    User_AuthToken:    { type: GraphQLString,  resolve: (obj) => obj.User_AuthToken },
 
     // <-<-<- User properties
 
@@ -49,7 +52,12 @@ export default new GraphQLObjectType( {
     Ensayos: {
       type: EnsayosConnection.connectionType,
       args: { ...connectionArgs },
-      resolve: ( obj, { ...args }, { rootValue: {user_id} } ) => DA_Ensayo_list_get( user_id ).then( ( arr_Ensayo ) => connectionFromArray( arr_Ensayo, args ) )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'Ensayo', 'Ensayo_User_id', user_id.toString( ) ).then( ( arr ) => connectionFromArray( arr, args ) )
+    },
+    Ensayo: {
+      type: EnsayoType,
+      args: { ...{ id: { type: GraphQLID } } },
+      resolve: ( parent, { id }, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'Ensayo', fromGlobalId(id).id ),
     },
 
     // <-<-<- Ensayo access through user
@@ -83,7 +91,7 @@ export default new GraphQLObjectType( {
     Translaticiarums: {
       type: TranslaticiarumsConnection.connectionType,
       args: { ...connectionArgs },
-      resolve: ( obj, { ...args }, { rootValue: {user_id} } ) => DA_Translaticiarum_list_get( user_id ).then( ( arr_Translaticiarum ) => connectionFromArray( arr_Translaticiarum, args ) )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'Translaticiarum', 'Translaticiarum_User_id', user_id.toString( ) ).then( ( arr ) => connectionFromArray( arr, args ) )
     },
 
     // <-<-<- Translaticiarum access through user

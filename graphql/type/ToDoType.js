@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { globalIdField } from "graphql-relay";
 import { GraphQLBoolean, GraphQLString, GraphQLObjectType } from "graphql";
 

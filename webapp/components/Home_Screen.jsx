@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
@@ -74,6 +76,19 @@ class Home_Screen extends React.Component
         </CardText>
       </Card>
       <br/>
+        <Card>
+        <CardHeader
+          title="GraphiQL"
+          subtitle="Explore the GraphQL server, anonymously. All links open in a new window."
+        />
+        <CardText>
+          <a href="/graphql" target="_blank">GraphiQL browser</a>
+          <br/>
+          <a href="/graphql?query=query%20ViewerQueries%20%7B%0A%20%20Viewer%20%7B%0A%20%20id%0A%20%20User_DisplayName%0A%20%20User_ProfilePhoto%0A%20%20User_Email%0A%20%20User_Locale%0A%20%20%7D%0A%7D%0A" target="_blank">Simple query requesting some of the viewer object type fields</a>
+          <br/>
+          <a href="/graphql?query=query%20ViewerQueries%20%7B%0A%20%20Viewer%20%7B%0A%20%20%20%20id%0A%20%20%20%20Ensayos(first%3A%202147483647)%20%7B%0A%20%20%20%20%20%20edges%20%7B%0A%20%20%20%20%20%20%20%20node%20%7B%0A%20%20%20%20%20%20%20%20%20%20id%0A%20%20%20%20%20%20%20%20%20%20Ensayo_Title%0A%20%20%20%20%20%20%20%20%20%20Ensayo_Description%0A%20%20%20%20%20%20%20%20%20%20Ensayo_Content%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D%0A" target="_blank">Titles of the essays available in the system</a>
+        </CardText>
+      </Card>
       <Card>
         <CardHeader
           title="Isomorphic Variables"

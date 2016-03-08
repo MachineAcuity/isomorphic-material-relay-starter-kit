@@ -1,10 +1,12 @@
-import { runQuery, runQueryOneResult, runQueryNoResult } from './_client.js';
+/* @flow weak */
+
+import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from './_client.js';
 
 import Compendium from '../model/Compendium'
 
 // Data access functions
 
-export function DA_Compendium_add( fields )
+export function DA_Compendium_add( User_id : Uuid, fields : any ) : Promise
 {
   let cqlText = 'INSERT INTO "Compendium" (id, "Compendium_User_id", "Compendium_FirstTextInput", "Compendium_RangedNumber", "Compendium_Excitement", "Compendium_FollowUpQuestion", "Compendium_FavoriteMammal", "Compendium_FavoriteMammalOtherText", "Compendium_LastText", "Compendium_LikedSunset_Ocean", "Compendium_LikedSunset_Lake", "Compendium_LikedSunset_Mountains", "Compendium_LikedSunset_Plains", "Compendium_LikedSunset_Purple", "Compendium_LikedSunset_Green", "Compendium_LikedSunset_Other", "Compendium_LikedSunset_OtherText") VALUES (uuid(), ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);';
   let cqlParams = [
@@ -28,7 +30,7 @@ export function DA_Compendium_add( fields )
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function DA_Compendium_update( id, fields )
+export function DA_Compendium_update( User_id : Uuid, id : Uuid, fields : any ) : Promise
 {
   // We will not update Compendium_User_id since it makes no sense to update it
   let cqlText = 'UPDATE "Compendium" SET "Compendium_FirstTextInput" = ?, "Compendium_RangedNumber" = ?, "Compendium_Excitement" = ?, "Compendium_FollowUpQuestion" = ?, "Compendium_FavoriteMammal" = ?, "Compendium_FavoriteMammalOtherText" = ?, "Compendium_LastText" = ?, "Compendium_LikedSunset_Ocean" = ?, "Compendium_LikedSunset_Lake" = ?, "Compendium_LikedSunset_Mountains" = ?, "Compendium_LikedSunset_Plains" = ?, "Compendium_LikedSunset_Purple" = ?, "Compendium_LikedSunset_Green" = ?, "Compendium_LikedSunset_Other" = ?, "Compendium_LikedSunset_OtherText" = ? WHERE id = ?;';
@@ -53,7 +55,7 @@ export function DA_Compendium_update( id, fields )
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function DA_Compendium_get( id )
+export function DA_Compendium_get( User_id : Uuid, id : Uuid ) : Promise
 {
   const cqlText = 'SELECT * FROM "Compendium" WHERE id = ?;';
   const cqlParams = [ id ];
@@ -61,7 +63,7 @@ export function DA_Compendium_get( id )
   return runQueryOneResult( Compendium, cqlText, cqlParams );
 }
 
-export function DA_Compendium_list_get( Compendium_User_id, notMyFirstRodeo )
+export function DA_Compendium_list_get( Compendium_User_id : Uuid, notMyFirstRodeo : boolean ) : Promise
 {
   const cqlText = 'SELECT * FROM "Compendium" WHERE "Compendium_User_id" = ?;';
   const cqlParams = [ Compendium_User_id ];
@@ -70,7 +72,7 @@ export function DA_Compendium_list_get( Compendium_User_id, notMyFirstRodeo )
   .then( ( list_Compendium ) => {
 
     if( list_Compendium.length == 0 && ( ! notMyFirstRodeo ) )
-      return DA_Compendium_add( {
+      return DA_Compendium_add( Compendium_User_id, {
         Compendium_User_id: Compendium_User_id,
         Compendium_FirstTextInput: "",
         Compendium_RangedNumber: 0,

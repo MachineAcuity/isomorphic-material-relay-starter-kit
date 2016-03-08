@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { Uuid } from '../da_cassandra/_client.js';
 
 import ToDo from '../model/ToDo'
@@ -11,7 +13,7 @@ var ToDo_id_by_User_id = { };
 
 // Data access functions
 
-export function DA_ToDo_add( fields )
+export function DA_ToDo_add( User_id, fields )
 {
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
@@ -31,7 +33,7 @@ export function DA_ToDo_add( fields )
   }, 100 ) );
 }
 
-export function DA_ToDo_update( id, fields )
+export function DA_ToDo_update( User_id, id, fields )
 {
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
@@ -44,7 +46,7 @@ export function DA_ToDo_update( id, fields )
   }, 100 ) );
 }
 
-export function DA_ToDo_get( id )
+export function DA_ToDo_get( User_id, id )
 {
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
@@ -92,9 +94,9 @@ export function DA_ToDo_list_updateMarkAll( User_id, ToDo_Complete )
 {
   return DA_ToDo_list_get( User_id )
   .then( ( arr_ToDo ) => {
+    var changedToDos = [ ];
     arr_ToDo.forEach( a_ToDo =>
     {
-      var changedToDos = [ ];
       if( a_ToDo.ToDo_Complete !== ToDo_Complete )
       {
         a_ToDo.ToDo_Complete = ToDo_Complete;
@@ -108,10 +110,12 @@ export function DA_ToDo_list_updateMarkAll( User_id, ToDo_Complete )
 export function DA_ToDo_list_deleteCompleted( User_id )
 {
   throw new Error( "The code below should be re-written with promises" );
+  /*
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
     var ToDo_listToRemove = DA_ToDo_list_get( User_id ).filter( a_ToDo => a_ToDo.ToDo_Complete );
     ToDo_listToRemove.forEach( a_ToDo => DA_ToDo_delete( User_id, a_ToDo.id ) );
     resolve( ToDo_listToRemove.map( a_ToDo => a_ToDo.id ) );
   }, 100 ) );
+  */
 }

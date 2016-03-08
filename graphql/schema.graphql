@@ -1,0 +1,321 @@
+type Compendium implements Node {
+  id: ID!
+  Compendium_FirstTextInput: String
+  Compendium_RangedNumber: Int
+  Compendium_Excitement: Int
+  Compendium_FollowUpQuestion: String
+  Compendium_FavoriteMammal: Int
+  Compendium_FavoriteMammalOtherText: String
+  Compendium_LastText: String
+  Compendium_LikedSunset_Ocean: Boolean
+  Compendium_LikedSunset_Lake: Boolean
+  Compendium_LikedSunset_Mountains: Boolean
+  Compendium_LikedSunset_Plains: Boolean
+  Compendium_LikedSunset_Purple: Boolean
+  Compendium_LikedSunset_Green: Boolean
+  Compendium_LikedSunset_Other: Boolean
+  Compendium_LikedSunset_OtherText: String
+}
+
+input Compendium_updateInput {
+  id: ID!
+  Compendium_FirstTextInput: String!
+  Compendium_RangedNumber: Int!
+  Compendium_Excitement: Int!
+  Compendium_FollowUpQuestion: String!
+  Compendium_FavoriteMammal: Int!
+  Compendium_FavoriteMammalOtherText: String!
+  Compendium_LastText: String!
+  Compendium_LikedSunset_Ocean: Boolean!
+  Compendium_LikedSunset_Lake: Boolean!
+  Compendium_LikedSunset_Mountains: Boolean!
+  Compendium_LikedSunset_Plains: Boolean!
+  Compendium_LikedSunset_Purple: Boolean!
+  Compendium_LikedSunset_Green: Boolean!
+  Compendium_LikedSunset_Other: Boolean!
+  Compendium_LikedSunset_OtherText: String!
+  clientMutationId: String!
+}
+
+type Compendium_updatePayload {
+  Compendium: Compendium
+  clientMutationId: String!
+}
+
+type CompendiumsConnection {
+  pageInfo: PageInfo!
+  edges: [CompendiumsEdge]
+}
+
+type CompendiumsEdge {
+  node: Compendium
+  cursor: String!
+}
+
+scalar DateTime
+
+type Ensayo implements Node {
+  id: ID!
+  Ensayo_Title: String
+  Ensayo_Description: String
+  Ensayo_Content: String
+}
+
+input Ensayo_addInput {
+  Ensayo_Content: String!
+  Ensayo_Title: String!
+  Ensayo_Description: String!
+  clientMutationId: String!
+}
+
+type Ensayo_addPayload {
+  EnsayosEdge: EnsayosEdge
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input Ensayo_deleteInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type Ensayo_deletePayload {
+  deletedEnsayoId: ID
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input Ensayo_updateInput {
+  id: ID!
+  Ensayo_Content: String!
+  Ensayo_Title: String!
+  Ensayo_Description: String!
+  clientMutationId: String!
+}
+
+type Ensayo_updatePayload {
+  Ensayo: Ensayo
+  clientMutationId: String!
+}
+
+type EnsayosConnection {
+  pageInfo: PageInfo!
+  edges: [EnsayosEdge]
+}
+
+type EnsayosEdge {
+  node: Ensayo
+  cursor: String!
+}
+
+type Mutation {
+  Compendium_update(input: Compendium_updateInput!): Compendium_updatePayload
+  Ensayo_add(input: Ensayo_addInput!): Ensayo_addPayload
+  Ensayo_delete(input: Ensayo_deleteInput!): Ensayo_deletePayload
+  Ensayo_update(input: Ensayo_updateInput!): Ensayo_updatePayload
+  ToDo_add(input: ToDo_addInput!): ToDo_addPayload
+  ToDo_updateStatus(input: ToDo_updateStatusInput!): ToDo_updateStatusPayload
+  ToDo_delete(input: ToDo_deleteInput!): ToDo_deletePayload
+  ToDo_updateRename(input: ToDo_updateRenameInput!): ToDo_updateRenamePayload
+  ToDo_list_updateMarkAll(input: ToDo_list_updateMarkAllInput!): ToDo_list_updateMarkAllPayload
+  ToDo_list_deleteCompleted(input: ToDo_list_deleteCompletedInput!): ToDo_list_deleteCompletedPayload
+  Translaticiarum_add(input: Translaticiarum_addInput!): Translaticiarum_addPayload
+  Translaticiarum_delete(input: Translaticiarum_deleteInput!): Translaticiarum_deletePayload
+  Translaticiarum_update(input: Translaticiarum_updateInput!): Translaticiarum_updatePayload
+  Viewer_update(input: Viewer_updateInput!): Viewer_updatePayload
+  Viewer_updatePassword(input: Viewer_updatePasswordInput!): Viewer_updatePasswordPayload
+}
+
+interface Node {
+  id: ID!
+}
+
+type PageInfo {
+  hasNextPage: Boolean!
+  hasPreviousPage: Boolean!
+  startCursor: String
+  endCursor: String
+}
+
+type Query {
+  node(id: ID!): Node
+  Viewer: Viewer
+}
+
+type ToDo implements Node {
+  id: ID!
+  ToDo_Text: String
+  ToDo_Complete: Boolean
+}
+
+input ToDo_addInput {
+  ToDo_Text: String!
+  clientMutationId: String!
+}
+
+type ToDo_addPayload {
+  ToDosEdge: ToDosEdge
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input ToDo_deleteInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type ToDo_deletePayload {
+  deletedToDoId: ID
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input ToDo_list_deleteCompletedInput {
+  clientMutationId: String!
+}
+
+type ToDo_list_deleteCompletedPayload {
+  deletedToDoIds: [String]
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input ToDo_list_updateMarkAllInput {
+  ToDo_Complete: Boolean!
+  clientMutationId: String!
+}
+
+type ToDo_list_updateMarkAllPayload {
+  changedToDos: [ToDo]
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input ToDo_updateRenameInput {
+  id: ID!
+  ToDo_Text: String!
+  clientMutationId: String!
+}
+
+type ToDo_updateRenamePayload {
+  ToDo: ToDo
+  clientMutationId: String!
+}
+
+input ToDo_updateStatusInput {
+  ToDo_Complete: Boolean!
+  id: ID!
+  clientMutationId: String!
+}
+
+type ToDo_updateStatusPayload {
+  ToDo: ToDo
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+type ToDosConnection {
+  pageInfo: PageInfo!
+  edges: [ToDosEdge]
+}
+
+type ToDosEdge {
+  node: ToDo
+  cursor: String!
+}
+
+type Translaticiarum implements Node {
+  id: ID!
+  Translaticiarum_Date: DateTime
+  Translaticiarum_Time: DateTime
+  Translaticiarum_Type: Int
+}
+
+input Translaticiarum_addInput {
+  Translaticiarum_Type: Int!
+  Translaticiarum_Date: DateTime!
+  Translaticiarum_Time: DateTime!
+  clientMutationId: String!
+}
+
+type Translaticiarum_addPayload {
+  TranslaticiarumsEdge: TranslaticiarumsEdge
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input Translaticiarum_deleteInput {
+  id: ID!
+  clientMutationId: String!
+}
+
+type Translaticiarum_deletePayload {
+  deletedTranslaticiarumId: ID
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+input Translaticiarum_updateInput {
+  id: ID!
+  Translaticiarum_Type: Int!
+  Translaticiarum_Date: DateTime!
+  Translaticiarum_Time: DateTime!
+  clientMutationId: String!
+}
+
+type Translaticiarum_updatePayload {
+  Translaticiarum: Translaticiarum
+  clientMutationId: String!
+}
+
+type TranslaticiarumsConnection {
+  pageInfo: PageInfo!
+  edges: [TranslaticiarumsEdge]
+}
+
+type TranslaticiarumsEdge {
+  node: Translaticiarum
+  cursor: String!
+}
+
+type Viewer implements Node {
+  id: ID!
+  User_IsAnonymous: Boolean
+  User_DisplayName: String
+  User_ProfilePhoto: String
+  User_Email: String
+  User_Locale: String
+  User_AuthToken: String
+  compendiums(after: String, first: Int, before: String, last: Int): CompendiumsConnection
+  Ensayos(after: String, first: Int, before: String, last: Int): EnsayosConnection
+  Ensayo(id: ID): Ensayo
+  ToDos(status: String = "any", after: String, first: Int, before: String, last: Int): ToDosConnection
+  ToDo_TotalCount: Int
+  ToDo_CompletedCount: Int
+  Translaticiarums(after: String, first: Int, before: String, last: Int): TranslaticiarumsConnection
+}
+
+input Viewer_updateInput {
+  id: ID!
+  User_DisplayName: String!
+  User_ProfilePhoto: String!
+  User_Email: String!
+  User_Locale: String!
+  clientMutationId: String!
+}
+
+input Viewer_updatePasswordInput {
+  id: ID!
+  User_Password: String!
+  clientMutationId: String!
+}
+
+type Viewer_updatePasswordPayload {
+  Viewer: Viewer
+  clientMutationId: String!
+}
+
+type Viewer_updatePayload {
+  Viewer: Viewer
+  clientMutationId: String!
+}

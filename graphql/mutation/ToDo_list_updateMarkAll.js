@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 
@@ -25,7 +27,8 @@ export default mutationWithClientMutationId( {
   },
   mutateAndGetPayload: ( {ToDo_Complete}, { rootValue: {user_id} } ) =>
   {
-    var changedToDoLocalIds = DA_ToDo_list_updateMarkAll( user_id, ToDo_Complete );
-    return {changedToDoLocalIds};
+    return DA_ToDo_list_updateMarkAll( user_id, ToDo_Complete )
+    .then( ( changedToDoLocalIds ) => ( {changedToDoLocalIds} ) )
+    ;
   }
 } );

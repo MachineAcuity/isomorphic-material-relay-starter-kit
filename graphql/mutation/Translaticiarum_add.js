@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import chalk from 'chalk';
 
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
@@ -26,7 +28,7 @@ export default mutationWithClientMutationId( {
       resolve: ( {localTranslaticiarumId}, args, { rootValue: {user_id} } ) =>
       {
         let a_Translaticiarum;
-        return DA_Translaticiarum_get( localTranslaticiarumId )
+        return DA_Translaticiarum_get( user_id, localTranslaticiarumId )
         .then( ( retrieved_Translaticiarum ) => {
           a_Translaticiarum = retrieved_Translaticiarum;
         } )
@@ -44,7 +46,7 @@ export default mutationWithClientMutationId( {
     },
   },
   mutateAndGetPayload: ( { Translaticiarum_Type, Translaticiarum_Date, Translaticiarum_Time }, { rootValue: {user_id} } ) =>
-    DA_Translaticiarum_add( {
+    DA_Translaticiarum_add( user_id, {
       Translaticiarum_User_id: user_id,
       Translaticiarum_Type: Translaticiarum_Type,
       Translaticiarum_Date: Translaticiarum_Date,

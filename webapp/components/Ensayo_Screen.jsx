@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
@@ -53,7 +55,7 @@ class Ensayo_Screen extends React.Component
           ref="Ensayo_Properties"
           Ensayo_Content={ "" }
           Ensayo_Title={ "" }
-          Ensayo_Keywords={ "" }
+          Ensayo_Description={ "" }
           updateHandler={ this._handle_updateHandler_Ensayo }
         />
 

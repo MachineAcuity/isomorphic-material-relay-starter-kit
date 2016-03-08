@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import Relay from 'react-relay';
 
 export default class Ensayo_updateMutation extends Relay.Mutation {
@@ -17,7 +19,7 @@ export default class Ensayo_updateMutation extends Relay.Mutation {
         Ensayo {
           Ensayo_Content,
           Ensayo_Title,
-          Ensayo_Keywords,
+          Ensayo_Description,
         }
       }
     `;
@@ -35,7 +37,7 @@ export default class Ensayo_updateMutation extends Relay.Mutation {
       id: this.props.Ensayo.id,
       Ensayo_Content: this.props.Ensayo_Content,
       Ensayo_Title: this.props.Ensayo_Title,
-      Ensayo_Keywords: this.props.Ensayo_Keywords,
+      Ensayo_Description: this.props.Ensayo_Description,
     };
   }
   getOptimisticResponse() {
@@ -44,7 +46,7 @@ export default class Ensayo_updateMutation extends Relay.Mutation {
         id: this.props.Ensayo.id,
         Ensayo_Content: this.props.Ensayo_Content,
         Ensayo_Title: this.props.Ensayo_Title,
-        Ensayo_Keywords: this.props.Ensayo_Keywords,
+        Ensayo_Description: this.props.Ensayo_Description,
       },
     };
   }

@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from './_client.js';
 
 import Translaticiarum from '../model/Translaticiarum'
@@ -5,7 +7,12 @@ import Translaticiarum from '../model/Translaticiarum'
 
 // Data access functions
 
-export function DA_Translaticiarum_add( fields )
+export function DA_Translaticiarum_add( User_id : Uuid, fields : {
+  Translaticiarum_User_id: Uuid,
+  Translaticiarum_Date: string,
+  Translaticiarum_Time: string,
+  Translaticiarum_Type: number,
+} ) : Promise
 {
   const id = Uuid.random( );
   let cqlText = 'INSERT INTO "Translaticiarum" (id, "Translaticiarum_User_id", "Translaticiarum_Date", "Translaticiarum_Time", "Translaticiarum_Type" ) VALUES (?, ?, ?, ?, ?);';
@@ -23,7 +30,7 @@ export function DA_Translaticiarum_add( fields )
   ;
 }
 
-export function DA_Translaticiarum_update( id, fields )
+export function DA_Translaticiarum_update( User_id : Uuid, id : Uuid, fields : any ) : Promise
 {
   // We will not update Translaticiarum_User_id since it makes no sense to update it
   let cqlText = 'UPDATE "Translaticiarum" SET ';
@@ -59,7 +66,7 @@ export function DA_Translaticiarum_update( id, fields )
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function DA_Translaticiarum_get( id )
+export function DA_Translaticiarum_get( User_id : Uuid, id : Uuid ) : Promise
 {
   const cqlText = 'SELECT * FROM "Translaticiarum" WHERE id = ?;';
   const cqlParams = [ id ];
@@ -67,7 +74,7 @@ export function DA_Translaticiarum_get( id )
   return runQueryOneResult( Translaticiarum, cqlText, cqlParams );
 }
 
-export function DA_Translaticiarum_delete( User_id, id )
+export function DA_Translaticiarum_delete( User_id : Uuid, id : Uuid ) : Promise
 {
   const cqlText = 'DELETE FROM "Translaticiarum" WHERE id = ?;';
   const cqlParams = [ id ];
@@ -75,7 +82,7 @@ export function DA_Translaticiarum_delete( User_id, id )
   return runQueryOneResult( Translaticiarum, cqlText, cqlParams );
 }
 
-export function DA_Translaticiarum_list_get( User_id )
+export function DA_Translaticiarum_list_get( User_id : Uuid ) : Promise
 {
   let cqlText = 'SELECT * FROM "Translaticiarum" WHERE "Translaticiarum_User_id" = ?;';
   let cqlParams = [ User_id ];

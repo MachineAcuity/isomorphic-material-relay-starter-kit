@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from './_client.js';
 
 import ToDo from '../model/ToDo'
@@ -5,7 +7,7 @@ import ToDo from '../model/ToDo'
 
 // Data access functions
 
-export function DA_ToDo_add( fields )
+export function DA_ToDo_add( User_id, fields )
 {
   const id = Uuid.random( );
   let cqlText = 'INSERT INTO "ToDo" (id, "ToDo_User_id", "ToDo_Text", "ToDo_Complete" ) VALUES (?, ?, ?, false);';
@@ -21,7 +23,7 @@ export function DA_ToDo_add( fields )
   ;
 }
 
-export function DA_ToDo_update( id, fields )
+export function DA_ToDo_update( User_id, id, fields : any )
 {
   // We will not update ToDo_User_id since it makes no sense to update it
   let cqlText = 'UPDATE "ToDo" SET ';
@@ -50,7 +52,7 @@ export function DA_ToDo_update( id, fields )
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function DA_ToDo_get( id )
+export function DA_ToDo_get( User_id, id )
 {
   const cqlText = 'SELECT * FROM "ToDo" WHERE id = ?;';
   const cqlParams = [ id ];
@@ -83,31 +85,51 @@ export function DA_ToDo_list_get( User_id, status )
   return runQuery( ToDo, cqlText, cqlParams );
 }
 
-// ->->-> To be modified later
-
 export function DA_ToDo_list_updateMarkAll( User_id, ToDo_Complete )
 {
-  // TODO this needs to be done in CQL
-  User_id = 0;
-  var changedToDos = [];
-  DA_ToDo_list_get( User_id ).forEach(a_ToDo => {
-    if (a_ToDo.ToDo_Complete !== ToDo_Complete) {
-      a_ToDo.ToDo_Complete = ToDo_Complete;
-      changedToDos.push(a_ToDo);
-    }
-  });
-  return changedToDos.map(a_ToDo => a_ToDo.id);
-}
+  console.log( "DA_ToDo_list_updateMarkAll: " + ToDo_Complete );
 
-// <-<-<- To be modified later
+  var changedToDos = [ ];
+  return DA_ToDo_list_get( User_id )
+  .then( ( arr_ToDo ) => {
+    let promisedToDoUpdates = [ ];
+    arr_ToDo.forEach( a_ToDo =>
+    {
+      if( a_ToDo.ToDo_Complete !== ToDo_Complete )
+      {
+        a_ToDo.ToDo_Complete = ToDo_Complete;
+        changedToDos.push( a_ToDo );
+
+        console.log( "DA_ToDo_list_updateMarkAll: " + a_ToDo.id.toString( ));
+        promisedToDoUpdates.push( DA_ToDo_update(
+          User_id,
+          a_ToDo.id,
+          { ToDo_Complete: ToDo_Complete }
+        ) );
+      }
+    } );
+    console.log( "DA_ToDo_list_updateMarkAll RET changedToDos:" + JSON.stringify( changedToDos ) );
+    return(
+      Promise.all( promisedToDoUpdates )
+    );
+  } )
+  .then( ( arr ) => {
+    console.log( "DA_ToDo_list_updateMarkAll FINALE: " + ToDo_Complete );
+    console.log( "changedToDos:" + JSON.stringify( changedToDos ) );
+    return changedToDos.map( a_ToDo => a_ToDo.id );
+  } )
+  ;
+}
 
 export function DA_ToDo_list_deleteCompleted( User_id )
 {
   throw new Error( "The code below should be re-written with promises" );
+  /*
   return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
   {
     var ToDo_listToRemove = DA_ToDo_list_get( User_id ).filter( a_ToDo => a_ToDo.ToDo_Complete );
     ToDo_listToRemove.forEach( a_ToDo => DA_ToDo_delete( User_id, a_ToDo.id ) );
     resolve( ToDo_listToRemove.map( a_ToDo => a_ToDo.id ) );
   }, 100 ) );
+  */
 }

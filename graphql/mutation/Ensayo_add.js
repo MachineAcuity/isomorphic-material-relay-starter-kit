@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import chalk from 'chalk';
 
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
@@ -7,7 +9,6 @@ import GraphQLDateTime from "../scalar/GraphQLDateTime";
 
 import { cursorForObjectInConnectionWithUuidComparison } from '../helper/mutation_helper';
 import { DA_User_get } from '../../data/da/User';
-import { DA_Ensayo_add, DA_Ensayo_get, DA_Ensayo_list_get } from '../../data/da/Ensayo';
 
 import EnsayosConnection from '../type/EnsayosConnection';
 import ViewerType from '../type/ViewerType';
@@ -18,19 +19,19 @@ export default mutationWithClientMutationId( {
   inputFields: {
     Ensayo_Content: { type: new GraphQLNonNull( GraphQLString ) },
     Ensayo_Title: { type: new GraphQLNonNull( GraphQLString ) },
-    Ensayo_Keywords: { type: new GraphQLNonNull( GraphQLString ) },
+    Ensayo_Description: { type: new GraphQLNonNull( GraphQLString ) },
   },
   outputFields: {
     EnsayosEdge: {
       type: EnsayosConnection.edgeType,
-      resolve: ( {localEnsayoId}, args, { rootValue: {user_id} } ) =>
+      resolve: ( {local_id}, args, { rootValue: {user_id, objectManager} } ) =>
       {
         let a_Ensayo;
-        return DA_Ensayo_get( localEnsayoId )
+        return objectManager.getOneById( 'Ensayo', local_id )
         .then( ( retrieved_Ensayo ) => {
           a_Ensayo = retrieved_Ensayo;
         } )
-        .then( ( ) => DA_Ensayo_list_get( user_id ) )
+        .then( ( ) => objectManager.getListBy( 'Ensayo', 'Ensayo_User_id', user_id.toString( ) ) )
         .then( ( arr_Ensayo ) => ( {
           cursor: cursorForObjectInConnectionWithUuidComparison( arr_Ensayo, a_Ensayo ),
           node: a_Ensayo,
@@ -43,12 +44,12 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
     },
   },
-  mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Keywords }, { rootValue: {user_id} } ) =>
-    DA_Ensayo_add( {
+  mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Description }, { rootValue: {user_id, objectManager} } ) =>
+    objectManager.add( 'Ensayo', {
       Ensayo_User_id: user_id,
-      Ensayo_Content: Ensayo_Content,
-      Ensayo_Title: Ensayo_Title,
-      Ensayo_Keywords: Ensayo_Keywords,
+      Ensayo_Content,
+      Ensayo_Title,
+      Ensayo_Description,
     } )
-    .then( ( localEnsayoId ) => ( {localEnsayoId} ) )
+    .then( ( local_id ) => ( {local_id} ) )
 } );

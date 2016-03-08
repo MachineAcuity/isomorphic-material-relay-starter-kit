@@ -1,10 +1,13 @@
+/* @flow weak */
+
 import chalk from 'chalk';
 import IsomorphicRouter from 'isomorphic-relay-router';
+import Helmet from 'react-helmet';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import Relay from 'react-relay';
-import RelayStoreData from 'react-relay/lib/RelayStoreData';
+//import RelayStoreData from 'react-relay/lib/RelayStoreData';
 import {match} from 'react-router';
 import seqqueue from 'seq-queue';
 
@@ -31,14 +34,16 @@ export default ( req, res, next, assetsPath ) =>
   const headers = { };
   if( req.cookies.auth_token )
     headers.Cookie = 'auth_token=' + req.cookies.auth_token;
+  headers.user_auth_token = process.env.USER_AUTH_SECRET;
 
   match( { routes, location: req.originalUrl }, ( error, redirectLocation, renderProps ) =>
     {
       queue.push(
-        queueTask => {
+        queueTask =>
+        {
           // Setting the STATIC network layer. No fear about it being static - we are in a queue!
           Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer( GRAPHQL_URL, { headers: headers } ) );
-          RelayStoreData.getDefaultInstance( ).getChangeEmitter( ).injectBatchingStrategy(() => { } );
+          //RelayStoreData.getDefaultInstance( ).getChangeEmitter( ).injectBatchingStrategy(() => { } );
 
           if( error )
             next(error);
@@ -49,7 +54,7 @@ export default ( req, res, next, assetsPath ) =>
           else
               res.status( 404 ).send( 'Not Found' );
 
-          function render( data )
+          function render( { data, props } )
           {
             try
             {
@@ -57,15 +62,23 @@ export default ( req, res, next, assetsPath ) =>
               // fear, we are in a queue.
               GLOBAL.navigator = { userAgent: req.headers[ 'user-agent' ] };
 
+              // Setting up static, global location for the leftNav
+              GLOBAL.location = { pathname: req.originalUrl };
+
               const reactOutput = ReactDOMServer.renderToString(
-                  <IsomorphicRouter.RouterContext {...renderProps} />
+                  <IsomorphicRouter.RouterContext {...props} />
               );
+              const helmet = Helmet.rewind( );
 
               res.render( path.resolve( __dirname, '..', 'webapp/views', 'index.ejs' ), {
                   preloadedData: JSON.stringify(data),
                   assetsPath: assetsPath,
                   reactOutput,
-                  isomorphicVars: isoVars
+                  title: helmet.title,
+                  meta: helmet.meta,
+                  link: helmet.link,
+                  isomorphicVars: isoVars,
+                  NODE_ENV: process.env.NODE_ENV,
               } );
             }
             catch( err )

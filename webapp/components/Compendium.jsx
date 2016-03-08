@@ -1,16 +1,19 @@
+/* @flow weak */
+
 import React from 'react';
 import Relay from 'react-relay';
 
-import RaisedButton from 'material-ui/lib/raised-button';
 import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
 import Checkbox from 'material-ui/lib/checkbox';
 import MenuItem from 'material-ui/lib/menus/menu-item';
+import RaisedButton from 'material-ui/lib/raised-button';
 import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
 
 import Compendium_updateMutation from '../mutations/Compendium_updateMutation';
+
 
 class Compendium extends React.Component
 {

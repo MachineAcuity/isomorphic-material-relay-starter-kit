@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import Relay from 'react-relay';
 
 export default class ToDo_list_deleteCompletedMutation extends Relay.Mutation {

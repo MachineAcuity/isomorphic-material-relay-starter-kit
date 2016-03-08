@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 
 import IconMenu from 'material-ui/lib/menus/icon-menu';

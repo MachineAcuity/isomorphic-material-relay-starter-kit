@@ -1,8 +1,10 @@
+/* @flow weak */
+
 import React from 'react';
 
 import DatePicker from 'material-ui/lib/date-picker/date-picker';
 import Dialog from 'material-ui/lib/dialog';
-import RaisedButton from 'material-ui/lib/raised-button';
+import FlatButton from 'material-ui/lib/flat-button';
 import TextField from 'material-ui/lib/text-field';
 import TimePicker from 'material-ui/lib/time-picker/time-picker';
 
@@ -11,7 +13,7 @@ import { dateFromUTCString, dateUTCToLocal, dateLocalToUTC } from '../scripts/Da
 
 export default class Translaticiarum_Properties extends React.Component
 {
-  constructor( props )
+  constructor( props : any )
   {
     super( props );
 
@@ -78,8 +80,8 @@ export default class Translaticiarum_Properties extends React.Component
           open={ this.state.Dialog_IsOpen }
           title="Translaticiarum"
           actions={ [
-            <RaisedButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_Close } />,
-            <RaisedButton key="OK" label="OK" primary={true} onTouchTap={ this._handle_onTouchTap_OK } />,
+            <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_Close } />,
+            <FlatButton key="OK" label="OK" primary={true} onTouchTap={ this._handle_onTouchTap_OK } />,
           ] }
         >
           <TextField

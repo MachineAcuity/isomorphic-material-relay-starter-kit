@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import {GraphQLSchema} from "graphql";
 
 // graphql types

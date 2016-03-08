@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import {
   DA_Compendium_add,
   DA_Compendium_update,

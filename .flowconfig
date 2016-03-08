@@ -1,0 +1,10 @@
+[ignore]
+
+[include]
+
+[libs]
+node-modules/
+
+[options]
+esproposal.class_static_fields=enable
+esproposal.class_instance_fields=enable

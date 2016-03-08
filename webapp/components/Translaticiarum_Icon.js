@@ -1,3 +1,5 @@
+/* @flow weak */
+
 import React from 'react';
 
 import ActionAccountBalance from 'material-ui/lib/svg-icons/action/account-balance'; // Speak in senate
@@ -8,7 +10,7 @@ import ContentCreate from 'material-ui/lib/svg-icons/content/create'; // Write p
 import HardwareHeadset from 'material-ui/lib/svg-icons/hardware/headset'; // Listen to music
 import ImageLandscape from 'material-ui/lib/svg-icons/image/landscape'; // Hike
 
-export default function( theType )
+export default function( theType: number )
 {
   let itemIcon;
   if( theType == 1 ) itemIcon = <ActionAccountBalance />; // Speak in senate
