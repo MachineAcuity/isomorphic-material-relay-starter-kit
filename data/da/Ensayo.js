@@ -4,7 +4,7 @@ import {
   DA_Ensayo_get,
   DA_Ensayo_delete,
   DA_Ensayo_list_get,
-} from '../da_cassandra/Ensayo'
+} from '../da_memory/Ensayo'
 
 export {
   DA_Ensayo_add,

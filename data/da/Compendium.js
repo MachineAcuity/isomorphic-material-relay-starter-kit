@@ -3,7 +3,7 @@ import {
   DA_Compendium_update,
   DA_Compendium_get,
   DA_Compendium_list_get,
-} from '../da_cassandra/Compendium'
+} from '../da_memory/Compendium'
 
 export {
   DA_Compendium_add,
