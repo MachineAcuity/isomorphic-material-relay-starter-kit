@@ -17,8 +17,8 @@ import ViewerType from '../type/ViewerType';
 export default mutationWithClientMutationId( {
   name: 'Ensayo_add',
   inputFields: {
-    Ensayo_Content: { type: new GraphQLNonNull( GraphQLString ) },
-    Ensayo_Title: { type: new GraphQLNonNull( GraphQLString ) },
+    Ensayo_Content:     { type: new GraphQLNonNull( GraphQLString ) },
+    Ensayo_Title:       { type: new GraphQLNonNull( GraphQLString ) },
     Ensayo_Description: { type: new GraphQLNonNull( GraphQLString ) },
   },
   outputFields: {
@@ -26,15 +26,15 @@ export default mutationWithClientMutationId( {
       type: EnsayosConnection.edgeType,
       resolve: ( {local_id}, args, { rootValue: {user_id, objectManager} } ) =>
       {
-        let a_Ensayo;
+        let an_Object;
         return objectManager.getOneById( 'Ensayo', local_id )
-        .then( ( retrieved_Ensayo ) => {
-          a_Ensayo = retrieved_Ensayo;
+        .then( ( retrieved_Object ) => {
+          an_Object = retrieved_Object;
         } )
         .then( ( ) => objectManager.getListBy( 'Ensayo', 'Ensayo_User_id', user_id.toString( ) ) )
-        .then( ( arr_Ensayo ) => ( {
-          cursor: cursorForObjectInConnectionWithUuidComparison( arr_Ensayo, a_Ensayo ),
-          node: a_Ensayo,
+        .then( ( arr ) => ( {
+          cursor: cursorForObjectInConnectionWithUuidComparison( arr, an_Object ),
+          node: an_Object,
         } ) )
         ;
       }

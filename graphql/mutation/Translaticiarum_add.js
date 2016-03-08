@@ -9,7 +9,6 @@ import GraphQLDateTime from "../scalar/GraphQLDateTime";
 
 import { cursorForObjectInConnectionWithUuidComparison } from '../helper/mutation_helper';
 import { DA_User_get } from '../../data/da/User';
-import { DA_Translaticiarum_add, DA_Translaticiarum_get, DA_Translaticiarum_list_get } from '../../data/da/Translaticiarum';
 
 import TranslaticiarumsConnection from '../type/TranslaticiarumsConnection';
 import ViewerType from '../type/ViewerType';
@@ -25,17 +24,17 @@ export default mutationWithClientMutationId( {
   outputFields: {
     TranslaticiarumsEdge: {
       type: TranslaticiarumsConnection.edgeType,
-      resolve: ( {localTranslaticiarumId}, args, { rootValue: {user_id} } ) =>
+      resolve: ( {local_id}, args, { rootValue: {user_id, objectManager} } ) =>
       {
-        let a_Translaticiarum;
-        return DA_Translaticiarum_get( user_id, localTranslaticiarumId )
-        .then( ( retrieved_Translaticiarum ) => {
-          a_Translaticiarum = retrieved_Translaticiarum;
+        let an_Object;
+        return objectManager.getOneById( 'Translaticiarum', local_id )
+        .then( ( retrieved_Object ) => {
+          an_Object = retrieved_Object;
         } )
-        .then( ( ) => DA_Translaticiarum_list_get( user_id ) )
-        .then( ( arr_Translaticiarum ) => ( {
-          cursor: cursorForObjectInConnectionWithUuidComparison( arr_Translaticiarum, a_Translaticiarum ),
-          node: a_Translaticiarum,
+        .then( ( ) => objectManager.getListBy( 'Translaticiarum', 'Translaticiarum_User_id', user_id.toString( ) ) )
+        .then( ( arr ) => ( {
+          cursor: cursorForObjectInConnectionWithUuidComparison( arr, an_Object ),
+          node: an_Object,
         } ) )
         ;
       }
@@ -45,12 +44,12 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
     },
   },
-  mutateAndGetPayload: ( { Translaticiarum_Type, Translaticiarum_Date, Translaticiarum_Time }, { rootValue: {user_id} } ) =>
-    DA_Translaticiarum_add( user_id, {
+  mutateAndGetPayload: ( { Translaticiarum_Type, Translaticiarum_Date, Translaticiarum_Time }, { rootValue: {user_id, objectManager} } ) =>
+    objectManager.add( 'Translaticiarum', {
       Translaticiarum_User_id: user_id,
-      Translaticiarum_Type: Translaticiarum_Type,
-      Translaticiarum_Date: Translaticiarum_Date,
-      Translaticiarum_Time: Translaticiarum_Time,
+      Translaticiarum_Type,
+      Translaticiarum_Date,
+      Translaticiarum_Time,
     } )
-    .then( ( localTranslaticiarumId ) => ( {localTranslaticiarumId} ) )
+    .then( ( local_id ) => ( {local_id} ) )
 } );
