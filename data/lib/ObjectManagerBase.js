@@ -7,7 +7,7 @@ import { Uuid } from '../da_cassandra/_client.js';
 import {
   ObjectPersister_get,
   ObjectPersister_getList,
-  ObjectPersister_create,
+  ObjectPersister_add,
   ObjectPersister_update,
   ObjectPersister_remove
 } from '../da/ObjectPersister.js';
@@ -82,9 +82,9 @@ export default class ObjectManagerBase
     }
   }
 
-  create( entityName: string, fields: any )
+  add( entityName: string, fields: any )
   {
-    return ObjectPersister_create( entityName, fields )
+    return ObjectPersister_add( entityName, fields )
     .then( id => {
       fields.id = id;
       this.invalidateLoaderCache( entityName, fields );

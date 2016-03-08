@@ -24,7 +24,7 @@ export function ObjectPersister_getList( entityName: string, ObjectType: any, fi
   return Promise.all( resultPromises );
 }
 
-export function ObjectPersister_create( entityName: string, fields: any )
+export function ObjectPersister_add( entityName: string, fields: any )
 {
   const id = Uuid.random( );
 

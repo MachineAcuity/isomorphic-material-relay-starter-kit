@@ -15,7 +15,7 @@ export function ObjectPersister_update( entityName, entity )
 
 }
 
-export function ObjectPersister_delete( entityName, entity )
+export function ObjectPersister_remove( entityName, entity )
 {
 
 }
