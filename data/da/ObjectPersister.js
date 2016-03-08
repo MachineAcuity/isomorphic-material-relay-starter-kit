@@ -6,7 +6,7 @@ import {
   ObjectPersister_add,
   ObjectPersister_update,
   ObjectPersister_remove,
-} from '../lib/da_cassandra/ObjectPersister'
+} from '../lib/da_memory/ObjectPersister'
 
 export {
   ObjectPersister_get,
