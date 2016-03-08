@@ -9,7 +9,6 @@ import NodeInterface from "../interface/NodeInterface";
 import { DA_User_get } from '../../data/da/User';
 import { DA_Compendium_get } from '../../data/da/Compendium';
 import { DA_ToDo_get } from '../../data/da/ToDo';
-import { DA_Translaticiarum_get } from '../../data/da/Translaticiarum';
 
 function resolveNodeField( source, args, { rootValue: {user_id, objectManager} } )
 {
@@ -27,7 +26,7 @@ function resolveNodeField( source, args, { rootValue: {user_id, objectManager} }
     case "Compendium":         return DA_Compendium_get( user_id, local_id );
     case "Ensayo":             return objectManager.getOneById( 'Ensayo', local_id );
     case "ToDo":               return DA_ToDo_get( user_id, local_id );
-    case "Translaticiarum":    return DA_Translaticiarum_get( user_id, local_id );
+    case "Translaticiarum":    return objectManager.getOneById( 'Translaticiarum', local_id );
   }
 };
 
