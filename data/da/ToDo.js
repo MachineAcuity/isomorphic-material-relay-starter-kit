@@ -8,7 +8,7 @@ import {
   DA_ToDo_list_get,
   DA_ToDo_list_updateMarkAll,
   DA_ToDo_list_deleteCompleted,
-} from '../da_memory/ToDo'
+} from '../da_cassandra/ToDo'
 
 export {
   DA_ToDo_add,
