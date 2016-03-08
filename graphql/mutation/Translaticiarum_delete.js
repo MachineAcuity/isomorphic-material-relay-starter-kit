@@ -4,7 +4,6 @@ import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLID, GraphQLNonNull } from "graphql";
 
 import { DA_User_get } from '../../data/da/User';
-import { DA_Translaticiarum_delete } from '../../data/da/Translaticiarum';
 
 import ViewerType from '../type/ViewerType';
 
@@ -24,10 +23,10 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
     },
   },
-  mutateAndGetPayload: ( {id}, { rootValue: {user_id} } ) =>
+  mutateAndGetPayload: ( {id}, { rootValue: {objectManager} } ) =>
   {
-    var localTranslaticiarumId = fromGlobalId(id).id;
-    return DA_Translaticiarum_delete( user_id, localTranslaticiarumId )
+    var local_id = fromGlobalId(id).id;
+    return objectManager.remove( 'Translaticiarum', { id: local_id} )
     .then( ( ) => ( {id} ) )
     ;
   }
