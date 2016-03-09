@@ -2,7 +2,7 @@
 
 import ObjectManagerBase from './lib/ObjectManagerBase';
 
-import Compendium from './model/Compendium';
+import Compendium from '../units/imrsk-example-compendium/graphql/model/Compendium';
 import Ensayo from '../units/imrsk-example-ensayo/graphql/model/Ensayo';
 import Translaticiarum from '../units/imrsk-example-translaticiarum/graphql/model/Translaticiarum';
 import User from './model/User';

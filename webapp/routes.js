@@ -1,7 +1,7 @@
 /* @flow weak */
 
 import Chrome from './components/Chrome.jsx';
-import Compendium from './components/Compendium.jsx';
+import Compendium from '../units/imrsk-example-compendium/webapp/components/Compendium.jsx';
 import Ensayo_List from '../units/imrsk-example-ensayo/webapp/components/Ensayo_List.jsx';
 import Ensayo_Screen from '../units/imrsk-example-ensayo/webapp/components/Ensayo_Screen.jsx';
 import Ensayo_PublicItem from '../units/imrsk-example-ensayo/webapp/components/Ensayo_PublicItem.jsx';
