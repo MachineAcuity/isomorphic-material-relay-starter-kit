@@ -66,7 +66,10 @@ export default class ObjectManagerBase
     {
       const loader = this.getLoader( entityName, 'id', false );
 
-      return loader.load( id.toString( ) );
+      if( id instanceof Uuid )
+        id = id.toString( );
+
+      return loader.load( id );
     }
   }
 

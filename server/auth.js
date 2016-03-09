@@ -5,7 +5,6 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import jwt from 'jwt-simple';
 
-import { DA_User_add } from '../data/da/User';
 import ObjectManager from '../data/ObjectManager';
 
 // Read environment
@@ -67,9 +66,9 @@ auth.post('/createuser', (req, res, next) =>
       return Promise.reject( "User account already exists" );
     else
       return new Promise( ( resolve ) => {
-        bcrypt.hash( password, 8, ( err, hash ) => resolve( hash ) );
+        bcrypt.hash( password, 8, ( err, passwordHash ) => resolve( passwordHash ) );
       } )
-      .then( ( passwordHash ) => DA_User_add( {
+      .then( ( passwordHash ) => objectManager.add( 'User', {
         username: username,
         password: passwordHash,
         User_DisplayName: 'New User',
@@ -80,6 +79,7 @@ auth.post('/createuser', (req, res, next) =>
       } ) )
       ;
   } )
+  .then( ( user_id ) => objectManager.getOneById( 'User', user_id ) )
   .then( ( a_User ) =>
   {
     // User has been created thus we create a JWT token
