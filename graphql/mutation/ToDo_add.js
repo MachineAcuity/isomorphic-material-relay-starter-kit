@@ -6,7 +6,6 @@ import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection
 import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
 import { cursorForObjectInConnectionWithUuidComparison } from '../helper/mutation_helper';
-import { DA_User_get } from '../../data/da/User';
 import { DA_ToDo_add, DA_ToDo_get, DA_ToDo_list_get } from '../../data/da/ToDo';
 
 import ToDosConnection from '../type/ToDosConnection';
@@ -38,7 +37,7 @@ export default mutationWithClientMutationId( {
     },
     Viewer: {
       type: ViewerType,
-      resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
+      resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
   mutateAndGetPayload: ( {ToDo_Text}, { rootValue: {user_id} } ) =>

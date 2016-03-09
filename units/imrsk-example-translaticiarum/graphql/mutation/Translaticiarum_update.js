@@ -5,8 +5,6 @@ import { GraphQLInt, GraphQLID, GraphQLNonNull } from "graphql";
 
 import GraphQLDateTime from "../../../../graphql/scalar/GraphQLDateTime";
 
-import { DA_User_get } from '../../../../data/da/User';
-
 import TranslaticiarumType from '../type/TranslaticiarumType';
 
 export default mutationWithClientMutationId( {

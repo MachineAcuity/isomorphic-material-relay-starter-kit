@@ -4,6 +4,7 @@ import ObjectManagerBase from './lib/ObjectManagerBase';
 
 import Ensayo from '../units/imrsk-example-ensayo/graphql/model/Ensayo';
 import Translaticiarum from '../units/imrsk-example-translaticiarum/graphql/model/Translaticiarum';
+import User from './model/User';
 
 export default class ObjectManager extends ObjectManagerBase
 {
@@ -13,5 +14,6 @@ export default class ObjectManager extends ObjectManagerBase
 
     this.registerEntity( 'Ensayo', Ensayo );
     this.registerEntity( 'Translaticiarum', Translaticiarum );
+    this.registerEntity( 'User', User );
   }
 }

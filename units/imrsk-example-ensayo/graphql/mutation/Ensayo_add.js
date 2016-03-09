@@ -6,7 +6,6 @@ import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection
 import { GraphQLString, GraphQLNonNull } from "graphql";
 
 import { cursorForObjectInConnectionWithUuidComparison } from '../../../../graphql/helper/mutation_helper';
-import { DA_User_get } from '../../../../data/da/User';
 
 import EnsayosConnection from '../type/EnsayosConnection';
 import ViewerType from '../../../../graphql/type/ViewerType';
@@ -39,7 +38,7 @@ export default mutationWithClientMutationId( {
     },
     Viewer: {
       type: ViewerType,
-      resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
+      resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
   mutateAndGetPayload: ( { Ensayo_Content, Ensayo_Title, Ensayo_Description }, { rootValue: {user_id, objectManager} } ) =>

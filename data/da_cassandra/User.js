@@ -47,25 +47,6 @@ export function DA_User_getByUserName( username : string ) : Promise
   return runQueryOneResult( User, cqlText, cqlParams );
 }
 
-export function DA_User_get( User_id : Uuid ) : Promise
-{
-  // Anonymous user is not even recorded in the database
-  if( User_id === '00000000-0000-0000-0000-000000000000' )
-  {
-    return new Promise( ( resolve, reject ) =>
-      resolve( User_0 )
-    );
-  }
-  else
-  {
-    const cqlText = 'SELECT * FROM "User" WHERE id = ?;';
-    const cqlParams = [
-      User_id
-    ];
-    return runQueryOneResult( User, cqlText, cqlParams );
-  }
-}
-
 export function DA_User_update( User_id : Uuid, id : Uuid, fields : any ) : Promise
 {
   // We will not update User_User_id since it makes no sense to update it

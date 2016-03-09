@@ -3,8 +3,6 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_User_get } from '../../../../data/da/User';
-
 import ViewerType from '../../../../graphql/type/ViewerType';
 
 
@@ -20,7 +18,7 @@ export default mutationWithClientMutationId( {
     },
     Viewer: {
       type: ViewerType,
-      resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
+      resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
   mutateAndGetPayload: ( {id}, { rootValue: {objectManager} } ) =>
