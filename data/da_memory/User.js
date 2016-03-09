@@ -14,37 +14,13 @@ var User_listById = { };
 
 export function DA_User_add( fields : any ) : Promise
 {
-  return DA_User_getByUserName( fields.username )
-  .then( ( a_User ) =>
-  {
-    if ( ! a_User )
-    {
-      var new_User = new User( fields );
+  var new_User = new User( fields );
 
-      new_User.id = Uuid.random( );
+  new_User.id = Uuid.random( );
 
-      User_listById[ new_User.id.toString( ) ] = new_User;
+  User_listById[ new_User.id.toString( ) ] = new_User;
 
-      return new_User;
-    }
-    else throw new Error( "User name already in use" );
-  } )
-  ;
-}
-
-export function DA_User_getByUserName( username : string ) : Promise
-{
-  return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
-  {
-    for( let user_id in User_listById )
-    {
-      let a_User = User_listById[ user_id ];
-      if( a_User.username === username )
-        resolve( a_User );
-    }
-
-    resolve( null );
-  }, 100 ) );
+  return new_User;
 }
 
 export function DA_User_update( User_id : Uuid, id : Uuid, fields : any )

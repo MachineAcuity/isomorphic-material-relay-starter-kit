@@ -5,7 +5,8 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import jwt from 'jwt-simple';
 
-import { DA_User_add, DA_User_getByUserName } from '../data/da/User';
+import { DA_User_add } from '../data/da/User';
+import ObjectManager from '../data/ObjectManager';
 
 // Read environment
 require( 'dotenv' ).load( );
@@ -16,16 +17,20 @@ auth.use( bodyParser.json( ) );
 
 auth.post('/login', (req, res, next) =>
 {
+  const objectManager = new ObjectManager( );
+
   let username = req.body.username.toLowerCase( );
   let password = req.body.password;
 
-  DA_User_getByUserName( username )
-  .then( ( a_User ) =>
+  objectManager.getListBy( 'User', 'username', username )
+  .then( ( arr_Users ) =>
   {
-    if( ! a_User )
+    if( arr_Users.length == 0 )
       res.status( 401 ).json( { error: 'Incorrect user' } );
     else
     {
+      const a_User = arr_Users[ 0 ];
+
       bcrypt.compare( password, a_User.password, function( err, passwordIsCorrect )
       {
         if( passwordIsCorrect )
@@ -50,13 +55,15 @@ auth.post('/login', (req, res, next) =>
 
 auth.post('/createuser', (req, res, next) =>
 {
+  const objectManager = new ObjectManager( );
+
   let username = req.body.username.toLowerCase( );
   let password = req.body.password;
 
-  DA_User_getByUserName( username )
-  .then( ( a_User ) =>
+  objectManager.getListBy( 'User', 'username', username )
+  .then( ( arr_Users ) =>
   {
-    if( a_User )
+    if( arr_Users.length > 0 )
       return Promise.reject( "User account already exists" );
     else
       return new Promise( ( resolve ) => {
