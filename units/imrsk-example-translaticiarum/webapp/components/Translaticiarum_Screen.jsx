@@ -10,7 +10,7 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import TextField from 'material-ui/lib/text-field';
 
-import Translaticiarum_addMutation from '../mutations/Translaticiarum_addMutation';
+import Translaticiarum_addMutation from '../../relay/Translaticiarum_addMutation';
 
 import Translaticiarum_Properties from './Translaticiarum_Properties.jsx';
 

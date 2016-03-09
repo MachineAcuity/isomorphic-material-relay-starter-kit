@@ -11,9 +11,9 @@ import MUI_Icons from './components/MUI_Icons.jsx';
 import MUI_Home from './components/MUI_Home.jsx';
 import ToDo_List from './components/ToDo_List.jsx';
 import ToDo_Screen from './components/ToDo_Screen.jsx';
-import Translaticiarum_List from './components/Translaticiarum_List.jsx';
-import Translaticiarum_Grid from './components/Translaticiarum_Grid.jsx';
-import Translaticiarum_Screen from './components/Translaticiarum_Screen.jsx';
+import Translaticiarum_List from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_List.jsx';
+import Translaticiarum_Grid from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_Grid.jsx';
+import Translaticiarum_Screen from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_Screen.jsx';
 import User_Properties from './components/User_Properties.jsx';
 import User_UpdatePassword from './components/User_UpdatePassword.jsx';
 

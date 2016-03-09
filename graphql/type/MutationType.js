@@ -32,9 +32,9 @@ import ToDo_updateRename from "../mutation/ToDo_updateRename";
 
 // ->->-> Translaticiarum mutations imports
 
-import Translaticiarum_add from "../mutation/Translaticiarum_add";
-import Translaticiarum_delete from "../mutation/Translaticiarum_delete";
-import Translaticiarum_update from "../mutation/Translaticiarum_update";
+import Translaticiarum_add from "../../units/imrsk-example-translaticiarum/graphql/mutation/Translaticiarum_add";
+import Translaticiarum_delete from "../../units/imrsk-example-translaticiarum/graphql/mutation/Translaticiarum_delete";
+import Translaticiarum_update from "../../units/imrsk-example-translaticiarum/graphql/mutation/Translaticiarum_update";
 
 // <-<-<- Translaticiarum mutations imports
 

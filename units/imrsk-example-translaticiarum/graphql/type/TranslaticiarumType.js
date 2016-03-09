@@ -3,10 +3,10 @@
 import { globalIdField } from "graphql-relay";
 import { GraphQLInt, GraphQLObjectType } from "graphql";
 
-import GraphQLDateTime from "../scalar/GraphQLDateTime";
-import NodeInterface from "../interface/NodeInterface";
+import GraphQLDateTime from "../../../../graphql/scalar/GraphQLDateTime";
+import NodeInterface from "../../../../graphql/interface/NodeInterface";
 
-import Translaticiarum from '../../data/model/Translaticiarum';
+import Translaticiarum from '../model/Translaticiarum';
 
 export default new GraphQLObjectType( {
   name: 'Translaticiarum',

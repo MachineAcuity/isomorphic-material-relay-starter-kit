@@ -12,11 +12,11 @@ import DatePicker from 'material-ui/lib/date-picker/date-picker';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import TextField from 'material-ui/lib/text-field';
 
-import { dateLocalToUTC, dateUTCToLocal, dateFormat } from '../scripts/DateTimeHelpers'
+import { dateLocalToUTC, dateUTCToLocal, dateFormat } from '../../../../webapp/scripts/DateTimeHelpers'
 
-import Translaticiarum_addMutation from '../mutations/Translaticiarum_addMutation';
-import Translaticiarum_deleteMutation from '../mutations/Translaticiarum_deleteMutation';
-import Translaticiarum_updateMutation from '../mutations/Translaticiarum_updateMutation';
+import Translaticiarum_addMutation from '../../relay/Translaticiarum_addMutation';
+import Translaticiarum_deleteMutation from '../../relay/Translaticiarum_deleteMutation';
+import Translaticiarum_updateMutation from '../../relay/Translaticiarum_updateMutation';
 
 import Translaticiarum_Icon from './Translaticiarum_Icon';
 import Translaticiarum_Properties from './Translaticiarum_Properties.jsx';

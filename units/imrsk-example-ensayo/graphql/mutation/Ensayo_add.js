@@ -5,8 +5,6 @@ import chalk from 'chalk';
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
 import { GraphQLString, GraphQLNonNull } from "graphql";
 
-import GraphQLDateTime from "../../../../graphql/scalar/GraphQLDateTime";
-
 import { cursorForObjectInConnectionWithUuidComparison } from '../../../../graphql/helper/mutation_helper';
 import { DA_User_get } from '../../../../data/da/User';
 

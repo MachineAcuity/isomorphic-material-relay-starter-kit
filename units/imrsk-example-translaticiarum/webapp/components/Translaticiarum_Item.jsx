@@ -9,10 +9,10 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import NavigationMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
 
-import { dateFromUTCString, dateUTCToLocal } from '../scripts/DateTimeHelpers'
+import { dateFromUTCString, dateUTCToLocal } from '../../../../webapp/scripts/DateTimeHelpers'
 
-import Translaticiarum_deleteMutation from '../mutations/Translaticiarum_deleteMutation';
-import Translaticiarum_updateMutation from '../mutations/Translaticiarum_updateMutation';
+import Translaticiarum_deleteMutation from '../../relay/Translaticiarum_deleteMutation';
+import Translaticiarum_updateMutation from '../../relay/Translaticiarum_updateMutation';
 
 import Translaticiarum_Icon from './Translaticiarum_Icon';
 import Translaticiarum_Properties from './Translaticiarum_Properties.jsx';

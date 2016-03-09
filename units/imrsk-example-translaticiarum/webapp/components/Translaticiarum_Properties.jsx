@@ -8,7 +8,7 @@ import FlatButton from 'material-ui/lib/flat-button';
 import TextField from 'material-ui/lib/text-field';
 import TimePicker from 'material-ui/lib/time-picker/time-picker';
 
-import { dateFromUTCString, dateUTCToLocal, dateLocalToUTC } from '../scripts/DateTimeHelpers'
+import { dateFromUTCString, dateUTCToLocal, dateLocalToUTC } from '../../../../webapp/scripts/DateTimeHelpers'
 
 
 export default class Translaticiarum_Properties extends React.Component

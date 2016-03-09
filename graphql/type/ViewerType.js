@@ -12,7 +12,7 @@ import NodeInterface from "../interface/NodeInterface";
 import EnsayosConnection from "../../units/imrsk-example-ensayo/graphql/type/EnsayosConnection";
 import EnsayoType from "../../units/imrsk-example-ensayo/graphql/type/EnsayoType";
 import ToDosConnection from "./ToDosConnection";
-import TranslaticiarumsConnection from "./TranslaticiarumsConnection";
+import TranslaticiarumsConnection from "../../units/imrsk-example-translaticiarum/graphql/type/TranslaticiarumsConnection";
 import User from '../../data/model/User';
 import { Uuid } from '../../data/da_cassandra/_client.js';
 
