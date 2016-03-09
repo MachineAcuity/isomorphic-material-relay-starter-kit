@@ -5,16 +5,6 @@ import { Uuid } from '../da_cassandra/_client.js';
 
 import User from '../model/User'
 
-// Helper function to make sure we get our proper FK ID values
-// The are constant so that we can use our cookies between server restarts
-function DA_User_GetUUIDByID( id : number ) : string
-{
-  if( id === 0 ) return '00000000-0000-0000-0000-000000000000'; // Anonymous user uses UUID also
-  else if( id === 1 ) return 'd362e1df-1fa8-466b-b311-af90b2a71e8e';
-  else if( id === 2 ) return '33171548-39d3-45d8-ab5c-5eedefe01dfc';
-  else throw new Error( 'Bad ID' );
-}
-
 // Mock data
 
 var User_listById = { };
