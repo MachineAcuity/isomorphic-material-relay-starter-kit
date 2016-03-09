@@ -8,7 +8,6 @@ import User from '../model/User'
 // Mock data
 
 var User_listById = { };
-User_listById[ DA_User_GetUUIDByID( 0 ) ] = new User( { id: Uuid.fromString( DA_User_GetUUIDByID( 0 ) ), username: '', password: '', User_DisplayName: 'Anonymous', User_ProfilePhoto: '', User_Email: '', User_Locale: '', User_AuthToken: '' } );
 
 
 // Data access functions
