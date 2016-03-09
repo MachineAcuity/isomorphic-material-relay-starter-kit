@@ -8,7 +8,6 @@ import { GraphQLInt, GraphQLID, GraphQLNonNull } from "graphql";
 import GraphQLDateTime from "../../../../graphql/scalar/GraphQLDateTime";
 
 import { cursorForObjectInConnectionWithUuidComparison } from '../../../../graphql/helper/mutation_helper';
-import { DA_User_get } from '../../../../data/da/User';
 
 import TranslaticiarumsConnection from '../type/TranslaticiarumsConnection';
 import ViewerType from '../../../../graphql/type/ViewerType';
@@ -41,7 +40,7 @@ export default mutationWithClientMutationId( {
     },
     Viewer: {
       type: ViewerType,
-      resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
+      resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
   mutateAndGetPayload: ( { Translaticiarum_Type, Translaticiarum_Date, Translaticiarum_Time }, { rootValue: {user_id, objectManager} } ) =>

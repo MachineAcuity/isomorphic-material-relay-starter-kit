@@ -3,8 +3,6 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_User_get } from '../../../../data/da/User';
-
 import EnsayoType from '../type/EnsayoType';
 
 export default mutationWithClientMutationId( {

@@ -6,7 +6,6 @@ import { GraphQLID, GraphQLNonNull, GraphQLObjectType } from "graphql";
 import ViewerType from "./ViewerType";
 import NodeInterface from "../interface/NodeInterface";
 
-import { DA_User_get } from '../../data/da/User';
 import { DA_Compendium_get } from '../../data/da/Compendium';
 import { DA_ToDo_get } from '../../data/da/ToDo';
 
@@ -21,12 +20,13 @@ function resolveNodeField( source, args, { rootValue: {user_id, objectManager} }
   // actual data for the record
   switch( type )
   {
-    case "Viewer":             return DA_User_get( local_id );
+    case "Viewer":             return objectManager.getOneById( 'User', local_id );
 
     case "Compendium":         return DA_Compendium_get( user_id, local_id );
-    case "Ensayo":             return objectManager.getOneById( 'Ensayo', local_id );
+    //case "Ensayo":             return objectManager.getOneById( 'Ensayo', local_id );
     case "ToDo":               return DA_ToDo_get( user_id, local_id );
-    case "Translaticiarum":    return objectManager.getOneById( 'Translaticiarum', local_id );
+    //case "Translaticiarum":    return objectManager.getOneById( 'Translaticiarum', local_id );
+    default:                   return objectManager.getOneById( type, local_id );
   }
 };
 
@@ -44,7 +44,7 @@ export default new GraphQLObjectType({
     },
     Viewer: {
       type: ViewerType,
-      resolve: ( parent, args, { rootValue: {user_id} } ) => DA_User_get( user_id )
+      resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   })
 });

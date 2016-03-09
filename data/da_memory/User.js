@@ -19,8 +19,6 @@ function DA_User_GetUUIDByID( id : number ) : string
 
 var User_listById = { };
 User_listById[ DA_User_GetUUIDByID( 0 ) ] = new User( { id: Uuid.fromString( DA_User_GetUUIDByID( 0 ) ), username: '', password: '', User_DisplayName: 'Anonymous', User_ProfilePhoto: '', User_Email: '', User_Locale: '', User_AuthToken: '' } );
-User_listById[ DA_User_GetUUIDByID( 1 ) ] = new User( { id: Uuid.fromString( DA_User_GetUUIDByID( 1 ) ), username: 'jack', password: '$2a$08$nRpts0s9gv3DwvpBY1ptRe6M1ushtVHHrU6W53zmp4g4OqngAi78y', User_DisplayName: 'Jack Van Der Cub', User_ProfilePhoto: '/profile_photos/jack.jpg', User_Email: 'jack@example.com', User_Locale: '', User_AuthToken: 'abc' } ); // Password: secret
-User_listById[ DA_User_GetUUIDByID( 2 ) ] = new User( { id: Uuid.fromString( DA_User_GetUUIDByID( 2 ) ), username: 'jill', password: '$2a$08$RLCA/lRJNQCcPNmCadXu2OVZeB8x4S0pMhkOLnV0uppbDYcGa5gMu', User_DisplayName: 'Jill McBear', User_ProfilePhoto: '/profile_photos/jill.jpg', User_Email: 'jill@example.com', User_Locale: '', User_AuthToken: 'def' } ); // Password: birthday
 
 
 // Data access functions
@@ -58,13 +56,6 @@ export function DA_User_getByUserName( username : string ) : Promise
 
     resolve( null );
   }, 100 ) );
-}
-
-export function DA_User_get( User_id : Uuid ) : Promise
-{
-  return new Promise( ( resolve, reject ) =>
-    setTimeout( ( ) => resolve( User_listById[ User_id.toString( ) ] ), 100 )
-  );
 }
 
 export function DA_User_update( User_id : Uuid, id : Uuid, fields : any )

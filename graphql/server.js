@@ -6,7 +6,6 @@ import graphQLHTTP from 'express-graphql';
 import ObjectManager from '../data/ObjectManager';
 import jwt from 'jwt-simple';
 
-import { DA_User_get } from '../data/da/User';
 import schema from './schema'; // Schema for GraphQL server
 
 // Read environment
@@ -35,7 +34,10 @@ router.use( '/', ( req, res, next ) =>
 
   const user_auth_token = req.get( 'user_auth_token' );
 
-  DA_User_get( user_id )
+  // For each request, create a separate object manager. It will be garbage collected after the request ends
+  const objectManager = new ObjectManager( );
+
+  objectManager.getOneById( 'User', user_id )
   .then( ( a_User) =>
   {
     let authenticationFailed = false;
@@ -56,7 +58,7 @@ router.use( '/', ( req, res, next ) =>
     graphQLHTTP( request => {
       return( {
         schema: schema,
-        rootValue: { user_id: user_id, objectManager: new ObjectManager( ) },
+        rootValue: { user_id, objectManager },
         pretty: true,
         graphiql: true,
       } )

@@ -4,7 +4,7 @@ import bcrypt from 'bcrypt';
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_User_get, DA_User_updatePassword } from '../../data/da/User';
+import { DA_User_updatePassword } from '../../data/da/User';
 
 import ViewerType from '../type/ViewerType';
 
@@ -18,7 +18,7 @@ export default mutationWithClientMutationId( {
   outputFields: {
     Viewer: {
       type: ViewerType,
-      resolve: ( {localId}, { ...args }, { rootValue: {user_id} } ) => DA_User_get( user_id, localId ),
+      resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
   mutateAndGetPayload: ( { id, User_Password, }, { rootValue: {user_id} } ) =>

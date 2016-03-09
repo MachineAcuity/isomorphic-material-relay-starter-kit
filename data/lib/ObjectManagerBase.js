@@ -12,6 +12,11 @@ import {
   ObjectPersister_remove
 } from '../da/ObjectPersister.js';
 
+import User from '../model/User';
+
+
+const User_0 = new User( { id: Uuid.fromString( '00000000-0000-0000-0000-000000000000' ), username: '', password: '', User_DisplayName: 'Anonymous', "User_ProfilePhoto": '', User_Email: '', User_Locale: '', User_AuthToken: '' } );
+
 export default class ObjectManagerBase
 {
   entityDefinitions: any;
@@ -53,9 +58,16 @@ export default class ObjectManagerBase
 
   getOneById( entityName: string, id: Uuid )
   {
-    const loader = this.getLoader( entityName, 'id', false );
+    // Special hack for anonymous users
+    if( entityName === 'User' && id === '00000000-0000-0000-0000-000000000000' )
+      return Promise.resolve( User_0 );
+    // For all non-user, non 0 ids, load from data loader
+    else
+    {
+      const loader = this.getLoader( entityName, 'id', false );
 
-    return loader.load( id.toString( ) );
+      return loader.load( id.toString( ) );
+    }
   }
 
   getListBy( entityName: string, fieldName: string, value: string )
