@@ -2,7 +2,7 @@
 
 import ObjectManagerBase from './lib/ObjectManagerBase';
 
-import Ensayo from './model/Ensayo';
+import Ensayo from '../units/imrsk-example-ensayo/graphql/model/Ensayo';
 import Translaticiarum from './model/Translaticiarum';
 
 export default class ObjectManager extends ObjectManagerBase

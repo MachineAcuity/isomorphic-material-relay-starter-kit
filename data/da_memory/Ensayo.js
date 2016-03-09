@@ -2,7 +2,6 @@
 
 import { Uuid } from '../da_cassandra/_client.js';
 
-import Ensayo from '../model/Ensayo'
 
 
 // Mock data

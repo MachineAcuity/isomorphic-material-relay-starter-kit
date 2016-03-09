@@ -10,8 +10,8 @@ import MenuItem from 'material-ui/lib/menus/menu-item';
 import NavigationMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
 
 
-import Ensayo_deleteMutation from '../mutations/Ensayo_deleteMutation';
-import Ensayo_updateMutation from '../mutations/Ensayo_updateMutation';
+import Ensayo_deleteMutation from '../../relay/Ensayo_deleteMutation';
+import Ensayo_updateMutation from '../../relay/Ensayo_updateMutation';
 
 import Ensayo_Properties from './Ensayo_Properties.jsx';
 

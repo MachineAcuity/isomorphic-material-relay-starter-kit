@@ -5,13 +5,13 @@ import chalk from 'chalk';
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
 import { GraphQLString, GraphQLNonNull } from "graphql";
 
-import GraphQLDateTime from "../scalar/GraphQLDateTime";
+import GraphQLDateTime from "../../../../graphql/scalar/GraphQLDateTime";
 
-import { cursorForObjectInConnectionWithUuidComparison } from '../helper/mutation_helper';
-import { DA_User_get } from '../../data/da/User';
+import { cursorForObjectInConnectionWithUuidComparison } from '../../../../graphql/helper/mutation_helper';
+import { DA_User_get } from '../../../../data/da/User';
 
 import EnsayosConnection from '../type/EnsayosConnection';
-import ViewerType from '../type/ViewerType';
+import ViewerType from '../../../../graphql/type/ViewerType';
 
 
 export default mutationWithClientMutationId( {

@@ -10,7 +10,7 @@ import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
 import TextField from 'material-ui/lib/text-field';
 
-import Ensayo_addMutation from '../mutations/Ensayo_addMutation';
+import Ensayo_addMutation from '../../relay/Ensayo_addMutation';
 
 import Ensayo_Properties from './Ensayo_Properties.jsx';
 

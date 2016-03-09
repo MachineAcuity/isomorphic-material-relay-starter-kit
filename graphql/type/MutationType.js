@@ -11,9 +11,9 @@ import Compendium_update from "../mutation/Compendium_update";
 
 // ->->-> Ensayo mutations imports
 
-import Ensayo_add from "../mutation/Ensayo_add";
-import Ensayo_delete from "../mutation/Ensayo_delete";
-import Ensayo_update from "../mutation/Ensayo_update";
+import Ensayo_add from "../../units/imrsk-example-ensayo/graphql/mutation/Ensayo_add";
+import Ensayo_delete from "../../units/imrsk-example-ensayo/graphql/mutation/Ensayo_delete";
+import Ensayo_update from "../../units/imrsk-example-ensayo/graphql/mutation/Ensayo_update";
 
 // <-<-<- Ensayo mutations imports
 
