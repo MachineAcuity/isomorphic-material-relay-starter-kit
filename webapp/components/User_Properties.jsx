@@ -70,7 +70,7 @@ class User_Properties extends React.Component
             />
             <SelectField
               value={ this.state.User_ProfilePhoto }
-              floatingLabelText="Which one is your favorite water mammal?"
+              floatingLabelText="Choose profile photo"
               onChange={ this._handle_onChange_User_ProfilePhoto }
               fullWidth={ true }
             >

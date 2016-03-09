@@ -2,12 +2,8 @@
 
 import {
   DA_User_add,
-  DA_User_update,
-  DA_User_updatePassword,
 } from '../da_cassandra/User';
 
 export {
   DA_User_add,
-  DA_User_update,
-  DA_User_updatePassword,
 };

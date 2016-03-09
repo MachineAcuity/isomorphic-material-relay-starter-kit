@@ -28,28 +28,3 @@ export function DA_User_add( fields : any ) : User
     return new_User;
   } )
 }
-
-export function DA_User_update( User_id : Uuid, id : Uuid, fields : any ) : Promise
-{
-  // We will not update User_User_id since it makes no sense to update it
-  let cqlText = 'UPDATE "User" SET "User_DisplayName" = ?, "User_ProfilePhoto" = ?, "User_Email" = ?, "User_Locale" = ? WHERE id = ?;';
-  let cqlParams = [
-    fields.User_DisplayName,
-    fields.User_ProfilePhoto,
-    fields.User_Email,
-    fields.User_Locale,
-    id,
-  ];
-  return runQueryNoResult( cqlText, cqlParams );
-}
-
-export function DA_User_updatePassword( User_id : Uuid, id : Uuid, User_Password : string ) : Promise
-{
-  // We will not update User_User_id since it makes no sense to update it
-  let cqlText = 'UPDATE "User" SET "password" = ? WHERE id = ?;';
-  let cqlParams = [
-    User_Password,
-    id,
-  ];
-  return runQueryNoResult( cqlText, cqlParams );
-}

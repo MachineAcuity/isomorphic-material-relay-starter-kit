@@ -4,8 +4,6 @@ import bcrypt from 'bcrypt';
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_User_updatePassword } from '../../data/da/User';
-
 import ViewerType from '../type/ViewerType';
 
 
@@ -21,20 +19,19 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
-  mutateAndGetPayload: ( { id, User_Password, }, { rootValue: {user_id} } ) =>
+  mutateAndGetPayload: ( { id, User_Password, }, { rootValue: {user_id, objectManager} } ) =>
   {
-    var localId = fromGlobalId( id ).id;
+    var local_id = fromGlobalId( id ).id;
 
     return new Promise( ( resolve ) => {
-      bcrypt.hash( User_Password, 8, ( err, hash ) => resolve( hash ) );
+      bcrypt.hash( User_Password, 8, ( err, password ) => resolve( password ) );
     } )
-    .then( ( hash ) => DA_User_updatePassword(
-      user_id,
-      localId,
-      hash,
-    ) )
+    .then( ( password ) => objectManager.update( 'User', {
+      id: local_id,
+      password,
+    } ) )
     .then( ( ) => {
-      return {localId};
+      return {local_id};
     } )
     ;
   },
