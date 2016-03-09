@@ -163,7 +163,7 @@ class AppBar_Auth extends React.Component
           fullWidth={ true }
           onEnterKeyDown={ this._handle_onEnterKeyDown_AuthenticationChallenge_Password }
         />
-      Valid user name/combinations are: jack/secret jill/birthday
+        If you are running the in-memory implementation, your users accounts will be lost upon app restart / heroku sleep.
       </Dialog>
     );
   }
