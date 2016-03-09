@@ -3,10 +3,9 @@
 import { globalIdField } from "graphql-relay";
 import { GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLID, GraphQLNonNull, GraphQLObjectType } from "graphql";
 
-import NodeInterface from "../interface/NodeInterface";
+import NodeInterface from "../../../../graphql/interface/NodeInterface";
 
-import Compendium from '../../data/model/Compendium';
-import { DA_Compendium_update } from '../../data/da/Compendium';
+import Compendium from '../model/Compendium';
 
 
 export default new GraphQLObjectType( {

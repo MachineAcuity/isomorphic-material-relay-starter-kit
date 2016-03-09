@@ -12,7 +12,7 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
 
-import Compendium_updateMutation from '../mutations/Compendium_updateMutation';
+import Compendium_updateMutation from '../../relay/Compendium_updateMutation';
 
 
 class Compendium extends React.Component

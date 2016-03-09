@@ -4,7 +4,7 @@ import {GraphQLObjectType} from "graphql";
 
 // ->->-> Compendium mutations imports
 
-import Compendium_update from "../mutation/Compendium_update";
+import Compendium_update from "../../units/imrsk-example-compendium/graphql/mutation/Compendium_update";
 
 // <-<-<- Compendium mutations imports
 

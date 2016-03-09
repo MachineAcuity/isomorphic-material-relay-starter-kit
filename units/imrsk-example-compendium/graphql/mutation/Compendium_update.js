@@ -3,8 +3,6 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLInt, GraphQLBoolean, GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_Compendium_get, DA_Compendium_update } from '../../data/da/Compendium';
-
 import CompendiumType from '../type/CompendiumType';
 
 
@@ -31,7 +29,7 @@ export default mutationWithClientMutationId( {
   outputFields: {
     Compendium: {
       type: CompendiumType,
-      resolve: ( {localId}, { ...args }, { rootValue: {user_id} } ) => DA_Compendium_get( user_id, localId ),
+      resolve: ( {local_id}, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'Compendium', local_id ),
     },
   },
   mutateAndGetPayload: ( {
@@ -51,31 +49,28 @@ export default mutationWithClientMutationId( {
     Compendium_LikedSunset_Green,
     Compendium_LikedSunset_Other,
     Compendium_LikedSunset_OtherText,
-  }, { rootValue: {user_id} } ) => {
-    var localId = fromGlobalId( id ).id;
-    return DA_Compendium_update(
-      user_id,
-      localId,
-      {
-        Compendium_FirstTextInput,
-        Compendium_RangedNumber,
-        Compendium_Excitement,
-        Compendium_FollowUpQuestion,
-        Compendium_FavoriteMammal,
-        Compendium_FavoriteMammalOtherText,
-        Compendium_LastText,
-        Compendium_LikedSunset_Ocean,
-        Compendium_LikedSunset_Lake,
-        Compendium_LikedSunset_Mountains,
-        Compendium_LikedSunset_Plains,
-        Compendium_LikedSunset_Purple,
-        Compendium_LikedSunset_Green,
-        Compendium_LikedSunset_Other,
-        Compendium_LikedSunset_OtherText,
-      }
-    )
+  }, { rootValue: {objectManager} } ) => {
+    var local_id = fromGlobalId( id ).id;
+    return objectManager.update( 'Ensayo', {
+      id: local_id,
+      Compendium_FirstTextInput,
+      Compendium_RangedNumber,
+      Compendium_Excitement,
+      Compendium_FollowUpQuestion,
+      Compendium_FavoriteMammal,
+      Compendium_FavoriteMammalOtherText,
+      Compendium_LastText,
+      Compendium_LikedSunset_Ocean,
+      Compendium_LikedSunset_Lake,
+      Compendium_LikedSunset_Mountains,
+      Compendium_LikedSunset_Plains,
+      Compendium_LikedSunset_Purple,
+      Compendium_LikedSunset_Green,
+      Compendium_LikedSunset_Other,
+      Compendium_LikedSunset_OtherText,
+    } )
     .then( ( ) => {
-      return {localId};
+      return {local_id};
     } )
     ;
   },

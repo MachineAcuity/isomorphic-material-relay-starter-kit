@@ -5,8 +5,7 @@ import { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLString, GraphQLObjectType
 import { fromGlobalId, connectionArgs, connectionFromArray } from "graphql-relay";
 
 
-import CompendiumsConnection from "./CompendiumsConnection";
-import { DA_Compendium_list_get } from '../../data/da/Compendium';
+import CompendiumsConnection from "../../units/imrsk-example-compendium/graphql/type/CompendiumsConnection";
 import { DA_ToDo_list_get } from '../../data/da/ToDo';
 import NodeInterface from "../interface/NodeInterface";
 import EnsayosConnection from "../../units/imrsk-example-ensayo/graphql/type/EnsayosConnection";
