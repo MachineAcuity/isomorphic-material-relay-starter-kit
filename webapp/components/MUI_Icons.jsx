@@ -181,7 +181,7 @@ export default Relay.createContainer(MUI_Icons, {
   fragments: {
     Viewer: () => Relay.QL`
       fragment on Viewer {
-        ToDo_TotalCount,
+        User_IsAnonymous,
       }
     `,
   },

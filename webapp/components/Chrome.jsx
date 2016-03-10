@@ -185,6 +185,8 @@ export default Relay.createContainer( Chrome, {
       fragment on Viewer {
         User_IsAnonymous,
         User_AuthToken,
+        ToDo_TotalCount,
+        ToDo_CompletedCount,
         ${AppBar_Auth.getFragment('Viewer')},
       }
     `,

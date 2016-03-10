@@ -74,7 +74,7 @@ export default new GraphQLObjectType( {
       resolve: ( obj, { status, ...args }, { rootValue: {user_id, objectManager} } ) =>
         //Filter for: status
         objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) )
-        .then( ( arr ) => connectionFromArray( arr, args )
+        .then( ( arr ) => connectionFromArray( arr.filter( a_ToDo => status == 'any' || ( a_ToDo.ToDo_Complete == ( status == 'completed' ) ) ), args )
       )
     },
     ToDo_TotalCount: {
@@ -83,8 +83,7 @@ export default new GraphQLObjectType( {
     },
     ToDo_CompletedCount: {
       type: GraphQLInt,
-      // Filter for: 'completed'
-      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) ).then( ( arr ) => arr.length )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) ).then( ( arr ) => arr.filter( a_ToDo => a_ToDo.ToDo_Complete ).length )
     },
 
     // <-<-<- ToDo access through user
