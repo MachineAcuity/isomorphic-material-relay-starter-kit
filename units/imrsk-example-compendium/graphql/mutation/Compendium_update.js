@@ -51,7 +51,7 @@ export default mutationWithClientMutationId( {
     Compendium_LikedSunset_OtherText,
   }, { rootValue: {objectManager} } ) => {
     var local_id = fromGlobalId( id ).id;
-    return objectManager.update( 'Ensayo', {
+    return objectManager.update( 'Compendium', {
       id: local_id,
       Compendium_FirstTextInput,
       Compendium_RangedNumber,

@@ -6,6 +6,7 @@ import { fromGlobalId, connectionArgs, connectionFromArray } from "graphql-relay
 
 
 import CompendiumsConnection from "../../units/imrsk-example-compendium/graphql/type/CompendiumsConnection";
+import Compendium_getListOrCreate from "../../units/imrsk-example-compendium/graphql/helper/Compendium_getListOrCreate";
 import { DA_ToDo_list_get } from '../../data/da/ToDo';
 import NodeInterface from "../interface/NodeInterface";
 import EnsayosConnection from "../../units/imrsk-example-ensayo/graphql/type/EnsayosConnection";
@@ -40,7 +41,7 @@ export default new GraphQLObjectType( {
     compendiums: {
       type: CompendiumsConnection.connectionType,
       args: { ...connectionArgs },
-      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'Compendium', 'Compendium_User_id', user_id.toString( ) ).then( ( arr ) => connectionFromArray( arr, args ) )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => Compendium_getListOrCreate( user_id, objectManager ).then( ( arr ) => connectionFromArray( arr, args ) )
     },
 
     // <-<-<- Compendium access through user
@@ -55,7 +56,7 @@ export default new GraphQLObjectType( {
     Ensayo: {
       type: EnsayoType,
       args: { ...{ id: { type: GraphQLID } } },
-      resolve: ( parent, { id }, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'Ensayo', fromGlobalId(id).id ),
+      resolve: ( parent, { id }, { rootValue: {objectManager} } ) => objectManager.getOneById( 'Ensayo', fromGlobalId(id).id ),
     },
 
     // <-<-<- Ensayo access through user
