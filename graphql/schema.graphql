@@ -118,7 +118,6 @@ type Mutation {
   ToDo_delete(input: ToDo_deleteInput!): ToDo_deletePayload
   ToDo_updateRename(input: ToDo_updateRenameInput!): ToDo_updateRenamePayload
   ToDo_list_updateMarkAll(input: ToDo_list_updateMarkAllInput!): ToDo_list_updateMarkAllPayload
-  ToDo_list_deleteCompleted(input: ToDo_list_deleteCompletedInput!): ToDo_list_deleteCompletedPayload
   Translaticiarum_add(input: Translaticiarum_addInput!): Translaticiarum_addPayload
   Translaticiarum_delete(input: Translaticiarum_deleteInput!): Translaticiarum_deletePayload
   Translaticiarum_update(input: Translaticiarum_updateInput!): Translaticiarum_updatePayload
@@ -166,16 +165,6 @@ input ToDo_deleteInput {
 
 type ToDo_deletePayload {
   deletedToDoId: ID
-  Viewer: Viewer
-  clientMutationId: String!
-}
-
-input ToDo_list_deleteCompletedInput {
-  clientMutationId: String!
-}
-
-type ToDo_list_deleteCompletedPayload {
-  deletedToDoIds: [String]
   Viewer: Viewer
   clientMutationId: String!
 }

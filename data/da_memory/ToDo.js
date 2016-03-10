@@ -106,16 +106,3 @@ export function DA_ToDo_list_updateMarkAll( User_id, ToDo_Complete )
     return( changedToDos.map( a_ToDo => a_ToDo.id ) );
   } );
 }
-
-export function DA_ToDo_list_deleteCompleted( User_id )
-{
-  throw new Error( "The code below should be re-written with promises" );
-  /*
-  return new Promise( ( resolve, reject ) => setTimeout( ( ) =>
-  {
-    var ToDo_listToRemove = DA_ToDo_list_get( User_id ).filter( a_ToDo => a_ToDo.ToDo_Complete );
-    ToDo_listToRemove.forEach( a_ToDo => DA_ToDo_delete( User_id, a_ToDo.id ) );
-    resolve( ToDo_listToRemove.map( a_ToDo => a_ToDo.id ) );
-  }, 100 ) );
-  */
-}
