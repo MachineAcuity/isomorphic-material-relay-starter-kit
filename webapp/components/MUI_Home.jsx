@@ -36,7 +36,7 @@ export default Relay.createContainer( MUI_Home, {
   fragments: {
     Viewer: () => Relay.QL`
       fragment on Viewer {
-        ToDo_TotalCount,
+        User_IsAnonymous,
       }
     `,
   },

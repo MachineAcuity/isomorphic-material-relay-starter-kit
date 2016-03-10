@@ -9,8 +9,8 @@ import Ensayo_PublicListing from '../units/imrsk-example-ensayo/webapp/component
 import Home_Screen from './components/Home_Screen.jsx';
 import MUI_Icons from './components/MUI_Icons.jsx';
 import MUI_Home from './components/MUI_Home.jsx';
-import ToDo_List from './components/ToDo_List.jsx';
-import ToDo_Screen from './components/ToDo_Screen.jsx';
+import ToDo_List from '../units/imrsk-example-todo/webapp/components/ToDo_List.jsx';
+import ToDo_Screen from '../units/imrsk-example-todo/webapp/components/ToDo_Screen.jsx';
 import Translaticiarum_List from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_List.jsx';
 import Translaticiarum_Grid from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_Grid.jsx';
 import Translaticiarum_Screen from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_Screen.jsx';

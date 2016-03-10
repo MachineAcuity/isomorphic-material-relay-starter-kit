@@ -3,9 +3,7 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_ToDo_delete } from '../../data/da/ToDo';
-
-import ViewerType from '../type/ViewerType';
+import ViewerType from '../../../../graphql/type/ViewerType';
 
 
 export default mutationWithClientMutationId( {
@@ -23,10 +21,10 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
-  mutateAndGetPayload: ( {id}, { rootValue: {user_id} } ) =>
+  mutateAndGetPayload: ( {id}, { rootValue: {objectManager} } ) =>
   {
-    var localToDoId = fromGlobalId(id).id;
-    return DA_ToDo_delete( user_id, localToDoId )
+    var local_id = fromGlobalId(id).id;
+    return objectManager.remove( 'ToDo', { id: local_id} )
     .then( ( ) => ( {id} ) )
     ;
   }

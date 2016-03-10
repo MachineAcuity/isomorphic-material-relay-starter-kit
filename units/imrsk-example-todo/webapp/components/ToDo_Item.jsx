@@ -10,9 +10,9 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import MenuItem from 'material-ui/lib/menus/menu-item';
 import NavigationMoreVert from 'material-ui/lib/svg-icons/navigation/more-vert';
 
-import ToDo_updateStatusMutation from '../mutations/ToDo_updateStatusMutation';
-import ToDo_deleteMutation from '../mutations/ToDo_deleteMutation';
-import ToDo_updateRenameMutation from '../mutations/ToDo_updateRenameMutation';
+import ToDo_updateStatusMutation from '../../relay/ToDo_updateStatusMutation';
+import ToDo_deleteMutation from '../../relay/ToDo_deleteMutation';
+import ToDo_updateRenameMutation from '../../relay/ToDo_updateRenameMutation';
 
 import ToDo_Properties from './ToDo_Properties.jsx';
 

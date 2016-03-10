@@ -3,8 +3,6 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_ToDo_get, DA_ToDo_update } from '../../data/da/ToDo';
-
 import ToDoType from '../type/ToDoType';
 
 export default mutationWithClientMutationId( {
@@ -16,13 +14,16 @@ export default mutationWithClientMutationId( {
   outputFields: {
     ToDo: {
       type: ToDoType,
-      resolve: ( {localToDoId}, { ...args }, { rootValue: {user_id} } ) => DA_ToDo_get( user_id, localToDoId ),
+      resolve: ( {local_id}, { ...args }, { rootValue: {objectManager} } ) => objectManager.getOneById( 'ToDo', local_id )
     }
   },
-  mutateAndGetPayload: ( {id, ToDo_Text}, { rootValue: {user_id} } ) => {
-    var localToDoId = fromGlobalId(id).id;
-    return DA_ToDo_update( user_id, localToDoId, { ToDo_Text: ToDo_Text } )
-    .then( ( ) => ( {localToDoId} ) )
+  mutateAndGetPayload: ( {id, ToDo_Text}, { rootValue: {objectManager} } ) => {
+    var local_id = fromGlobalId(id).id;
+    return objectManager.update( 'ToDo', {
+      id: local_id,
+      ToDo_Text
+    } )
+    .then( ( ) => ( {local_id} ) )
     ;
   },
 } );

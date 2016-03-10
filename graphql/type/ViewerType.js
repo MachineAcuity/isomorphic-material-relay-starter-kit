@@ -7,11 +7,10 @@ import { fromGlobalId, connectionArgs, connectionFromArray } from "graphql-relay
 
 import CompendiumsConnection from "../../units/imrsk-example-compendium/graphql/type/CompendiumsConnection";
 import Compendium_getListOrCreate from "../../units/imrsk-example-compendium/graphql/helper/Compendium_getListOrCreate";
-import { DA_ToDo_list_get } from '../../data/da/ToDo';
 import NodeInterface from "../interface/NodeInterface";
 import EnsayosConnection from "../../units/imrsk-example-ensayo/graphql/type/EnsayosConnection";
 import EnsayoType from "../../units/imrsk-example-ensayo/graphql/type/EnsayoType";
-import ToDosConnection from "./ToDosConnection";
+import ToDosConnection from "../../units/imrsk-example-todo/graphql/type/ToDosConnection";
 import TranslaticiarumsConnection from "../../units/imrsk-example-translaticiarum/graphql/type/TranslaticiarumsConnection";
 import User from '../../data/model/User';
 import { Uuid } from '../../data/da_cassandra/_client.js';
@@ -72,15 +71,19 @@ export default new GraphQLObjectType( {
         },
         ...connectionArgs,
       },
-      resolve: ( obj, { status, ...args }, { rootValue: {user_id} } ) => DA_ToDo_list_get( user_id, status ).then( ( arr_ToDo ) => connectionFromArray( arr_ToDo, args ) )
+      resolve: ( obj, { status, ...args }, { rootValue: {user_id, objectManager} } ) => {
+        //Filter for: status
+        return objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) )
+        .then( ( arr ) => connectionFromArray( arr.filter( a_ToDo => status === 'any' || ( a_ToDo.ToDo_Complete === ( status === 'completed' ) ) ), args ) )
+      }
     },
     ToDo_TotalCount: {
       type: GraphQLInt,
-      resolve: ( obj, { status, ...args }, { rootValue: {user_id} } ) => DA_ToDo_list_get( user_id ).then( ( arr_ToDo ) => arr_ToDo.length )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) ).then( ( arr ) => arr.length )
     },
     ToDo_CompletedCount: {
       type: GraphQLInt,
-      resolve: ( obj, { status, ...args }, { rootValue: {user_id} } ) => DA_ToDo_list_get( user_id, 'completed' ).then( ( arr_ToDo ) => arr_ToDo.length )
+      resolve: ( obj, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) ).then( ( arr ) => arr.filter( a_ToDo => a_ToDo.ToDo_Complete ).length )
     },
 
     // <-<-<- ToDo access through user

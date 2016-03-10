@@ -3,10 +3,9 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 
-import { DA_ToDo_get, DA_ToDo_list_updateMarkAll } from '../../data/da/ToDo';
-
+import ToDo_list_updateMarkAll from '../helper/ToDo_list_updateMarkAll';
 import ToDoType from '../type/ToDoType';
-import ViewerType from '../type/ViewerType';
+import ViewerType from '../../../../graphql/type/ViewerType';
 
 
 export default mutationWithClientMutationId( {
@@ -17,17 +16,17 @@ export default mutationWithClientMutationId( {
   outputFields: {
     changedToDos: {
       type: new GraphQLList(ToDoType),
-      resolve: ( {changedToDoLocalIds} ) => changedToDoLocalIds.map( DA_ToDo_get ),
+      resolve: ( {arr_local_ids_Changed_ToDos}, args, { rootValue: {user_id, objectManager} } ) => arr_local_ids_Changed_ToDos.map( local_id => objectManager.getOneById( 'ToDo', local_id ) ),
     },
     Viewer: {
       type: ViewerType,
       resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
-  mutateAndGetPayload: ( {ToDo_Complete}, { rootValue: {user_id} } ) =>
+  mutateAndGetPayload: ( {ToDo_Complete}, { rootValue: {user_id, objectManager} } ) =>
   {
-    return DA_ToDo_list_updateMarkAll( user_id, ToDo_Complete )
-    .then( ( changedToDoLocalIds ) => ( {changedToDoLocalIds} ) )
+    return ToDo_list_updateMarkAll( user_id, objectManager, ToDo_Complete )
+    .then( ( arr_local_ids_Changed_ToDos ) => ( {arr_local_ids_Changed_ToDos} ) )
     ;
   }
 } );

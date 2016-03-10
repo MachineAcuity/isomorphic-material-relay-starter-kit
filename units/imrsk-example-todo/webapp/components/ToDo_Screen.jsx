@@ -7,7 +7,7 @@ import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import TextField from 'material-ui/lib/text-field';
 
-import ToDo_addMutation from '../mutations/ToDo_addMutation';
+import ToDo_addMutation from '../../relay/ToDo_addMutation';
 
 class ToDo_Screen extends React.Component
 {
