@@ -16,7 +16,7 @@ export default mutationWithClientMutationId( {
   outputFields: {
     changedToDos: {
       type: new GraphQLList(ToDoType),
-      resolve: ( {changedToDoLocalIds}, args, { rootValue: {user_id, objectManager} } ) => changedToDoLocalIds.map( local_id => objectManager.getOneById( 'ToDo', local_id ) ),
+      resolve: ( {arr_local_ids_Changed_ToDos}, args, { rootValue: {user_id, objectManager} } ) => arr_local_ids_Changed_ToDos.map( local_id => objectManager.getOneById( 'ToDo', local_id ) ),
     },
     Viewer: {
       type: ViewerType,
@@ -26,7 +26,7 @@ export default mutationWithClientMutationId( {
   mutateAndGetPayload: ( {ToDo_Complete}, { rootValue: {user_id, objectManager} } ) =>
   {
     return ToDo_list_updateMarkAll( user_id, objectManager, ToDo_Complete )
-    .then( ( changedToDoLocalIds ) => ( {changedToDoLocalIds} ) )
+    .then( ( arr_local_ids_Changed_ToDos ) => ( {arr_local_ids_Changed_ToDos} ) )
     ;
   }
 } );

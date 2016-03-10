@@ -1,39 +1,21 @@
 import ToDo from '../model/ToDo'
 import ObjectManager from '../../../../data/ObjectManager'
 
-export default function ToDo_list_updateMarkAll( user_id, objectManager, ToDo_Complete )
+export default function ToDo_list_updateMarkAll( user_id, objectManager, ToDo_CompleteNew )
 {
   return objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) )
   .then( ( arr ) => {
-    if( arr.length > 0 )
-      return arr;
-    else
-    {
-      const ToDo = new ToDo( {
-        ToDo_User_id: user_id,
-        ToDo_FirstTextInput: "",
-        ToDo_RangedNumber: 0,
-        ToDo_Excitement: 0,
-        ToDo_FollowUpQuestion: "",
-        ToDo_FavoriteMammal: 0,
-        ToDo_FavoriteMammalOtherText: "",
-        ToDo_LastText: "",
-        ToDo_LikedSunset_Ocean: false,
-        ToDo_LikedSunset_Lake: false,
-        ToDo_LikedSunset_Mountains: false,
-        ToDo_LikedSunset_Plains: false,
-        ToDo_LikedSunset_Purple: false,
-        ToDo_LikedSunset_Green: false,
-        ToDo_LikedSunset_Other: false,
-        ToDo_LikedSunset_OtherText: "",
-      } );
+    const arr_filtered = arr.filter( a_ToDo => a_ToDo.ToDo_Complete != ToDo_CompleteNew );
 
-      return objectManager.add( 'ToDo', ToDo )
-      .then( ( local_id ) => {
-        ToDo.id = local_id;
-        return [ ToDo ];
-      } )
-    }
+    const arrPromiseToUpdate = arr_filtered.map( a_ToDo => objectManager.update( 'ToDo', {
+      id: a_ToDo.id,
+      ToDo_Complete: ToDo_CompleteNew
+    } ) );
+
+    const arr_local_ids_Changed_ToDos = arr_filtered.map( a_ToDo => a_ToDo.id );
+
+    return Promise.all( arrPromiseToUpdate )
+    .then( ( ) => ( arr_local_ids_Changed_ToDos ) );
   } )
   ;
 }
