@@ -3,10 +3,8 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLBoolean, GraphQLID, GraphQLList, GraphQLNonNull } from "graphql";
 
-import { DA_ToDo_get, DA_ToDo_list_updateMarkAll } from '../../data/da/ToDo';
-
 import ToDoType from '../type/ToDoType';
-import ViewerType from '../type/ViewerType';
+import ViewerType from '../../../../graphql/type/ViewerType';
 
 
 export default mutationWithClientMutationId( {

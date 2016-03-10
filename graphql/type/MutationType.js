@@ -20,11 +20,11 @@ import Ensayo_update from "../../units/imrsk-example-ensayo/graphql/mutation/Ens
 
 // ->->-> ToDo mutations imports
 
-import ToDo_add from "../mutation/ToDo_add";
-import ToDo_updateStatus from "../mutation/ToDo_updateStatus";
-import ToDo_list_updateMarkAll from "../mutation/ToDo_list_updateMarkAll";
-import ToDo_delete from "../mutation/ToDo_delete";
-import ToDo_updateRename from "../mutation/ToDo_updateRename";
+import ToDo_add from "../../units/imrsk-example-todo/graphql/mutation/ToDo_add";
+import ToDo_updateStatus from "../../units/imrsk-example-todo/graphql/mutation/ToDo_updateStatus";
+import ToDo_list_updateMarkAll from "../../units/imrsk-example-todo/graphql/mutation/ToDo_list_updateMarkAll";
+import ToDo_delete from "../../units/imrsk-example-todo/graphql/mutation/ToDo_delete";
+import ToDo_updateRename from "../../units/imrsk-example-todo/graphql/mutation/ToDo_updateRename";
 
 // <-<-<- ToDo mutations imports
 

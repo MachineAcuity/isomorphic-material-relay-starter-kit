@@ -3,10 +3,8 @@
 import { fromGlobalId, mutationWithClientMutationId } from "graphql-relay";
 import { GraphQLBoolean, GraphQLID, GraphQLNonNull } from "graphql";
 
-import { DA_ToDo_get, DA_ToDo_update } from '../../data/da/ToDo';
-
 import ToDoType from '../type/ToDoType';
-import ViewerType from '../type/ViewerType';
+import ViewerType from '../../../../graphql/type/ViewerType';
 
 
 export default mutationWithClientMutationId( {
@@ -18,7 +16,7 @@ export default mutationWithClientMutationId( {
   outputFields: {
     ToDo: {
       type: ToDoType,
-      resolve: ( {localToDoId}, { ...args }, { rootValue: {user_id} } ) => DA_ToDo_get( user_id, localToDoId ),
+      resolve: ( {local_id}, { ...args }, { rootValue: {user_id} } ) => DA_ToDo_get( user_id, local_id ),
     },
     Viewer: {
       type: ViewerType,
@@ -26,9 +24,9 @@ export default mutationWithClientMutationId( {
     },
   },
   mutateAndGetPayload: ( { id, ToDo_Complete }, { rootValue: {user_id} } ) => {
-    var localToDoId = fromGlobalId(id).id;
-    return DA_ToDo_update( user_id, localToDoId, { ToDo_Complete: ToDo_Complete } )
-    .then( ( ) => ( {localToDoId} ) )
+    var local_id = fromGlobalId(id).id;
+    return DA_ToDo_update( user_id, local_id, { ToDo_Complete: ToDo_Complete } )
+    .then( ( ) => ( {local_id} ) )
     ;
   },
 } );

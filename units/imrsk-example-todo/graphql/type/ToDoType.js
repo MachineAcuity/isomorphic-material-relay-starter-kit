@@ -3,9 +3,9 @@
 import { globalIdField } from "graphql-relay";
 import { GraphQLBoolean, GraphQLString, GraphQLObjectType } from "graphql";
 
-import NodeInterface from "../interface/NodeInterface";
+import NodeInterface from "../../../../graphql/interface/NodeInterface";
 
-import ToDo from '../../data/model/ToDo';
+import ToDo from '../model/ToDo';
 
 export default new GraphQLObjectType( {
   name: 'ToDo',
