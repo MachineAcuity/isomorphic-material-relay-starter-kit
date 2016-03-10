@@ -71,11 +71,11 @@ export default new GraphQLObjectType( {
         },
         ...connectionArgs,
       },
-      resolve: ( obj, { status, ...args }, { rootValue: {user_id, objectManager} } ) =>
+      resolve: ( obj, { status, ...args }, { rootValue: {user_id, objectManager} } ) => {
         //Filter for: status
-        objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) )
-        .then( ( arr ) => connectionFromArray( arr.filter( a_ToDo => status == 'any' || ( a_ToDo.ToDo_Complete == ( status == 'completed' ) ) ), args )
-      )
+        return objectManager.getListBy( 'ToDo', 'ToDo_User_id', user_id.toString( ) )
+        .then( ( arr ) => connectionFromArray( arr.filter( a_ToDo => status === 'any' || ( a_ToDo.ToDo_Complete === ( status === 'completed' ) ) ), args ) )
+      }
     },
     ToDo_TotalCount: {
       type: GraphQLInt,
