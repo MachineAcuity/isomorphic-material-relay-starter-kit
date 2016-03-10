@@ -18,7 +18,7 @@ export default mutationWithClientMutationId( {
   outputFields: {
     Translaticiarum: {
       type: TranslaticiarumType,
-      resolve: ( {local_id}, { ...args }, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'Translaticiarum', local_id ),
+      resolve: ( {local_id}, { ...args }, { rootValue: {objectManager} } ) => objectManager.getOneById( 'Translaticiarum', local_id ),
     }
   },
   mutateAndGetPayload: ( {id, Translaticiarum_Type, Translaticiarum_Date, Translaticiarum_Time }, { rootValue: {objectManager} } ) => {

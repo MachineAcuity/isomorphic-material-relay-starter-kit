@@ -14,12 +14,15 @@ export default mutationWithClientMutationId( {
   outputFields: {
     ToDo: {
       type: ToDoType,
-      resolve: ( {local_id}, { ...args }, { rootValue: {user_id} } ) => DA_ToDo_get( user_id, local_id ),
+      resolve: ( {local_id}, { ...args }, { rootValue: {objectManager} } ) => objectManager.getOneById( 'ToDo', local_id )
     }
   },
-  mutateAndGetPayload: ( {id, ToDo_Text}, { rootValue: {user_id} } ) => {
+  mutateAndGetPayload: ( {id, ToDo_Text}, { rootValue: {objectManager} } ) => {
     var local_id = fromGlobalId(id).id;
-    return DA_ToDo_update( user_id, local_id, { ToDo_Text: ToDo_Text } )
+    return objectManager.update( 'ToDo', {
+      id: local_id,
+      ToDo_Text
+    } )
     .then( ( ) => ( {local_id} ) )
     ;
   },

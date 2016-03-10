@@ -21,10 +21,10 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
-  mutateAndGetPayload: ( {id}, { rootValue: {user_id} } ) =>
+  mutateAndGetPayload: ( {id}, { rootValue: {objectManager} } ) =>
   {
     var local_id = fromGlobalId(id).id;
-    return DA_ToDo_delete( user_id, local_id )
+    return objectManager.remove( 'ToDo', { id: local_id} )
     .then( ( ) => ( {id} ) )
     ;
   }
