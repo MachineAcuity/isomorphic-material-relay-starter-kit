@@ -2,12 +2,21 @@
 
 import Colors from 'material-ui/lib/styles/colors';
 import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
-import Spacing from 'material-ui/lib/styles/spacing';
-import zIndex from 'material-ui/lib/styles/zIndex';
 
 export default {
-  spacing: Spacing,
-  zIndex: zIndex,
+  spacing: {
+    iconSize: 24,
+    desktopGutter: 24,
+    desktopGutterMore: 32,
+    desktopGutterLess: 16,
+    desktopGutterMini: 8,
+    desktopKeylineIncrement: 64,
+    desktopDropDownMenuItemHeight: 32,
+    desktopDropDownMenuFontSize: 15,
+    desktopLeftNavMenuItemHeight: 48,
+    desktopSubheaderHeight: 48,
+    desktopToolbarHeight: 56,
+  },
   fontFamily: 'Roboto, sans-serif',
   palette: {
     primary1Color: Colors.blue500,
@@ -22,5 +31,6 @@ export default {
     borderColor: Colors.grey300,
     disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
     pickerHeaderColor: Colors.blue500,
-  }
+  },
+  avatar: { borderColor: null, },
 };

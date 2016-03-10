@@ -258,13 +258,14 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `server/server.js`                            | Main script. Loads all other servers. | [*](./server/server.js) |
 | `webapp/`                                     | Root for the entire web application. | [*](./webapp/) |
 | `webapp/components/`                          | All the JSX components used by the web app. | [*](./webapp/components/) |
+| `webapp/mui-themes/`                          | Material-UI themes. | [*](./webapp/mui-themes/) |
+| `webapp/mui-themes/active-theme.js`           | Points to the theme that is currently active. | [*](./webapp/mui-themes/active-theme.js) |
 | `webapp/mutations/`                           | Client side GraphQL mutations. | [*](./webapp/mutations/) |
 | `webapp/queries/`                             | Common GraphQL queries. | [*](./webapp/queries/) |
 | `webapp/queries/ViewerQueries.js`             | Query used for all the Relay containers. | [*](./webapp/queries/ViewerQueries.js) |
 | `webapp/scripts/`                             | Scripts used by the client. | [*](./webapp/scripts/) |
 | `webapp/styles/`                              | Styles used by the client. | [*](./webapp/styles/) |
 | `webapp/styles/main.css`                      | Example style included in the app. Currently not used. | [*](./webapp/styles/main.css) |
-| `webapp/styles/RawMUITheme.js`                | Theme for Material-UI. | [*](./webapp/styles/RawMUITheme.js) |
 | `webapp/views/`                               | Views served by the express web app. | [*](./webapp/views/) |
 | `webapp/views/index.ejs`                      | Template for the HTML served by the isomorphic server rendered. | [*](./webapp/views/index.ejs) |
 | `webapp/app.js`                               | Starts the client-side SPA using data generated during server rendering. | [*](./webapp/app.js) |
@@ -276,7 +277,7 @@ Below is the list of the main files and folders for this project. Asterisk on th
 
 ## Customizing the look and feel
 
-Material-UI provides powerful means for [customizing the colors and the overall look of the application](http://www.material-ui.com/#/customization/themes). The IMRSK uses a custom theme defined in [./webapp/styles/RawMUITheme.js](./webapp/styles/RawMUITheme.js):
+Material-UI provides powerful means for [customizing the colors and the overall look of the application](http://www.material-ui.com/#/customization/themes). The IMRSK uses a custom theme as indicated in [./webapp/mui-themes/active-theme.js](./webapp/mui-themes/active-theme.js). The `active-theme.js` file itself simply imports and re-exports one of the themes in the folder. By convention, all components will be importing `active-theme.js` whenever theme information is required on the component level. Here is an example of some of the settings from the [webapp/mui-themes/grayBlue.js](./webapp/mui-themes/grayBlue.js)
 
 ``` Javascript
 primary1Color: Colors.blue500,

@@ -24,7 +24,7 @@ const SelectableList = SelectableContainerEnhance(List);
 
 import AppBar_Auth from './AppBar_Auth.jsx';
 import AppBar_Language from './AppBar_Language.jsx';
-import RawMUITheme from '../styles/RawMUITheme.js';
+import ActiveTheme from '../mui-themes/active-theme.js';
 
 
 class Chrome extends React.Component
@@ -42,11 +42,8 @@ class Chrome extends React.Component
   {
     return ( {
       muiTheme: getMuiTheme(
-        RawMUITheme,
-        {
-          avatar: { borderColor: null, },
-          userAgent: navigator.userAgent,
-        }
+        ActiveTheme,
+        { userAgent: navigator.userAgent, }
       ),
     } );
   }
@@ -140,7 +137,7 @@ class Chrome extends React.Component
           style={ {
             zIndex: 2,
             position: 'fixed',
-            backgroundColor: RawMUITheme.palette.accent2Color,
+            backgroundColor: ActiveTheme.palette.accent2Color,
           } }
         >
           <ToolbarGroup firstChild={true} float="left">
