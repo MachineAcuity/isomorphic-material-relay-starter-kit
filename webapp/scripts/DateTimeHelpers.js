@@ -1,15 +1,33 @@
 /* @flow weak */
 
-const TimeZoneOffset = new Date( 1970, 0, 1 ).getTime( );
-
 export function dateUTCToLocal( date )
 {
-  return new Date( date.getTime( ) + TimeZoneOffset );
+  const dateLocal = new Date( );
+
+  dateLocal.setFullYear( date.getUTCFullYear( ) );
+  dateLocal.setDate( date.getUTCDate( ) );
+  dateLocal.setMonth( date.getUTCMonth( ) );
+  dateLocal.setHours( date.getUTCHours( ) );
+  dateLocal.setMinutes( date.getUTCMinutes( ) );
+  dateLocal.setSeconds( date.getUTCSeconds( ) );
+  dateLocal.setMilliseconds( date.getUTCMilliseconds( ) );
+
+  return dateLocal;
 }
 
 export function dateLocalToUTC( date )
 {
-  return new Date( date.getTime( ) - TimeZoneOffset );
+  const dateUTC = new Date( );
+
+  dateUTC.setUTCFullYear( date.getFullYear( ) );
+  dateUTC.setUTCDate( date.getDate( ) );
+  dateUTC.setUTCMonth( date.getMonth( ) );
+  dateUTC.setUTCHours( date.getHours( ) );
+  dateUTC.setUTCMinutes( date.getMinutes( ) );
+  dateUTC.setUTCSeconds( date.getSeconds( ) );
+  dateUTC.setUTCMilliseconds( date.getMilliseconds( ) );
+
+  return dateUTC;
 }
 
 export function dateFromUTCString( s )

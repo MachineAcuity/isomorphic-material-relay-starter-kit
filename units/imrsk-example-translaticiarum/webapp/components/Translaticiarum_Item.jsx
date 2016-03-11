@@ -55,10 +55,6 @@ class Translaticiarum_Item extends React.Component
     const theTime = dateFromUTCString( this.props.Translaticiarum.Translaticiarum_Time );
 
     const theDateTime = dateUTCToLocal( new Date( theDate.getTime( ) + theTime.getTime( ) ) );
-    // theDate.setHours( theTime.getHours( ) );
-    // theDate.setMinutes( theTime.getMinutes( ) );
-    // theDate.setSeconds( theTime.getSeconds( ) );
-    // theDate.setMilliseconds( theTime.getMilliseconds( ) );
 
     const rightIconMenu = (
       <IconMenu
