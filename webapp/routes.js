@@ -1,5 +1,9 @@
 /* @flow weak */
 
+import React from 'react';
+import { createRoutes, IndexRoute, Route } from 'react-router';
+import Relay from 'react-relay';
+
 import Chrome from './components/Chrome.jsx';
 import Compendium from '../units/imrsk-example-compendium/webapp/components/Compendium.jsx';
 import Ensayo_List from '../units/imrsk-example-ensayo/webapp/components/Ensayo_List.jsx';
@@ -17,108 +21,39 @@ import Translaticiarum_Screen from '../units/imrsk-example-translaticiarum/webap
 import User_Properties from './components/User_Properties.jsx';
 import User_UpdatePassword from './components/User_UpdatePassword.jsx';
 
-import ViewerQueries from './queries/ViewerQueries';
 
+const queries = {
+  Viewer: () => Relay.QL`query { Viewer }`,
+};
 
-export default [
-  {
-    path: '/',
-    component: Chrome,
-    queries: ViewerQueries,
-    indexRoute: {
-      component: Home_Screen,
-      queries: ViewerQueries,
-    },
-    childRoutes: [
-      {
-        path: 'Compendiums',
-        indexRoute: {
-          component: Compendium,
-          queries: ViewerQueries,
-        },
-      },
-      {
-        path: 'Ensayos',
-        component: Ensayo_Screen,
-        queries: ViewerQueries,
-        indexRoute: {
-          component: Ensayo_List,
-          queries: ViewerQueries,
-        },
-      },
-      {
-        path: 'Ensayo_PublicListing',
-        indexRoute: {
-          component: Ensayo_PublicListing,
-          queries: ViewerQueries,
-        },
-        childRoutes: [
-          {
-            path: ':id',
-            component: Ensayo_PublicItem,
-            queries: ViewerQueries,
-          },
-        ],
-      },
-      {
-        path: 'ToDos',
-        component: ToDo_Screen,
-        queries: ViewerQueries,
-        indexRoute: {
-          component: ToDo_List,
-          queries: ViewerQueries,
-          prepareParams: () => ({status: 'any'}),
-        },
-        childRoutes: [
-          {
-            path: ':status',
-            component: ToDo_List,
-            queries: ViewerQueries,
-          },
-        ],
-      },
-      {
-        path: 'mui',
-        indexRoute: {
-          component: MUI_Home,
-          queries: ViewerQueries,
-        },
-        childRoutes: [
-          {
-            path: 'icons',
-            component: MUI_Icons,
-            queries: ViewerQueries,
-          },
-        ],
-      },
-      {
-        path: 'Translaticiarums',
-        component: Translaticiarum_Screen,
-        queries: ViewerQueries,
-        indexRoute: {
-          component: Translaticiarum_List,
-          queries: ViewerQueries,
-        },
-      },
-      {
-        path: 'TranslaticiarumsGrid',
-        component: Translaticiarum_Grid,
-        queries: ViewerQueries,
-      },
-      {
-        path: 'User',
-        indexRoute: {
-          component: User_Properties,
-          queries: ViewerQueries,
-        },
-        childRoutes: [
-          {
-            path: 'UpdatePassword',
-            component: User_UpdatePassword,
-            queries: ViewerQueries,
-          },
-        ],
-      },
-    ],
-  },
-];
+export default createRoutes(
+  <Route path="/" component={Chrome} queries={queries}>
+    <IndexRoute component={Home_Screen} queries={queries} />
+    <Route path="Compendiums">
+      <IndexRoute component={Compendium} queries={queries} />
+    </Route>
+    <Route path="Ensayos" component={Ensayo_Screen} queries={queries}>
+      <IndexRoute component={Ensayo_List} queries={queries} />
+    </Route>
+    <Route path="Ensayo_PublicListing">
+      <IndexRoute component={Ensayo_PublicListing} queries={queries} />
+      <Route path=":id" component={Ensayo_PublicItem} queries={queries} />
+    </Route>
+    <Route path="mui">
+      <IndexRoute component={MUI_Home} queries={queries} />
+      <Route path="icons" component={MUI_Icons} queries={queries} />
+    </Route>
+    <Route path="Translaticiarums" component={Translaticiarum_Screen} queries={queries}>
+      <IndexRoute component={Translaticiarum_List} queries={queries} />
+    </Route>
+    <Route path="TranslaticiarumsGrid" component={Translaticiarum_Grid} queries={queries}/>
+    <Route path="User">
+      <IndexRoute component={User_Properties} queries={queries} />
+      <Route path="UpdatePassword" component={User_UpdatePassword} queries={queries} />
+    </Route>
+    <Route path="ToDos" component={ToDo_Screen} queries={queries}>
+      <IndexRoute component={ToDo_List} queries={queries} prepareParams={ () => ({status: 'any'}) }/>
+      <Route path=":status" component={ToDo_List} queries={queries} />
+    </Route>
+  </Route>
+);

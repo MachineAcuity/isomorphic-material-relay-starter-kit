@@ -262,8 +262,6 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `webapp/mui-themes/`                          | Material-UI themes. | [*](./webapp/mui-themes/) |
 | `webapp/mui-themes/active-theme.js`           | Points to the theme that is currently active. | [*](./webapp/mui-themes/active-theme.js) |
 | `webapp/mutations/`                           | Client side GraphQL mutations. | [*](./webapp/mutations/) |
-| `webapp/queries/`                             | Common GraphQL queries. | [*](./webapp/queries/) |
-| `webapp/queries/ViewerQueries.js`             | Query used for all the Relay containers. | [*](./webapp/queries/ViewerQueries.js) |
 | `webapp/scripts/`                             | Scripts used by the client. | [*](./webapp/scripts/) |
 | `webapp/styles/`                              | Styles used by the client. | [*](./webapp/styles/) |
 | `webapp/styles/main.css`                      | Example style included in the app. Currently not used. | [*](./webapp/styles/main.css) |
