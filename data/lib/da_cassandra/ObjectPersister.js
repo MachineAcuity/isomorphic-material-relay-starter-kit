@@ -2,7 +2,7 @@
 
 import { runQuery, runQueryOneResult, runQueryNoResult, Uuid } from '../../da_cassandra/_client.js';
 
-export function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values: Array<any> )
+function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values: Array<any> )
 {
   let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" = ?;';
   let resultPromises = [ ];
@@ -13,7 +13,7 @@ export function ObjectPersister_get( entityName: string, ObjectType: any, fieldN
   return Promise.all( resultPromises );
 }
 
-export function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values: Array<any> )
+function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values: Array<any> )
 {
   let cqlText = 'SELECT * FROM "' + entityName + '" WHERE "' + fieldName + '" = ?;';
   let resultPromises = [ ];
@@ -24,7 +24,7 @@ export function ObjectPersister_getList( entityName: string, ObjectType: any, fi
   return Promise.all( resultPromises );
 }
 
-export function ObjectPersister_add( entityName: string, fields: any, ObjectType: any )
+function ObjectPersister_add( entityName: string, fields: any, ObjectType: any )
 {
   const id = Uuid.random( );
 
@@ -50,7 +50,7 @@ export function ObjectPersister_add( entityName: string, fields: any, ObjectType
   ;
 }
 
-export function ObjectPersister_update( entityName: string, fields: any )
+function ObjectPersister_update( entityName: string, fields: any )
 {
   let cqlText = 'UPDATE "' + entityName + '" SET ';
   let cqlParams = [ ];
@@ -75,10 +75,18 @@ export function ObjectPersister_update( entityName: string, fields: any )
   return runQueryNoResult( cqlText, cqlParams );
 }
 
-export function ObjectPersister_remove( entityName: string, fields: any )
+function ObjectPersister_remove( entityName: string, fields: any )
 {
   const cqlText = 'DELETE FROM "' + entityName + '" WHERE id = ?;';
   const cqlParams = [ fields.id ];
 
   return runQueryNoResult( cqlText, cqlParams );
 }
+
+export default {
+  ObjectPersister_get,
+  ObjectPersister_getList,
+  ObjectPersister_add,
+  ObjectPersister_update,
+  ObjectPersister_remove,
+};

@@ -8,7 +8,7 @@ import {
   ObjectPersister_remove,
 } from '../lib/da_memory/ObjectPersister'
 
-export {
+export default {
   ObjectPersister_get,
   ObjectPersister_getList,
   ObjectPersister_add,

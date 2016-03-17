@@ -2,20 +2,20 @@
 
 import DataLoader from 'dataloader';
 
-import { Uuid } from '../da_cassandra/_client.js';
-
-import {
-  ObjectPersister_get,
-  ObjectPersister_getList,
-  ObjectPersister_add,
-  ObjectPersister_update,
-  ObjectPersister_remove
-} from '../da/ObjectPersister.js';
+import ObjectPersisterCassandra from './da_cassandra/ObjectPersister.js';
+import ObjectPersisterMemory from './da_memory/ObjectPersister.js';
 
 import User from '../model/User';
+import { Uuid } from '../da_cassandra/_client.js';
 
-
+// Anonymous user
 const User_0 = new User( { id: Uuid.fromString( '00000000-0000-0000-0000-000000000000' ), username: '', password: '', User_DisplayName: 'Anonymous', "User_ProfilePhoto": '', User_Email: '', User_Locale: '', User_AuthToken: '' } );
+
+// Read environment
+require( 'dotenv' ).load( );
+
+// Set persistence
+const ObjectPersister = process.env.OBJECT_PERSISTENCE == 'memory' ? ObjectPersisterMemory : ObjectPersisterCassandra;
 
 export default class ObjectManagerBase
 {
@@ -46,9 +46,9 @@ export default class ObjectManagerBase
     if( loader == null )
     {
       if( multipleResults )
-        loader = new DataLoader( values => ObjectPersister_getList( entityName, ObjectType, fieldName, values ) );
+        loader = new DataLoader( values => ObjectPersister.ObjectPersister_getList( entityName, ObjectType, fieldName, values ) );
       else
-        loader = new DataLoader( values => ObjectPersister_get( entityName, ObjectType, fieldName, values ) );
+        loader = new DataLoader( values => ObjectPersister.ObjectPersister_get( entityName, ObjectType, fieldName, values ) );
 
       loadersList[ fieldName ] = loader;
     }
@@ -101,7 +101,7 @@ export default class ObjectManagerBase
   {
     const ObjectType = this.entityDefinitions[ entityName ].EntityType;
 
-    return ObjectPersister_add( entityName, fields, ObjectType )
+    return ObjectPersister.ObjectPersister_add( entityName, fields, ObjectType )
     .then( id => {
       fields.id = id;
       this.invalidateLoaderCache( entityName, fields );
@@ -112,7 +112,7 @@ export default class ObjectManagerBase
 
   update( entityName: string, fields: any )
   {
-    return ObjectPersister_update( entityName, fields )
+    return ObjectPersister.ObjectPersister_update( entityName, fields )
     .then( ( ) => {
       this.invalidateLoaderCache( entityName, fields );
     } )
@@ -121,7 +121,7 @@ export default class ObjectManagerBase
 
   remove( entityName: string, fields: any )
   {
-    return ObjectPersister_remove( entityName, fields )
+    return ObjectPersister.ObjectPersister_remove( entityName, fields )
     .then( ( ) => {
       this.invalidateLoaderCache( entityName, fields );
     } )

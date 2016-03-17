@@ -38,19 +38,19 @@ function findObjects( entityName: string, fieldName: string, value: any )
   return arr_Objects;
 }
 
-export function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
+function ObjectPersister_get( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
 {
   const arr_Objects = values.map( value => findObjects( entityName, fieldName, value )[ 0 ] );
   return Promise.resolve( arr_Objects );
 }
 
-export function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
+function ObjectPersister_getList( entityName: string, ObjectType: any, fieldName: string, values : Array<any> )
 {
   const arr_arr_Objects = values.map( value => findObjects( entityName, fieldName, value ) );
   return Promise.resolve( arr_arr_Objects );
 }
 
-export function ObjectPersister_add( entityName: string, fields: any, ObjectType: any )
+function ObjectPersister_add( entityName: string, fields: any, ObjectType: any )
 {
   const store = getStore( entityName );
 
@@ -62,7 +62,7 @@ export function ObjectPersister_add( entityName: string, fields: any, ObjectType
   return Promise.resolve( fields.id );
 }
 
-export function ObjectPersister_update( entityName: string, fields: any )
+function ObjectPersister_update( entityName: string, fields: any )
 {
   const an_Object = findObjects( entityName, 'id', fields.id )[ 0 ];
 
@@ -72,7 +72,7 @@ export function ObjectPersister_update( entityName: string, fields: any )
   return Promise.resolve( );
 }
 
-export function ObjectPersister_remove( entityName: string, fields: any )
+function ObjectPersister_remove( entityName: string, fields: any )
 {
   const store = getStore( entityName );
 
@@ -82,3 +82,11 @@ export function ObjectPersister_remove( entityName: string, fields: any )
 
   return Promise.resolve( );
 }
+
+export default {
+  ObjectPersister_get,
+  ObjectPersister_getList,
+  ObjectPersister_add,
+  ObjectPersister_update,
+  ObjectPersister_remove,
+};
