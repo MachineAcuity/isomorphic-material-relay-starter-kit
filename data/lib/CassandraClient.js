@@ -3,7 +3,7 @@
 import chalk from 'chalk';
 import cassandraDriver from 'cassandra-driver';
 
-import options from './_options.js';
+import options from './CassandraOptions.js';
 
 
 export const Uuid = cassandraDriver.types.Uuid;

@@ -2,11 +2,11 @@
 
 import DataLoader from 'dataloader';
 
-import ObjectPersisterCassandra from './da_cassandra/ObjectPersister.js';
-import ObjectPersisterMemory from './da_memory/ObjectPersister.js';
+import ObjectPersisterCassandra from './ObjectPersisterCassandra.js';
+import ObjectPersisterMemory from './ObjectPersisterMemory.js';
 
 import User from '../model/User';
-import { Uuid } from '../da_cassandra/_client.js';
+import { Uuid } from '../lib/CassandraClient.js';
 
 // Anonymous user
 const User_0 = new User( { id: Uuid.fromString( '00000000-0000-0000-0000-000000000000' ), username: '', password: '', User_DisplayName: 'Anonymous', "User_ProfilePhoto": '', User_Email: '', User_Locale: '', User_AuthToken: '' } );
@@ -15,7 +15,7 @@ const User_0 = new User( { id: Uuid.fromString( '00000000-0000-0000-0000-0000000
 require( 'dotenv' ).load( );
 
 // Set persistence
-const ObjectPersister = process.env.OBJECT_PERSISTENCE == 'memory' ? ObjectPersisterMemory : ObjectPersisterCassandra;
+const ObjectPersister = (process.env.OBJECT_PERSISTENCE == 'memory') ? ObjectPersisterMemory : ObjectPersisterCassandra;
 
 export default class ObjectManagerBase
 {

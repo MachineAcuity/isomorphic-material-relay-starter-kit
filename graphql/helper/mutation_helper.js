@@ -2,7 +2,7 @@
 
 import chalk from 'chalk';
 import { cursorForObjectInConnection } from "graphql-relay";
-import { Uuid } from '../../data/da_cassandra/_client.js';
+import { Uuid } from '../../data/lib/CassandraClient.js';
 
 
 

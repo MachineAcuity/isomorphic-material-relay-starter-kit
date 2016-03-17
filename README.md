@@ -224,7 +224,7 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `data/`                                       | Methods and data access functions | [*](./data/) |
 | `data/da/`                                    | Data access functions. | [*](./data/da/) |
 | `data/da/{Entity}.js`                         | Data access functions for {Entity}. Exported functions are named DA_{Entity}_*. Simply points either into memory, or Cassandra. |
-| `data/da_cassandra/_client.js`                | Promisified Cassandra client. | [*](./data/da_cassandra/_client.js) |
+| `data/lib/CassandraClient.js`                | Promisified Cassandra client. | [*](./data/lib/CassandraClient.js) |
 | `data/da_cassandra/{Entity}.js`               | Data access functions for {Entity} implemented for Cassandra. |
 | `data/da_memory/generateUUID.js`              | This file has been removed. It was used for UUID generation. UUID generation for the -in memory implementation is achieved through Cassandra types: `Uuid.random( )`. | |
 | `data/da_memory/{Entity}.js`                  | Data access functions for {Entity} implemented as in-memory transient storage. |

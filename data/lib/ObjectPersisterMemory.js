@@ -1,6 +1,6 @@
 /* @flow weak */
 
-import { Uuid } from '../../da_cassandra/_client.js';
+import { Uuid } from './CassandraClient.js';
 
 
 var stores = { };

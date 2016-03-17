@@ -13,7 +13,7 @@ import EnsayoType from "../../units/imrsk-example-ensayo/graphql/type/EnsayoType
 import ToDosConnection from "../../units/imrsk-example-todo/graphql/type/ToDosConnection";
 import TranslaticiarumsConnection from "../../units/imrsk-example-translaticiarum/graphql/type/TranslaticiarumsConnection";
 import User from '../../data/model/User';
-import { Uuid } from '../../data/da_cassandra/_client.js';
+import { Uuid } from '../../data/lib/CassandraClient.js';
 
 const Uuid_0 = Uuid.fromString( '00000000-0000-0000-0000-000000000000' );
 
