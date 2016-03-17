@@ -12,18 +12,11 @@ import options from '../data/lib/CassandraOptions.js';
 const transports = [ ];
 
 // Use Cassandra for logging if Cassandra is configured
-if( process.env.CASSANDRA_KEYSPACE != null && process.env.CASSANDRA_KEYSPACE.trim( ) != '' )
+if( process.env.OBJECT_PERSISTENCE == 'cassandra' )
 {
-  // TODO this is broken until the following is fixed:
-  // http://errorlog.xyz/nodejs-apache-cassandra-error/
-  // https://groups.google.com/forum/#!topic/express-js/c1BbirgBsmM
-  // https://github.com/datastax/nodejs-driver/search?q=schema_keyspaces <-- still used
-  /*
+  // Refuses to create schema - internally receives [ResponseError: unconfigured table schema_keyspaces] when tries to create schema
   transports.push( new winstonCassandra( options ) );
-  transports.push( new (winston.transports.Console)( ) );
-  */
-  // so instead just print:
-  transports.push( new (winston.transports.Console)( ) );
+  transports.push( new (winston.transports.Console)( ) ); // Just copy to console for troubleshooting purposes
 }
 else
   transports.push( new (winston.transports.Console)( ) );

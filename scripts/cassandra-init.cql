@@ -5,6 +5,24 @@ WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
 
 USE imrsk;
 
+
+
+
+
+// Since winston-cassandra would not create schema due to issue with Cassandra Node.js driver, apparently, this:
+CREATE TABLE logs(
+  key text,
+  date timestamp,
+  level text,
+  message text,
+  meta text,
+  PRIMARY KEY(key, date)
+);
+// Does not seem to resolve the problem anyway, but let's keep it here for now.
+
+
+
+
 CREATE TABLE "User"(
   id uuid PRIMARY KEY,
   "username" varchar,
@@ -18,6 +36,8 @@ CREATE TABLE "User"(
 
 CREATE INDEX "User_username_ix"
 ON "User"( username );
+
+
 
 
 
@@ -46,6 +66,8 @@ ON "Compendium"( "Compendium_User_id" );
 
 
 
+
+
 CREATE TABLE "Ensayo"(
   id uuid PRIMARY KEY,
   "Ensayo_User_id" uuid,
@@ -56,7 +78,6 @@ CREATE TABLE "Ensayo"(
 
 CREATE INDEX "Ensayo_Ensayo_User_id_ix"
 ON "Ensayo"( "Ensayo_User_id" );
-
 
 insert into "Ensayo"( id, "Ensayo_User_id", "Ensayo_Title", "Ensayo_Description", "Ensayo_Content" )
 values( fa666f10-483d-43bd-8ee2-4e4921c9cf82, 00000000-0000-0000-0000-000000000000,
@@ -88,6 +109,8 @@ values( fa666f10-483d-43bd-8ee2-4e4921c9cf85, 00000000-0000-0000-0000-0000000000
 
 
 
+
+
 CREATE TABLE "ToDo"(
   "id" uuid PRIMARY KEY,
   "ToDo_User_id" uuid,
@@ -97,6 +120,8 @@ CREATE TABLE "ToDo"(
 
 CREATE INDEX "ToDo_ToDo_User_id_ix"
 ON "ToDo"( "ToDo_User_id" );
+
+
 
 
 
