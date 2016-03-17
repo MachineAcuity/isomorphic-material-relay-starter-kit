@@ -14,6 +14,9 @@ let config = {
     publicPath: `http://localhost:8080/${version}/`
   },
   module: {
+    preLoaders: [
+      {test: /\.js(x)?$/, loader: 'eslint-loader', exclude: /node_modules/}
+    ],
     loaders: [
       {test: /\.js(x)?$/, loaders: ['react-hot', 'babel'], exclude: /node_modules/},
       {test: /\.json$/, loaders: ['json']},
