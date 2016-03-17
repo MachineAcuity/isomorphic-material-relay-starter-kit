@@ -222,14 +222,15 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | Folder/File                                   | Description                                                    |  |
 | --------------------------------------------- | ---------------------------------------------------------------| --- |
 | `data/`                                       | Methods and data access functions | [*](./data/) |
-| `data/da/`                                    | Data access functions. | [*](./data/da/) |
-| `data/da/{Entity}.js`                         | Data access functions for {Entity}. Exported functions are named DA_{Entity}_*. Simply points either into memory, or Cassandra. |
-| `data/lib/CassandraClient.js`                | Promisified Cassandra client. | [*](./data/lib/CassandraClient.js) |
-| `data/da_cassandra/{Entity}.js`               | Data access functions for {Entity} implemented for Cassandra. |
-| `data/da_memory/generateUUID.js`              | This file has been removed. It was used for UUID generation. UUID generation for the -in memory implementation is achieved through Cassandra types: `Uuid.random( )`. | |
-| `data/da_memory/{Entity}.js`                  | Data access functions for {Entity} implemented as in-memory transient storage. |
+| `data/lib/`                                   | Wrappers around data loader, cassandra driver and in-memory persistence. | [*](./data/lib/) |
+| `data/lib/CassandraClient.js`                 | Promisified Cassandra client. | [*](./data/lib/CassandraClient.js) |
+| `data/lib/CassandraOptions.js`                | Options for connecting to Cassandra used by client and logger. | [*](./data/lib/CassandraOptions.js) |
+| `data/lib/ObjectManagerBase.js`               | Manage objects for GraphQL resolvers using DataLoader and Cassandra or in-memory persistence. | [*](./data/lib/ObjectManagerBase.js) |
+| `data/lib/ObjectPersisterCassandra.js`        | Persists objects in Cassandra. | [*](./data/lib/ObjectPersisterCassandra.js) |
+| `data/lib/ObjectPersisterMemory.js`           | Persists objects in memory. | [*](./data/lib/ObjectPersisterMemory.js) |
 | `data/model/`                                 | Models | [*](./data/model/) |
 | `data/model/{Entity}.js`                      | Model for {Entity}. Default class for that entity is exported. |
+| `data/ObjectManager.js`                       | Object manager instance with initialization for all types used by GraphQL server. | [*](./data/lib/ObjectManager.js) |
 | `doc/`                                        | Misc. documentation. | [*](./doc/) |
 | `doc/example.env`                             | Example of a `.env` file. Also copied into `\.env` in `setup-local` script. | [*](./doc/example.env) |
 | `graphql/`                                    | Holds the elements of the GraphQL schema. | [*](./graphql/) |
