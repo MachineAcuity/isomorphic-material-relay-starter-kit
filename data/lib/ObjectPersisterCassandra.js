@@ -35,11 +35,12 @@ function ObjectPersister_add( entityName: string, fields: any, ObjectType: any )
   ];
 
   for( let fieldName in fields )
-  {
-    cqlTextFieldNames += ', "' + fieldName + '"';
-    cqlTextFieldValues += ', ?';
-    cqlParams.push( fields[ fieldName ] );
-  }
+    if( fieldName != 'id' ) // Ignore the ID if it has been passed since we are generating it
+    {
+      cqlTextFieldNames += ', "' + fieldName + '"';
+      cqlTextFieldValues += ', ?';
+      cqlParams.push( fields[ fieldName ] );
+    }
 
   let cqlText = 'INSERT INTO "' + entityName + '" (' + cqlTextFieldNames + ') VALUES (' + cqlTextFieldValues + ');';
 
