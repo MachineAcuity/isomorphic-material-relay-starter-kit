@@ -77,8 +77,7 @@ function ObjectPersister_remove( entityName: string, fields: any )
   const store = getStore( entityName );
 
   const indexToDelete = findIndexes( entityName, 'id', fields.id );
-
-  stores[ entityName ] = store.splice( indexToDelete, 1 );
+  store.splice( indexToDelete, 1 );
 
   return Promise.resolve( );
 }
