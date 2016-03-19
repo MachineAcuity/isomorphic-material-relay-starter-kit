@@ -48,57 +48,70 @@ export default ( req, res, next, assetsPath ) =>
 
 function reunderOnServerCorrectRequest( req, res, next, assetsPath, renderProps )
 {
-  queue.push(
-    queueTask =>
-    {
-      Relay.injectNetworkLayer(
-        new RelayLocalSchema.NetworkLayer( {
-          schema,
-          rootValue: { user_id: '00000000-0000-0000-0000-000000000000', objectManager: new ObjectManager( )},
-          onError: (errors, request) => console.error(errors, request),
-        } )
-      );
+  // create individual object manager for each request
+  const objectManager = new ObjectManager( );
 
-      IsomorphicRouter.prepareData( renderProps ).then( render, next );
-      function render( { data, props } )
+  getUserByCookie( objectManager, req, res )
+  .then( ( a_User ) => {
+
+    const user_id = a_User.id;
+    console.log( "SERVING:" + JSON.stringify( a_User ) );
+
+    queue.push(
+      queueTask =>
       {
-        try
+        Relay.injectNetworkLayer(
+          new RelayLocalSchema.NetworkLayer( {
+            schema,
+            rootValue: { user_id, objectManager },
+            onError: (errors, request) => console.error(errors, request),
+            // TODO Implement winston logging here
+          } )
+        );
+
+        IsomorphicRouter.prepareData( renderProps ).then( render, next );
+        function render( { data, props } )
         {
-          // Setting up static, global navigator object to pass user agent to material-ui. Again, not to
-          // fear, we are in a queue.
-          GLOBAL.navigator = { userAgent: req.headers[ 'user-agent' ] };
+          try
+          {
+            // Setting up static, global navigator object to pass user agent to material-ui. Again, not to
+            // fear, we are in a queue.
+            GLOBAL.navigator = { userAgent: req.headers[ 'user-agent' ] };
 
-          // Setting up static, global location for the leftNav
-          GLOBAL.location = { pathname: req.originalUrl };
+            // Setting up static, global location for the leftNav
+            GLOBAL.location = { pathname: req.originalUrl };
 
-          const reactOutput = ReactDOMServer.renderToString(
-              <IsomorphicRouter.RouterContext {...props} />
-          );
-          const helmet = Helmet.rewind( );
+            const reactOutput = ReactDOMServer.renderToString(
+                <IsomorphicRouter.RouterContext {...props} />
+            );
+            const helmet = Helmet.rewind( );
 
-          res.render( path.resolve( __dirname, '..', 'webapp/views', 'index.ejs' ), {
-              preloadedData: JSON.stringify(data),
-              assetsPath: assetsPath,
-              reactOutput,
-              title: helmet.title,
-              meta: helmet.meta,
-              link: helmet.link,
-              isomorphicVars: isoVars,
-              NODE_ENV: process.env.NODE_ENV,
-          } );
+            res.render( path.resolve( __dirname, '..', 'webapp/views', 'index.ejs' ), {
+                preloadedData: JSON.stringify(data),
+                assetsPath: assetsPath,
+                reactOutput,
+                title: helmet.title,
+                meta: helmet.meta,
+                link: helmet.link,
+                isomorphicVars: isoVars,
+                NODE_ENV: process.env.NODE_ENV,
+            } );
+          }
+          catch( err )
+          {
+            console.log( chalk.gray( "renderOnServer exception: " ) + chalk.red.bold( err.message ) );
+            console.log( chalk.red( err.stack ) );
+            console.log( chalk.blue( '.' ) );
+          }
+
+          queueTask.done( );
         }
-        catch( err )
-        {
-          console.log( chalk.gray( "renderOnServer exception: " ) + chalk.red.bold( err.message ) );
-          console.log( chalk.red( err.stack ) );
-          console.log( chalk.blue( '.' ) );
-        }
 
-        queueTask.done( );
-      }
-
-    },
-    ( ) => console.log( "Timeout for renderer" ),
-    2000
-  ); // 2 second time out for rendering an isomorphic page
+      },
+      ( ) => console.log( "Timeout for renderer" ),
+      2000
+    ); // 2 second time out for rendering an isomorphic page
+  } )
+  .catch( ( error ) => serveAuthenticationFailed( res, error ) )
+  ; // then
 }

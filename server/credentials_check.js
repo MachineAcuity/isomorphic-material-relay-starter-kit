@@ -55,6 +55,7 @@ export function verifyUserAuthToken( a_User, req, res )
 
 export function serveAuthenticationFailed( res, message )
 {
+  // TODO implement winston logging here
   console.log( chalk.bold.red( message ) );
   console.log( chalk.blue( '.' ) );
 

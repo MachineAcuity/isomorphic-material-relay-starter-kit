@@ -69,7 +69,7 @@ export default class ObjectManagerBase
   getOneById( entityName: string, id: Uuid )
   {
     // Special hack for anonymous users
-    if( entityName === 'User' && id === '00000000-0000-0000-0000-000000000000' )
+    if( entityName === 'User' && id == '00000000-0000-0000-0000-000000000000' )
       return Promise.resolve( User_0 );
     // For all non-user, non 0 ids, load from data loader
     else
