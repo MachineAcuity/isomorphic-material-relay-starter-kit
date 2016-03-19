@@ -127,9 +127,13 @@
     "winston-cassandra": "^0.4.0"
   },
   "devDependencies": {
+    "babel-eslint": "^6.0.0-beta.6",
     "babel-plugin-transform-runtime": "^6.6.0",
     "better-npm-run": "^0.0.8",
     "concurrently": "^2.0.0",
+    "eslint": "^2.4.0",
+    "eslint-loader": "^1.3.0",
+    "eslint-plugin-react": "^4.2.3",
     "recursive-readdir-sync": "^1.0.6",
     "webpack-dev-server": "^1.14.1"
   }
