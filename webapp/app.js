@@ -28,6 +28,23 @@ injectTapEventPlugin( );
 // Retrieve prepared data
 const data = JSON.parse( document.getElementById( 'preloadedData' ).textContent );
 
+// Retrieve the auth token. We know it will be on viewer, but we do not know which fragment.
+// Go through them all.
+// It is important that User_AuthToken is requested in Chrome.jsx
+let User_AuthToken = "";
+for( let fragment of data )
+{
+  const authTokenInThisFragment = fragment.result.Viewer.User_AuthToken;
+  if( authTokenInThisFragment != null )
+  {
+    User_AuthToken = authTokenInThisFragment;
+    break;
+  }
+}
+
+if( User_AuthToken.length == 0 )
+  alert( 'Authentication token retrieval failed' );
+
 // Ensure that on the client Relay is passing the HttpOnly cookie with auth, and the user auth token
 let GraphQL_URL = ( isoVars.public_url == null ) ? '/graphql' : isoVars.public_url + '/graphql';
 Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer(
@@ -35,7 +52,7 @@ Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer(
   {
     credentials: 'same-origin',
     headers: {
-      user_auth_token: data[ 0 ].result.Viewer.User_AuthToken, // It is important that User_AuthToken is retrieved in Chrome.jsx
+      user_auth_token: User_AuthToken,
     },
   }
 ) );

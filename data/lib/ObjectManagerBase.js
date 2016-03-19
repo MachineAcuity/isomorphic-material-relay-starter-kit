@@ -8,11 +8,21 @@ import ObjectPersisterMemory from './ObjectPersisterMemory.js';
 import User from '../model/User';
 import { Uuid } from '../lib/CassandraClient.js';
 
-// Anonymous user
-const User_0 = new User( { id: Uuid.fromString( '00000000-0000-0000-0000-000000000000' ), username: '', password: '', User_DisplayName: 'Anonymous', "User_ProfilePhoto": '', User_Email: '', User_Locale: '', User_AuthToken: '' } );
 
 // Read environment
 require( 'dotenv' ).load( );
+
+// Anonymous user
+const User_0 = new User( {
+  id: Uuid.fromString( '00000000-0000-0000-0000-000000000000' ),
+  username: '',
+  password: '',
+  User_DisplayName: 'Anonymous',
+  "User_ProfilePhoto": '',
+  User_Email: '',
+  User_Locale: '',
+  User_AuthToken: process.env.ANONYMOUS_USER_AUTH_TOKEN
+} );
 
 // Set persistence
 const ObjectPersister = (process.env.OBJECT_PERSISTENCE == 'memory') ? ObjectPersisterMemory : ObjectPersisterCassandra;
