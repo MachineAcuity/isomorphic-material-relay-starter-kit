@@ -1,60 +1,22 @@
 /* @flow weak */
 
-import chalk from 'chalk';
 import express from 'express';
 import graphQLHTTP from 'express-graphql';
 import ObjectManager from '../data/ObjectManager';
-import jwt from 'jwt-simple';
 
+import { getUserByCookie, verifyUserAuthToken, serveAuthenticationFailed } from '../server/credentials_check.js';
 import schema from './schema'; // Schema for GraphQL server
-
-// Read environment
-require( 'dotenv' ).load( );
 
 let router = express( );
 
 router.use( '/', ( req, res, next ) =>
 {
-  let user_id = '00000000-0000-0000-0000-000000000000'; // Anonymous
-  try
-  {
-    if( req.cookies.auth_token )
-      if( req.cookies.auth_token.length > 10 )
-      {
-        var decoded = jwt.decode( req.cookies.auth_token, process.env.JWT_SECRET );
-        user_id = decoded.user_id;
-      }
-  }
-  catch( err )
-  {
-    console.log( chalk.bold.red( "Failure while decoding JWT token, using anonymous instead." ) );
-    console.log( chalk.red( err.message ) );
-    console.log( chalk.blue( '.' ) );
-  }
-
-  const user_auth_token = req.get( 'user_auth_token' );
-
-  // For each request, create a separate object manager. It will be garbage collected after the request ends
+  // create individual object manager for each request
   const objectManager = new ObjectManager( );
 
-  objectManager.getOneById( 'User', user_id )
-  .then( ( a_User) =>
-  {
-    let authenticationFailed = false;
-    if ( ! a_User )
-      authenticationFailed = true;
-    else
-      if( user_auth_token != process.env.ANONYMOUS_USER_AUTH_TOKEN )
-        if( user_auth_token != a_User.User_AuthToken )
-          authenticationFailed = true;
-
-    if( authenticationFailed )
-    {
-      // User not found in database
-      user_id = '00000000-0000-0000-0000-000000000000'; // Anonymous
-      res.cookie( 'auth_token', '', { httpOnly: true, expires: new Date( 1 ) } ); // Expire cookie
-    }
-
+  getUserByCookie( objectManager, req, res )
+  .then( ( a_User ) => verifyUserAuthToken( a_User, req, res ) )
+  .then( ( user_id ) => {
     graphQLHTTP( request => {
       return( {
         schema: schema,
@@ -63,10 +25,9 @@ router.use( '/', ( req, res, next ) =>
         graphiql: true,
       } )
     } )( req, res, next );
-
   } )
-  ;
-
-} );
+  .catch( ( error ) => serveAuthenticationFailed( res, error ) )
+  ; // then
+} ); // router.use
 
 export default router;
