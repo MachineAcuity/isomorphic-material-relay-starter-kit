@@ -4,7 +4,7 @@
   "author": "Aleksandar Chalakov, Code Foundries and contributors",
   "license": "MIT",
   "homepage": "https://github.com/codefoundries/isomorphic-material-relay-starter-kit",
-  "version": "0.11.13",
+  "version": "0.11.14",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codefoundries/isomorphic-material-relay-starter-kit.git"
@@ -35,8 +35,8 @@
     "cassandra-driver"
   ],
   "engines": {
-    "node": "4.2.4",
-    "npm": "3.3.6"
+    "node": "4.4.0",
+    "npm": "3.8.2"
   },
   "scripts": {
     "postinstall": "npm run build-schema && npm run build-webpack",
