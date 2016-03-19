@@ -34,7 +34,7 @@ export default ( req, res, next, assetsPath ) =>
   const headers = { };
   if( req.cookies.auth_token )
     headers.Cookie = 'auth_token=' + req.cookies.auth_token;
-  headers.user_auth_token = process.env.USER_AUTH_SECRET;
+  headers.user_auth_token = process.env.ANONYMOUS_USER_AUTH_TOKEN;
 
   match( { routes, location: req.originalUrl }, ( error, redirectLocation, renderProps ) =>
     {
@@ -43,7 +43,6 @@ export default ( req, res, next, assetsPath ) =>
         {
           // Setting the STATIC network layer. No fear about it being static - we are in a queue!
           Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer( GRAPHQL_URL, { headers: headers } ) );
-          //RelayStoreData.getDefaultInstance( ).getChangeEmitter( ).injectBatchingStrategy(() => { } );
 
           if( error )
             next(error);

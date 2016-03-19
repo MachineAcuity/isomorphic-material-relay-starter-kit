@@ -44,7 +44,7 @@ router.use( '/', ( req, res, next ) =>
     if ( ! a_User )
       authenticationFailed = true;
     else
-      if( user_auth_token != process.env.USER_AUTH_SECRET )
+      if( user_auth_token != process.env.ANONYMOUS_USER_AUTH_TOKEN )
         if( user_auth_token != a_User.User_AuthToken )
           authenticationFailed = true;
 

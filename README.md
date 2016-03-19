@@ -72,7 +72,11 @@ In order to set up the project on heroku, perform the following steps:
 * **Install [Heroku Toolbelt](https://toolbelt.heroku.com/)**.
 * **Clone from github** `git clone https://github.com/codefoundries/isomorphic-material-relay-starter-kit`.
 * **Create an app** `heroku create`.
-* **Specify JWT secret** using `heroku config:set JWT_SECRET=tMMoDN3WCZWoV13wpBjUVcgLQRrCP3c3veNMMV5JlxNelC23oAja8eTVSzgK94LR9TpmLrwqGfuiSzOQ` where you replace the secret value with a secret of your choosing. Verify that the value is set with `heroku config`.
+* **Specify JWT secret** using `heroku config:set JWT_SECRET=xyzxyzxyz` where you replace the secret value with a secret of your choosing. Verify that the value is set with `heroku config`.
+* **Specify variables for Cassandra connection points** despite the fact that they are not used: `heroku config:set CASSANDRA_CONNECTION_POINTS=na` and `heroku config:set CASSANDRA_KEYSPACE=na`.
+* **Specify object persistence** in memory: `heroku config:set OBJECT_PERSISTENCE=memory`.
+* **Specify anomymous user auth token** using `heroku config:set ANONYMOUS_USER_AUTH_TOKEN=xyzxyzxyz` where you replace the token value with a token of your choosing.
+* **Verify that the above values are set** with `heroku config`.
 * **Deploy the app** `git push heroku master`.
 
 For more information refer to excellent [Getting Started with Node.js on Heroku - Deploy the app](https://devcenter.heroku.com/articles/getting-started-with-nodejs#deploy-the-app). I do not have an available free Cassandra dyno on Heroku so I can not test how to configure Cassandra.
@@ -195,7 +199,7 @@ The following environment variables can be used to control the server:
 | PORT                           | Port for serving the SPA web application and API.                                                       |
 | HOST                           | Host for for serving, for instance `127.0.0.1`.                                                         |
 | PUBLIC_URL                     | URL through which browsers and other clients can access the server - isomorphic pages, public, GraphQL. Optional. Should not be empty. Example: `https://example.com` |
-| USER_AUTH_SECRET               | Secret passed by server rendered to GraphQL server telling it to trust the auth_token without requiring the user_auth_token in the header to be correct. Instead it constains this very secret. |
+| ANONYMOUS_USER_AUTH_TOKEN               | Secret passed by server rendered to GraphQL server telling it to trust the auth_token without requiring the user_auth_token in the header to be correct. Instead it constains this very secret. |
 | JWT_SECRET                     | Secret used for JWT tokens.                                                                             |
 | CASSANDRA_CONNECTION_POINTS    | Cassandra connection point comma separated list. `localhost` if on the same machine.                    |
 | CASSANDRA_KEYSPACE             | Cassandra keyspace/database.                                                                            |
