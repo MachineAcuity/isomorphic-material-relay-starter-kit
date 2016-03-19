@@ -55,7 +55,6 @@ function reunderOnServerCorrectRequest( req, res, next, assetsPath, renderProps 
   .then( ( a_User ) => {
 
     const user_id = a_User.id;
-    console.log( "SERVING:" + JSON.stringify( a_User ) );
 
     queue.push(
       queueTask =>

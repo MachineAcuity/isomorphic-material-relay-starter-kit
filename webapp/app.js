@@ -34,7 +34,6 @@ const data = JSON.parse( document.getElementById( 'preloadedData' ).textContent 
 let User_AuthToken = "";
 for( let fragment of data )
 {
-  alert (JSON.stringify( fragment.result.Viewer) );
   const authTokenInThisFragment = fragment.result.Viewer.User_AuthToken;
   if( authTokenInThisFragment != null )
   {

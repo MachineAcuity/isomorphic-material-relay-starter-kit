@@ -14,23 +14,15 @@ export function getUserByCookie( objectManager, req, res )
 
   try
   {
-    console.log( "req.cookies.auth_token=" + req.cookies.auth_token );
     if( req.cookies.auth_token )
-    {
-
-      console.log( "LENGTH" );
-
       if( req.cookies.auth_token.length > 10 )
       {
-        console.log( "ATTEMPTING DECODE" );
         var decoded = jwt.decode( req.cookies.auth_token, process.env.JWT_SECRET );
         user_id = decoded.user_id;
       }
-    }
   }
   catch( err )
   {
-    console.log( "err=" + err );
     return Promise.reject( "Could not read auth cookie. " + err );
   }
 
