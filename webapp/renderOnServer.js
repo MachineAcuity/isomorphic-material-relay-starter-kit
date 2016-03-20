@@ -1,8 +1,8 @@
 /* @flow weak */
 
-import chalk from 'chalk';
-import IsomorphicRouter from 'isomorphic-relay-router';
 import Helmet from 'react-helmet';
+import IsomorphicRouter from 'isomorphic-relay-router';
+import log from '../server/log.js';
 import path from 'path';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
@@ -31,6 +31,12 @@ const queue = seqqueue.createQueue( 2000 );
 // not considered necessary to use the public URL.
 const GRAPHQL_URL = ( isoVars.public_url == null ) ? `http://localhost:${process.env.PORT}/graphql` : isoVars.public_url + '/graphql';
 
+export function serveFailure( type, res, message, err )
+{
+  log.log( type, 'Server error: ' + message, err );
+
+  res.status( 500 ).send( 'Server error' );
+}
 
 export default ( req, res, next, assetsPath ) =>
 {
@@ -53,63 +59,66 @@ function reunderOnServerCorrectRequest( req, res, next, assetsPath, renderProps 
 
   getUserByCookie( objectManager, req, res )
   .then( ( a_User ) => {
+    try
+    {
+      const user_id = a_User.id;
 
-    const user_id = a_User.id;
-
-    queue.push(
-      queueTask =>
-      {
-        Relay.injectNetworkLayer(
-          new RelayLocalSchema.NetworkLayer( {
-            schema,
-            rootValue: { user_id, objectManager },
-            onError: (errors, request) => console.error(errors, request),
-            // TODO Implement winston logging here
-          } )
-        );
-
-        IsomorphicRouter.prepareData( renderProps ).then( render, next );
-        function render( { data, props } )
+      queue.push(
+        queueTask =>
         {
-          try
+          Relay.injectNetworkLayer(
+            new RelayLocalSchema.NetworkLayer( {
+              schema,
+              rootValue: { user_id, objectManager },
+              onError: (errors, request) => console.error(errors, request),
+              // TODO Implement winston logging here
+            } )
+          );
+
+          IsomorphicRouter.prepareData( renderProps ).then( render, next );
+          function render( { data, props } )
           {
-            // Setting up static, global navigator object to pass user agent to material-ui. Again, not to
-            // fear, we are in a queue.
-            GLOBAL.navigator = { userAgent: req.headers[ 'user-agent' ] };
+            try
+            {
+              // Setting up static, global navigator object to pass user agent to material-ui. Again, not to
+              // fear, we are in a queue.
+              GLOBAL.navigator = { userAgent: req.headers[ 'user-agent' ] };
 
-            // Setting up static, global location for the leftNav
-            GLOBAL.location = { pathname: req.originalUrl };
+              // Setting up static, global location for the leftNav
+              GLOBAL.location = { pathname: req.originalUrl };
 
-            const reactOutput = ReactDOMServer.renderToString(
-                <IsomorphicRouter.RouterContext {...props} />
-            );
-            const helmet = Helmet.rewind( );
+              const reactOutput = ReactDOMServer.renderToString(
+                  <IsomorphicRouter.RouterContext {...props} />
+              );
+              const helmet = Helmet.rewind( );
 
-            res.render( path.resolve( __dirname, '..', 'webapp/views', 'index.ejs' ), {
-                preloadedData: JSON.stringify(data),
-                assetsPath: assetsPath,
-                reactOutput,
-                title: helmet.title,
-                meta: helmet.meta,
-                link: helmet.link,
-                isomorphicVars: isoVars,
-                NODE_ENV: process.env.NODE_ENV,
-            } );
+              res.render( path.resolve( __dirname, '..', 'webapp/views', 'index.ejs' ), {
+                  preloadedData: JSON.stringify(data),
+                  assetsPath: assetsPath,
+                  reactOutput,
+                  title: helmet.title,
+                  meta: helmet.meta,
+                  link: helmet.link,
+                  isomorphicVars: isoVars,
+                  NODE_ENV: process.env.NODE_ENV,
+              } );
+            }
+            catch( err )
+            {
+              serveFailure( 'error', res, 'renderOnServer render funcion failed', err )
+            }
+
+            queueTask.done( );
           }
-          catch( err )
-          {
-            console.log( chalk.gray( "renderOnServer exception: " ) + chalk.red.bold( err.message ) );
-            console.log( chalk.red( err.stack ) );
-            console.log( chalk.blue( '.' ) );
-          }
-
-          queueTask.done( );
-        }
-
-      },
-      ( ) => console.log( "Timeout for renderer" ),
-      2000
-    ); // 2 second time out for rendering an isomorphic page
+        },
+        ( ) => serveFailure( 'warn', res, 'renderOnServer timeout', { } ),
+        2000
+      ); // 2 second time out for rendering an isomorphic page
+    }
+    catch( err )
+    {
+      serveFailure( 'error', res, 'renderOnServer failed', err )
+    }
   } )
   .catch( ( error ) => serveAuthenticationFailed( res, error ) )
   ; // then
