@@ -3,12 +3,8 @@
 import { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLString, GraphQLObjectType } from "graphql";
 import { globalIdField, fromGlobalId, connectionArgs, connectionFromArray } from "graphql-relay";
 
-import Compendium_ViewerFields from "../../units/imrsk-example-compendium/graphql/type/Compendium_ViewerFields";
-import Ensayo_ViewerFields from "../../units/imrsk-example-ensayo/graphql/type/Ensayo_ViewerFields";
+import _ViewerFields from "../../units/_all/_ViewerFields";
 import NodeInterface from "../interface/NodeInterface";
-import ToDosConnection from "../../units/imrsk-example-todo/graphql/type/ToDosConnection";
-import ToDo_ViewerFields from "../../units/imrsk-example-todo/graphql/type/ToDo_ViewerFields";
-import Translaticiarum_ViewerFields from "../../units/imrsk-example-translaticiarum/graphql/type/Translaticiarum_ViewerFields";
 import User from '../../data/model/User';
 import { Uuid } from '../../data/lib/CassandraClient.js';
 
@@ -23,8 +19,6 @@ export default new GraphQLObjectType( {
   fields: {
     id: globalIdField('Viewer'),
 
-    // ->->-> User properties
-
     User_IsAnonymous:  { type: GraphQLBoolean, resolve: (obj) => obj.id.equals( Uuid_0 ) },
     User_DisplayName:  { type: GraphQLString,  resolve: (obj) => obj.User_DisplayName },
     User_ProfilePhoto: { type: GraphQLString,  resolve: (obj) => obj.User_ProfilePhoto },
@@ -32,11 +26,7 @@ export default new GraphQLObjectType( {
     User_Locale:       { type: GraphQLString,  resolve: (obj) => obj.User_Locale },
     User_AuthToken:    { type: GraphQLString,  resolve: (obj) => obj.User_AuthToken },
 
-    // <-<-<- User properties
+    ..._ViewerFields,
 
-    ...Compendium_ViewerFields,
-    ...Ensayo_ViewerFields,
-    ...ToDo_ViewerFields,
-    ...Translaticiarum_ViewerFields,
   },
 } );
