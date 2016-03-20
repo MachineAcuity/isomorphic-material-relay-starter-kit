@@ -1,8 +1,8 @@
 /* @flow weak */
 
-import chalk from 'chalk';
 import cassandraDriver from 'cassandra-driver';
 
+import log from '../../server/log.js';
 import options from './CassandraOptions.js';
 
 
@@ -14,10 +14,15 @@ function ensureNoErrorOrReport( qText : string, qVar : Array<any>, err : any, re
 {
   if( err )
   {
-    console.log( chalk.bold.red( err ) );
-    console.log( chalk.gray( "Query: " ) + chalk.red( qText ) );
-    console.log( chalk.gray( "Parameters: " ) + chalk.red( JSON.stringify( qVar ) ) );
-    console.log( chalk.blue( "." ) );
+    log.log(
+      'error',
+      'Cassandra error',
+      {
+        qText,
+        qVar,
+        err
+      }
+    );
 
     reject( err ); // Because terrisgit said so
   }
