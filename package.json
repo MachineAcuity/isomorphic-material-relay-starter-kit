@@ -21,6 +21,7 @@
     "Material Design",
     "material-ui",
     "react",
+    "react-native",
     "relay",
     "isomorphic-relay",
     "isomorphic-relay-router",
@@ -29,7 +30,8 @@
     "express",
     "webpack",
     "babel",
-    "babel 6",
+    "flowtype",
+    "eslint",
     "Cassandra",
     "Cassandra DB",
     "cassandra-driver"

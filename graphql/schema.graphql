@@ -114,10 +114,10 @@ type Mutation {
   Ensayo_delete(input: Ensayo_deleteInput!): Ensayo_deletePayload
   Ensayo_update(input: Ensayo_updateInput!): Ensayo_updatePayload
   ToDo_add(input: ToDo_addInput!): ToDo_addPayload
-  ToDo_updateStatus(input: ToDo_updateStatusInput!): ToDo_updateStatusPayload
   ToDo_delete(input: ToDo_deleteInput!): ToDo_deletePayload
-  ToDo_updateRename(input: ToDo_updateRenameInput!): ToDo_updateRenamePayload
   ToDo_list_updateMarkAll(input: ToDo_list_updateMarkAllInput!): ToDo_list_updateMarkAllPayload
+  ToDo_updateRename(input: ToDo_updateRenameInput!): ToDo_updateRenamePayload
+  ToDo_updateStatus(input: ToDo_updateStatusInput!): ToDo_updateStatusPayload
   Translaticiarum_add(input: Translaticiarum_addInput!): Translaticiarum_addPayload
   Translaticiarum_delete(input: Translaticiarum_deleteInput!): Translaticiarum_deletePayload
   Translaticiarum_update(input: Translaticiarum_updateInput!): Translaticiarum_updatePayload

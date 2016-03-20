@@ -1480,33 +1480,6 @@
               "deprecationReason": null
             },
             {
-              "name": "ToDo_updateStatus",
-              "description": null,
-              "args": [
-                {
-                  "name": "input",
-                  "description": null,
-                  "type": {
-                    "kind": "NON_NULL",
-                    "name": null,
-                    "ofType": {
-                      "kind": "INPUT_OBJECT",
-                      "name": "ToDo_updateStatusInput",
-                      "ofType": null
-                    }
-                  },
-                  "defaultValue": null
-                }
-              ],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ToDo_updateStatusPayload",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
               "name": "ToDo_delete",
               "description": null,
               "args": [
@@ -1528,6 +1501,33 @@
               "type": {
                 "kind": "OBJECT",
                 "name": "ToDo_deletePayload",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "ToDo_list_updateMarkAll",
+              "description": null,
+              "args": [
+                {
+                  "name": "input",
+                  "description": null,
+                  "type": {
+                    "kind": "NON_NULL",
+                    "name": null,
+                    "ofType": {
+                      "kind": "INPUT_OBJECT",
+                      "name": "ToDo_list_updateMarkAllInput",
+                      "ofType": null
+                    }
+                  },
+                  "defaultValue": null
+                }
+              ],
+              "type": {
+                "kind": "OBJECT",
+                "name": "ToDo_list_updateMarkAllPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -1561,7 +1561,7 @@
               "deprecationReason": null
             },
             {
-              "name": "ToDo_list_updateMarkAll",
+              "name": "ToDo_updateStatus",
               "description": null,
               "args": [
                 {
@@ -1572,7 +1572,7 @@
                     "name": null,
                     "ofType": {
                       "kind": "INPUT_OBJECT",
-                      "name": "ToDo_list_updateMarkAllInput",
+                      "name": "ToDo_updateStatusInput",
                       "ofType": null
                     }
                   },
@@ -1581,7 +1581,7 @@
               ],
               "type": {
                 "kind": "OBJECT",
-                "name": "ToDo_list_updateMarkAllPayload",
+                "name": "ToDo_updateStatusPayload",
                 "ofType": null
               },
               "isDeprecated": false,
@@ -2436,110 +2436,6 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "ToDo_updateStatusInput",
-          "description": null,
-          "fields": null,
-          "inputFields": [
-            {
-              "name": "ToDo_Complete",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "Boolean",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "id",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "ID",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            },
-            {
-              "name": "clientMutationId",
-              "description": null,
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "defaultValue": null
-            }
-          ],
-          "interfaces": null,
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "OBJECT",
-          "name": "ToDo_updateStatusPayload",
-          "description": null,
-          "fields": [
-            {
-              "name": "ToDo",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "ToDo",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "Viewer",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "OBJECT",
-                "name": "Viewer",
-                "ofType": null
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            },
-            {
-              "name": "clientMutationId",
-              "description": null,
-              "args": [],
-              "type": {
-                "kind": "NON_NULL",
-                "name": null,
-                "ofType": {
-                  "kind": "SCALAR",
-                  "name": "String",
-                  "ofType": null
-                }
-              },
-              "isDeprecated": false,
-              "deprecationReason": null
-            }
-          ],
-          "inputFields": null,
-          "interfaces": [],
-          "enumValues": null,
-          "possibleTypes": null
-        },
-        {
-          "kind": "INPUT_OBJECT",
           "name": "ToDo_deleteInput",
           "description": null,
           "fields": null,
@@ -2590,6 +2486,100 @@
                 "kind": "SCALAR",
                 "name": "ID",
                 "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "Viewer",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "OBJECT",
+                "name": "Viewer",
+                "ofType": null
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "isDeprecated": false,
+              "deprecationReason": null
+            }
+          ],
+          "inputFields": null,
+          "interfaces": [],
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "INPUT_OBJECT",
+          "name": "ToDo_list_updateMarkAllInput",
+          "description": null,
+          "fields": null,
+          "inputFields": [
+            {
+              "name": "ToDo_Complete",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "clientMutationId",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "String",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            }
+          ],
+          "interfaces": null,
+          "enumValues": null,
+          "possibleTypes": null
+        },
+        {
+          "kind": "OBJECT",
+          "name": "ToDo_list_updateMarkAllPayload",
+          "description": null,
+          "fields": [
+            {
+              "name": "changedToDos",
+              "description": null,
+              "args": [],
+              "type": {
+                "kind": "LIST",
+                "name": null,
+                "ofType": {
+                  "kind": "OBJECT",
+                  "name": "ToDo",
+                  "ofType": null
+                }
               },
               "isDeprecated": false,
               "deprecationReason": null
@@ -2722,7 +2712,7 @@
         },
         {
           "kind": "INPUT_OBJECT",
-          "name": "ToDo_list_updateMarkAllInput",
+          "name": "ToDo_updateStatusInput",
           "description": null,
           "fields": null,
           "inputFields": [
@@ -2735,6 +2725,20 @@
                 "ofType": {
                   "kind": "SCALAR",
                   "name": "Boolean",
+                  "ofType": null
+                }
+              },
+              "defaultValue": null
+            },
+            {
+              "name": "id",
+              "description": null,
+              "type": {
+                "kind": "NON_NULL",
+                "name": null,
+                "ofType": {
+                  "kind": "SCALAR",
+                  "name": "ID",
                   "ofType": null
                 }
               },
@@ -2761,21 +2765,17 @@
         },
         {
           "kind": "OBJECT",
-          "name": "ToDo_list_updateMarkAllPayload",
+          "name": "ToDo_updateStatusPayload",
           "description": null,
           "fields": [
             {
-              "name": "changedToDos",
+              "name": "ToDo",
               "description": null,
               "args": [],
               "type": {
-                "kind": "LIST",
-                "name": null,
-                "ofType": {
-                  "kind": "OBJECT",
-                  "name": "ToDo",
-                  "ofType": null
-                }
+                "kind": "OBJECT",
+                "name": "ToDo",
+                "ofType": null
               },
               "isDeprecated": false,
               "deprecationReason": null
