@@ -25,7 +25,7 @@ CREATE TABLE logs(
 
 CREATE TABLE "User"(
   id uuid PRIMARY KEY,
-  "username" varchar,
+  "User_AccountName" varchar,
   "password" varchar,
   "User_DisplayName" varchar,
   "User_ProfilePhoto" varchar,
@@ -34,8 +34,8 @@ CREATE TABLE "User"(
   "User_AuthToken" varchar
 );
 
-CREATE INDEX "User_username_ix"
-ON "User"( username );
+CREATE INDEX "User_User_AccountName_ix"
+ON "User"( User_AccountName );
 
 
 

@@ -4,7 +4,7 @@ export default class User
   constructor( fields )
   {
     this.id = fields.id;
-    this.username = fields.username;
+    this.User_AccountName = fields.User_AccountName;
     this.password = fields.password;
     this.User_DisplayName = fields.User_DisplayName;
     this.User_ProfilePhoto = fields.User_ProfilePhoto;

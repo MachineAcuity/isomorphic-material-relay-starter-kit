@@ -18,10 +18,10 @@ auth.post('/login', (req, res, next) =>
 {
   const objectManager = new ObjectManager( );
 
-  let username = req.body.username.toLowerCase( );
+  let User_AccountName = req.body.User_AccountName.toLowerCase( );
   let password = req.body.password;
 
-  objectManager.getListBy( 'User', 'username', username )
+  objectManager.getListBy( 'User', 'User_AccountName', User_AccountName )
   .then( ( arr_Users ) =>
   {
     if( arr_Users.length == 0 )
@@ -56,10 +56,10 @@ auth.post('/createuser', (req, res, next) =>
 {
   const objectManager = new ObjectManager( );
 
-  let username = req.body.username.toLowerCase( );
+  let User_AccountName = req.body.User_AccountName.toLowerCase( );
   let password = req.body.password;
 
-  objectManager.getListBy( 'User', 'username', username )
+  objectManager.getListBy( 'User', 'User_AccountName', User_AccountName )
   .then( ( arr_Users ) =>
   {
     if( arr_Users.length > 0 )
@@ -69,7 +69,7 @@ auth.post('/createuser', (req, res, next) =>
         bcrypt.hash( password, 8, ( err, passwordHash ) => resolve( passwordHash ) );
       } )
       .then( ( passwordHash ) => objectManager.add( 'User', {
-        username: username,
+        User_AccountName: User_AccountName,
         password: passwordHash,
         User_DisplayName: 'New User',
         User_ProfilePhoto: '',
