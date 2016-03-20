@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -30,7 +31,7 @@ class MUI_Home extends React.Component
       </Card>
     )
   }
-};
+}
 
 export default Relay.createContainer( MUI_Home, {
   fragments: {
@@ -40,4 +41,4 @@ export default Relay.createContainer( MUI_Home, {
       }
     `,
   },
-});
+} );

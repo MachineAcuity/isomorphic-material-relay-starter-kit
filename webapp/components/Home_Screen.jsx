@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -103,7 +104,7 @@ class Home_Screen extends React.Component
       </Card>
     </div> );
   }
-};
+}
 
 export default Relay.createContainer( Home_Screen, {
   fragments: {

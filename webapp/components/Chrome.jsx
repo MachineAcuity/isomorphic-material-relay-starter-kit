@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import Helmet from "react-helmet";
 import React from 'react';
@@ -6,7 +7,6 @@ import Relay from 'react-relay';
 
 import AppCanvas from 'material-ui/lib/app-canvas';
 import Badge from 'material-ui/lib/badge';
-import ColorManipulator from 'material-ui/lib/utils/color-manipulator';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import IconButton from 'material-ui/lib/icon-button';
 import IconNotificationsEventAvailable from 'material-ui/lib/svg-icons/notification/event-available';
@@ -43,7 +43,7 @@ class Chrome extends React.Component
     return ( {
       muiTheme: getMuiTheme(
         ActiveTheme,
-        { userAgent: navigator.userAgent, }
+        { userAgent: navigator.userAgent }
       ),
     } );
   }
@@ -106,7 +106,7 @@ class Chrome extends React.Component
         />
         <LeftNav
           open={ this.state.leftNavOpen }
-          style={ { marginTop: 56, } }
+          style={ { marginTop: 56 } }
           onRequestChange={ this._handle_onRequestChange }
         >
           <SelectableList
@@ -156,14 +156,14 @@ class Chrome extends React.Component
           </ToolbarGroup>
         </ToolBar>
 
-        <div style={ { paddingTop: 60, paddingLeft: 4, paddingRight: 4, } }>
+        <div style={ { paddingTop: 60, paddingLeft: 4, paddingRight: 4 } }>
           {this.props.children}
         </div>
 
       </AppCanvas>
     )
   }
-};
+}
 
 //
 

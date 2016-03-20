@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import Helmet from "react-helmet";
 import React from 'react';
@@ -36,7 +37,7 @@ class Ensayo_PublicItem extends React.Component
       </div>
     );
   }
-};
+}
 
 export default Relay.createContainer( Ensayo_PublicItem, {
 
@@ -47,7 +48,7 @@ export default Relay.createContainer( Ensayo_PublicItem, {
 
   prepareVariables( { id } )
   {
-    return { id, };
+    return { id };
   },
 
   fragments: {

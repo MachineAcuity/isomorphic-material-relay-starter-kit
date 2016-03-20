@@ -1,6 +1,5 @@
 /* @flow weak */
 
-import chalk from 'chalk';
 import express from 'express';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
@@ -15,27 +14,37 @@ import graphql from '../graphql/server'; // GraphQL server
 // Read environment
 require( 'dotenv' ).load( );
 
-// Simply a test for Winston here
-log.log( 'info', 'Message for Winston - test - starting app' );
-
 // Validate Persistence
 const objectPersistence = process.env.OBJECT_PERSISTENCE;
 if( objectPersistence != 'memory' && objectPersistence != 'cassandra' )
 {
-  console.log( chalk.red( 'Invalid persistence: ' + objectPersistence ) );
+  log.log( 'info', 'Invalid process.env.OBJECT_PERSISTENCE: ' + objectPersistence );
   process.exit( );
 }
 
-console.log( chalk.blue( '----------------------------------------------------------------------------------------------------' ) );
-console.log( 'Application ' + chalk.bold.magenta( process.env.npm_package_name ) + ' version ' + chalk.bold.magenta( process.env.npm_package_version ) + ' running in ' + chalk.bold.magenta( process.env.NODE_ENV ) );
-console.log( 'Serving at ' + chalk.bold.magenta( process.env.HOST ) + ':' + chalk.bold.magenta( process.env.PORT ) + ', public url: ' + chalk.bold.magenta( process.env.PUBLIC_URL ) );
-if( objectPersistence == 'memory' )
-  console.log( 'Persistence to ' + chalk.bold.magenta( 'memory' ) );
-else
-  console.log( 'Persitence to ' + chalk.bold.magenta( 'Cassandra' ) + ', keyspace ' + chalk.bold.magenta( process.env.CASSANDRA_KEYSPACE ) + ', connection points ' + ( process.env.CASSANDRA_CONNECTION_POINTS != null ? chalk.bold.magenta( process.env.CASSANDRA_CONNECTION_POINTS ) : 'undefined' ) );
-console.log( 'Process ' + chalk.bold.magenta( process.title ) + ' (' + chalk.bold.magenta( process.pid ) + ')' );
-console.log( chalk.blue( '----------------------------------------------------------------------------------------------------' ) );
+// Log starting application - first gather connection information
+let persistenceInformation = { };
+if( objectPersistence == 'cassandra' )
+{
+  persistenceInformation.CASSANDRA_KEYSPACE = process.env.CASSANDRA_KEYSPACE;
+  persistenceInformation.CASSANDRA_CONNECTION_POINTS = process.env.CASSANDRA_CONNECTION_POINTS;
+}
 
+// Log starting application
+log.log( 'info', 'Starting application', {
+  npm_package_name: process.env.npm_package_name,
+  npm_package_version: process.env.npm_package_version,
+  NODE_ENV: process.env.NODE_ENV,
+  HOST: process.env.HOST,
+  PORT: process.env.PORT,
+  PUBLIC_URL: process.env.PUBLIC_URL,
+  process_title: process.title,
+  process_pid: process.pid,
+  objectPersistence: objectPersistence,
+  ...persistenceInformation
+} );
+
+// Main router
 let router = express( );
 
 router.set( 'trust proxy', 'loopback' );

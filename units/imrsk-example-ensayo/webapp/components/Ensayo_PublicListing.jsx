@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -13,7 +14,7 @@ class Ensayo_PublicListing extends React.Component
   _handle_onClick( id )
   {
     this.context.router.push( '/Ensayo_PublicListing/' + id );
-  };
+  }
 
   renderEnsayos( )
   {

@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -175,7 +176,7 @@ class MUI_Icons extends React.Component
       </div>
     )
   }
-};
+}
 
 export default Relay.createContainer(MUI_Icons, {
   fragments: {

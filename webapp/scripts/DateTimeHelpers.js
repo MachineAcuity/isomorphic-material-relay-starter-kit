@@ -118,4 +118,4 @@ export function dateFormat(date, format, utc)
     format = format.replace(/\\(.)/g, "$1");
 
     return format;
-};
+}

@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -8,7 +9,6 @@ import CardHeader from 'material-ui/lib/card/card-header';
 import CardActions from 'material-ui/lib/card/card-actions';
 import ContentAdd from 'material-ui/lib/svg-icons/content/add';
 import FloatingActionButton from 'material-ui/lib/floating-action-button';
-import TextField from 'material-ui/lib/text-field';
 
 import Ensayo_addMutation from '../../relay/Ensayo_addMutation';
 

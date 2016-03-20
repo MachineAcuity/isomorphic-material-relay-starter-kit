@@ -1,7 +1,8 @@
 /* @flow weak */
 
-import chalk from 'chalk';
 import jwt from 'jwt-simple';
+
+import log from './log.js';
 
 
 // Read environment
@@ -47,10 +48,8 @@ export function verifyUserAuthToken( a_User, req, res )
 
 export function serveAuthenticationFailed( res, message )
 {
-  // TODO implement winston logging here
-  console.log( chalk.bold.red( message ) );
-  console.log( chalk.blue( '.' ) );
+  log.log( 'warn', 'Checking credentials failed: ' + message );
 
-  res.cookie( 'auth_token', '', { httpOnly: true, expires: new Date( 1 ) } ); // Expire cookie
+  res.cookie( 'auth_token', '', { httpOnly: true, expires: new Date( 1 ) } ); // Expire cookie. Only way to 'delete'
   res.status( 403 ).send( 'Authentication failed' );
 }

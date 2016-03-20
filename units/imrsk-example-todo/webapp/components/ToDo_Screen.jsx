@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -51,7 +52,7 @@ class ToDo_Screen extends React.Component
 
         { this.props.children }
 
-        <div style={ { marginLeft: 4, marginRight: 4, } }>
+        <div style={ { marginLeft: 4, marginRight: 4 } }>
           <TextField
             floatingLabelText="What needs to be done?"
             value={ this.state.ToDo_Text_New }

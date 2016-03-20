@@ -1,4 +1,5 @@
 /* @flow weak */
+/* eslint react/prop-types: 0 */
 
 import React from 'react';
 import Relay from 'react-relay';
@@ -7,14 +8,12 @@ import Avatar from 'material-ui/lib/avatar';
 import Dialog from 'material-ui/lib/dialog';
 import Divider from 'material-ui/lib/divider';
 import FlatButton from 'material-ui/lib/flat-button';
-import IconMenu from 'material-ui/lib/menus/icon-menu';
 import IconButton from 'material-ui/lib/icon-button';
 import IconSocialPerson from 'material-ui/lib/svg-icons/social/person';
 import IconSocialPersonOutline from 'material-ui/lib/svg-icons/social/person-outline';
 import LinearProgress from 'material-ui/lib/linear-progress';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
-import MenuItem from 'material-ui/lib/menus/menu-item';
 import Popover from 'material-ui/lib/popover/popover';
 import TextField from 'material-ui/lib/text-field';
 
