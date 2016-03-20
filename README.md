@@ -176,7 +176,7 @@ In order to set up the project locally, perform the following steps:
 |------------------------|------------|
 | `start-webpack`        | Starts the webpack development server, responsible for asset compilation and hot reload. |
 | `start-dev`            | Starts the application server in development mode. |
-| `dev`                  | Starts the task at the same time: `start-webpack` and` start-dev`. The color coding achieved with chalk will not be available with this task. |
+| `dev`                  | Starts the task at the same time: `start-webpack` and` start-dev`. |
 | `start`                | Run in production mode. |
 
 ### Running in development mode

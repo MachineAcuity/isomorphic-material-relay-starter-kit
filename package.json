@@ -88,7 +88,6 @@
     "bcrypt": "^0.8.5",
     "body-parser": "^1.15.0",
     "cassandra-driver": "^3.0.1",
-    "chalk": "^1.1.1",
     "classnames": "2.2.3",
     "compression": "^1.6.1",
     "cookie-parser": "^1.4.1",

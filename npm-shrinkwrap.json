@@ -1,6 +1,6 @@
 {
   "name": "isomorphic-material-relay-starter-kit",
-  "version": "0.11.19",
+  "version": "0.11.20",
   "dependencies": {
     "abbrev": {
       "version": "1.0.7",
@@ -1556,7 +1556,7 @@
     },
     "chalk": {
       "version": "1.1.1",
-      "from": "chalk@>=1.1.1 <2.0.0",
+      "from": "chalk@1.1.1",
       "resolved": "https://registry.npmjs.org/chalk/-/chalk-1.1.1.tgz"
     },
     "cheerio": {
@@ -6568,9 +6568,9 @@
       "resolved": "https://registry.npmjs.org/supports-color/-/supports-color-2.0.0.tgz"
     },
     "svgo": {
-      "version": "0.6.2",
+      "version": "0.6.3",
       "from": "svgo@>=0.6.1 <0.7.0",
-      "resolved": "https://registry.npmjs.org/svgo/-/svgo-0.6.2.tgz"
+      "resolved": "https://registry.npmjs.org/svgo/-/svgo-0.6.3.tgz"
     },
     "table": {
       "version": "3.7.8",
@@ -6664,9 +6664,9 @@
       "resolved": "https://registry.npmjs.org/to-absolute-glob/-/to-absolute-glob-0.1.1.tgz"
     },
     "to-fast-properties": {
-      "version": "1.0.1",
+      "version": "1.0.2",
       "from": "to-fast-properties@>=1.0.1 <2.0.0",
-      "resolved": "https://registry.npmjs.org/to-fast-properties/-/to-fast-properties-1.0.1.tgz"
+      "resolved": "https://registry.npmjs.org/to-fast-properties/-/to-fast-properties-1.0.2.tgz"
     },
     "topo": {
       "version": "1.1.0",

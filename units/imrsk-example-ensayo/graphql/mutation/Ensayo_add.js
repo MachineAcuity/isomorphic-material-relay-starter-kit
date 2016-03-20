@@ -1,7 +1,5 @@
 /* @flow weak */
 
-import chalk from 'chalk';
-
 import { fromGlobalId, mutationWithClientMutationId, cursorForObjectInConnection } from "graphql-relay";
 import { GraphQLString, GraphQLNonNull } from "graphql";
 
