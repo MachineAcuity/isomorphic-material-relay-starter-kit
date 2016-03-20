@@ -202,13 +202,14 @@ The following environment variables can be used to control the server:
 | PUBLIC_URL                     | URL through which browsers and other clients can access the server - isomorphic pages, public, GraphQL. Optional. Should not be empty. Example: `https://example.com` |
 | ANONYMOUS_USER_AUTH_TOKEN               | Secret passed by server rendered to GraphQL server telling it to trust the auth_token without requiring the user_auth_token in the header to be correct. Instead it constains this very secret. |
 | JWT_SECRET                     | Secret used for JWT tokens.                                                                             |
+| OBJECT_PERSISTENCE             | whenther to use `memory` or `cassandra` as persistence layer                                            |
 | CASSANDRA_CONNECTION_POINTS    | Cassandra connection point comma separated list. `localhost` if on the same machine.                    |
 | CASSANDRA_KEYSPACE             | Cassandra keyspace/database.                                                                            |
 | CASSANDRA_USER                 | Optional Cassandra username.                                                                            |
 | CASSANDRA_PASSWORD             | Optional Cassandra password.                                                                            |
 
 They can be set in the `.env` file in the root of the project. `Example.env` in
-the documents folder contains an example of such file. It is copied to `.env` in `postinstall`.
+the documents folder contains an example of such file.
 
 
 
@@ -221,6 +222,7 @@ Naming conventions are used wherever possible. The following tags are used to co
 | `{Entity}`                             | Name of entity in the data store, like User, ToDo item, etc. |
 | `{Mutation}`                           | Indicates type of mutation applied to an entity, like add, delete, update, list_delete, etc. |
 | `{Version}`                            | Version of the project, as specified in `package.json`, like 0.6.3. |
+| `{Unit}`                               | Name of unit, for instance `imrsk-example-compendium`. |
 
 Below is the list of the main files and folders for this project. Asterisk on the right means link into the repository for quick viewing.
 
@@ -261,7 +263,13 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `scripts/cassandra-init.cql`                  | CQL Script for creating and seeding the Cassandra database. | [*](./scripts/cassandra-init.cql) |
 | `server/`                                     | The Node.js server serving isomorphic content, GraphQL, public files and authentication requests. | [*](./server/) |
 | `server/auth.js`                              | Authentication service, verifies user name and password and creates JWT tokens. | [*](./server/auth.js) |
+| `server/credentials_check.js`                 | Functions for verifying issued JWT tokens and protecting against CRSF. | [*](./server/credentials_check.js) |
 | `server/server.js`                            | Main script. Loads all other servers. | [*](./server/server.js) |
+| `units/`                                      | Units included in application, including all elements of the stack. | [*](./units/) |
+| `units/_all/`                                 | Files with includes summarizing certain includes of all units. | [*](./units/_all/) |
+| `units/_all/_mutations.js`                    | GraphQL Mutations from all units to be included in the mutation type. | [*](./units/_all/_mutations.js) |
+| `units/_all/_ViewerFields.js`                 | Fields included in the viewer type from all units. | [*](./units/_all/_ViewerFields.js) |
+| `units/{Unit}/`                               | A single unit. See table below for per-unit structure | [*](./units/imrsk-example-compendium/) |
 | `webapp/`                                     | Root for the entire web application. | [*](./webapp/) |
 | `webapp/components/`                          | All the JSX components used by the web app. | [*](./webapp/components/) |
 | `webapp/mui-themes/`                          | Material-UI themes. | [*](./webapp/mui-themes/) |
@@ -277,7 +285,14 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `webapp/routes.js`                            | Routes in a data structure consumed both by express router and react router. | [*](./webapp/routes.js) |
 | `webapp/server.js`                            | Server for the web app. | [*](./webapp/server.js) |
 
+The structure of each unit is as follows:
 
+| Folder/File                                   | Description                                                    |     |
+| --------------------------------------------- | ---------------------------------------------------------------| --- |
+| `/`                                           | Root of unit at relative path `units/{Unit}/` | [*](./units/imrsk-example-compendium/) |
+| `graphql/`                                   | All files included in the express-graphql server schema. | [*](./units/imrsk-example-compendium/graphql/) |
+| `relay/`                                     | All Relay client side files shared between react DOM and native. | [*](./units/imrsk-example-compendium/relay/) |
+| `webapp/`                                    | React DOM files. | [*](./units/imrsk-example-compendium/webapp/) |
 
 ## Customizing the look and feel
 
