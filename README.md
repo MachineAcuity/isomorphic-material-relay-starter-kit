@@ -241,7 +241,7 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `doc/`                                        | Misc. documentation. | [*](./doc/) |
 | `doc/example.env`                             | Example of a `.env` file. Also copied into `\.env` in `setup-local` script. | [*](./doc/example.env) |
 | `graphql/`                                    | Holds the elements of the GraphQL schema. | [*](./graphql/) |
-| `graphql/interface/NodeInterface.js`          | The main node interface. | [*](./graphql/interface/NodeInterface.js) |
+| `graphql/NodeInterface.js`          | The main node interface. | [*](./graphql/NodeInterface.js) |
 | `graphql/mutations/`                          | All the mutations. | [*](./graphql/mutations/) |
 | `graphql/mutations/{Entity}_{Mutation}.js`    | One mutation. |
 | `graphql/type/`                               | All types, including system types, entity types, connections, etc. | [*](./graphql/type/) |

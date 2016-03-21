@@ -4,7 +4,7 @@ import { GraphQLID, GraphQLBoolean, GraphQLInt, GraphQLString, GraphQLObjectType
 import { globalIdField, fromGlobalId, connectionArgs, connectionFromArray } from "graphql-relay";
 
 import _ViewerFields from "../../units/_all/_ViewerFields";
-import NodeInterface from "../interface/NodeInterface";
+import NodeInterface from "../NodeInterface";
 import User from '../../data/model/User';
 import { Uuid } from '../../data/lib/CassandraClient.js';
 

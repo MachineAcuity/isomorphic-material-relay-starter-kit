@@ -4,7 +4,7 @@ import { fromGlobalId } from "graphql-relay";
 import { GraphQLID, GraphQLNonNull, GraphQLObjectType } from "graphql";
 
 import ViewerType from "./ViewerType";
-import NodeInterface from "../interface/NodeInterface";
+import NodeInterface from "../NodeInterface";
 
 function resolveNodeField( source, args, { rootValue: {user_id, objectManager} } )
 {

@@ -4,7 +4,7 @@ import { globalIdField } from "graphql-relay";
 import { GraphQLInt, GraphQLObjectType } from "graphql";
 
 import GraphQLDateTime from "../../../../graphql/scalar/GraphQLDateTime";
-import NodeInterface from "../../../../graphql/interface/NodeInterface";
+import NodeInterface from "../../../../graphql/NodeInterface";
 
 import Translaticiarum from '../model/Translaticiarum';
 

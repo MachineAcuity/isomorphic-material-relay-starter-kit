@@ -3,7 +3,7 @@
 import { globalIdField } from "graphql-relay";
 import { GraphQLString, GraphQLObjectType } from "graphql";
 
-import NodeInterface from "../../../../graphql/interface/NodeInterface";
+import NodeInterface from "../../../../graphql/NodeInterface";
 
 import Ensayo from '../model/Ensayo';
 
