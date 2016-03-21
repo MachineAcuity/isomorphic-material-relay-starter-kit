@@ -27,7 +27,14 @@ export function getUserByCookie( objectManager, req, res )
     return Promise.reject( "Could not read auth cookie. " + err );
   }
 
-  return objectManager.getOneById( 'User', user_id );
+  return objectManager.getOneById( 'User', user_id )
+  .then( ( a_User ) => {
+    if( a_User )
+      return a_User;
+    else
+      return Promise.reject( "User not found" );
+  } )
+  ;
 }
 
 export function verifyUserAuthToken( a_User, req, res )
