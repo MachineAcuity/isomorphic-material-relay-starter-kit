@@ -278,9 +278,8 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `webapp/scripts/`                             | Scripts used by the client. | [*](./webapp/scripts/) |
 | `webapp/styles/`                              | Styles used by the client. | [*](./webapp/styles/) |
 | `webapp/styles/main.css`                      | Example style included in the app. Currently not used. | [*](./webapp/styles/main.css) |
-| `webapp/views/`                               | Views served by the express web app. | [*](./webapp/views/) |
-| `webapp/views/index.ejs`                      | Template for the HTML served by the isomorphic server rendered. | [*](./webapp/views/index.ejs) |
 | `webapp/app.js`                               | Starts the client-side SPA using data generated during server rendering. | [*](./webapp/app.js) |
+| `webapp/renderOnServer.ejs`                   | Template for the HTML served by the isomorphic server rendered. | [*](./webapp/renderOnServer.ejs) |
 | `webapp/renderOnServer.js`                    | Performs server-side rendering. | [*](./webapp/renderOnServer.js) |
 | `webapp/routes.js`                            | Routes in a data structure consumed both by express router and react router. | [*](./webapp/routes.js) |
 | `webapp/server.js`                            | Server for the web app. | [*](./webapp/server.js) |
