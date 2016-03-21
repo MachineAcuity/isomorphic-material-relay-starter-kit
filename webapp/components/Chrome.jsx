@@ -22,7 +22,7 @@ import ToolbarTitle from 'material-ui/lib/toolbar/toolbar-title';
 
 const SelectableList = SelectableContainerEnhance(List);
 
-import AppBar_Auth from './AppBar_Auth.jsx';
+import AppBar_Auth from '../../units/user-management/webapp/components/AppBar_Auth.jsx';
 import AppBar_Language from './AppBar_Language.jsx';
 import ActiveTheme from '../mui-themes/active-theme.js';
 

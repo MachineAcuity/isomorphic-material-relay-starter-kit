@@ -17,7 +17,7 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Popover from 'material-ui/lib/popover/popover';
 import TextField from 'material-ui/lib/text-field';
 
-import { postXHR } from '../scripts/XHR';
+import { postXHR } from '../../../../webapp/scripts/XHR';
 
 const styles = {
   popover: {
@@ -144,8 +144,8 @@ class AppBar_Auth extends React.Component
         open={ this.state.Dialog_AuthenticationChallenge_IsOpen }
         title="Log In"
         actions={ [
-          <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_Cancel } />,
           <FlatButton key="CreateUser" label="Create User" secondary={true} onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_CreateUser } />,
+          <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_Cancel } />,
           <FlatButton key="LogIn" label="Log In" primary={true} onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_LogIn } />,
         ] }
       >
