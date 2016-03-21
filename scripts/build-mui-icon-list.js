@@ -74,4 +74,4 @@ let sourceCode = [
   `});`,
 ];
 
-fs.writeFileSync('./webapp/components/MUI_Icons.jsx', sourceCode.join('\n'));
+fs.writeFileSync('./units/imrsk-example-mui/webapp/components/MUI_Icons.jsx', sourceCode.join('\n'));
