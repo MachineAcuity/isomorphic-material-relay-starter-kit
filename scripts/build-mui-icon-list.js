@@ -34,6 +34,9 @@ rrs('./node_modules/material-ui/src/svg-icons/').forEach(function(file) {
 });
 
 let sourceCode = [
+	`/* @flow weak */`,
+	`/* eslint react/prop-types: 0 */`,
+	``,
   `import React from 'react';`,
   `import Relay from 'react-relay';`,
   ``,
@@ -61,7 +64,7 @@ let sourceCode = [
   `      </div>`,
   `    )`,
   `  }`,
-  `};`,
+  `}`,
   ``,
   `export default Relay.createContainer(MUI_Icons, {`,
   `  fragments: {`,
