@@ -109,6 +109,8 @@ type EnsayosEdge {
 }
 
 type Mutation {
+  Viewer_update(input: Viewer_updateInput!): Viewer_updatePayload
+  Viewer_updatePassword(input: Viewer_updatePasswordInput!): Viewer_updatePasswordPayload
   Compendium_update(input: Compendium_updateInput!): Compendium_updatePayload
   Ensayo_add(input: Ensayo_addInput!): Ensayo_addPayload
   Ensayo_delete(input: Ensayo_deleteInput!): Ensayo_deletePayload
@@ -121,8 +123,6 @@ type Mutation {
   Translaticiarum_add(input: Translaticiarum_addInput!): Translaticiarum_addPayload
   Translaticiarum_delete(input: Translaticiarum_deleteInput!): Translaticiarum_deletePayload
   Translaticiarum_update(input: Translaticiarum_updateInput!): Translaticiarum_updatePayload
-  Viewer_update(input: Viewer_updateInput!): Viewer_updatePayload
-  Viewer_updatePassword(input: Viewer_updatePasswordInput!): Viewer_updatePasswordPayload
 }
 
 interface Node {

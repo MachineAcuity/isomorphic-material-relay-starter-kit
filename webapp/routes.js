@@ -18,8 +18,8 @@ import ToDo_Screen from '../units/imrsk-example-todo/webapp/components/ToDo_Scre
 import Translaticiarum_List from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_List.jsx';
 import Translaticiarum_Grid from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_Grid.jsx';
 import Translaticiarum_Screen from '../units/imrsk-example-translaticiarum/webapp/components/Translaticiarum_Screen.jsx';
-import User_Properties from './components/User_Properties.jsx';
-import User_UpdatePassword from './components/User_UpdatePassword.jsx';
+import User_Properties from '../units/user-management/webapp/components/User_Properties.jsx';
+import User_UpdatePassword from '../units/user-management/webapp/components/User_UpdatePassword.jsx';
 
 
 const queries = {
