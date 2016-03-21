@@ -34,7 +34,7 @@ class Home_Screen extends React.Component
             <li>
               <b>User authentication</b> : On the top right in the navigation bar, if the user is not logged in (i.e. is being anonymous) an
               outline of a human bust is displayed.
-              Clicking on it opens the log in dialog. The pre-defined user names and passwords are listed in the dialog.
+              Clicking on it opens the log in dialog.
               If the user is already authenticated, a small pop over with information about the current user and user-related functions is displayed.
             </li>
             <li>

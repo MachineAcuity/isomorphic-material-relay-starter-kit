@@ -11,7 +11,7 @@ export default mutationWithClientMutationId( {
   name: 'Viewer_updatePassword',
   inputFields: {
     id:              { type: new GraphQLNonNull( GraphQLID ) },
-    User_Password:   { type: new GraphQLNonNull( GraphQLString ) },
+    User_AccountPassword:   { type: new GraphQLNonNull( GraphQLString ) },
   },
   outputFields: {
     Viewer: {
@@ -19,16 +19,16 @@ export default mutationWithClientMutationId( {
       resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
   },
-  mutateAndGetPayload: ( { id, User_Password, }, { rootValue: {user_id, objectManager} } ) =>
+  mutateAndGetPayload: ( { id, User_AccountPassword, }, { rootValue: {user_id, objectManager} } ) =>
   {
     var local_id = fromGlobalId( id ).id;
 
     return new Promise( ( resolve ) => {
-      bcrypt.hash( User_Password, 8, ( err, password ) => resolve( password ) );
+      bcrypt.hash( User_AccountPassword, 8, ( err, User_AccountPassword ) => resolve( User_AccountPassword ) );
     } )
-    .then( ( password ) => objectManager.update( 'User', {
+    .then( ( User_AccountPassword ) => objectManager.update( 'User', {
       id: local_id,
-      password,
+      User_AccountPassword,
     } ) )
     .then( ( ) => {
       return {local_id};

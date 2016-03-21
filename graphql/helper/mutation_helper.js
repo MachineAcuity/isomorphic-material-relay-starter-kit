@@ -2,7 +2,7 @@
 
 import { cursorForObjectInConnection } from "graphql-relay";
 
-import log from '../server/log.js';
+import log from '../../server/log.js';
 import { Uuid } from '../../data/lib/CassandraClient.js';
 
 

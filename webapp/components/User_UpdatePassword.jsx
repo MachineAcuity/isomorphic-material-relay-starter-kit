@@ -20,7 +20,7 @@ class User_Properties extends React.Component
     Relay.Store.commitUpdate(
       new Viewer_updatePasswordMutation( {
         Viewer:             this.props.Viewer,
-        User_Password:      this.refs.User_Password.getValue( ),
+        User_AccountPassword:      this.refs.User_AccountPassword.getValue( ),
       } )
     );
   };
@@ -37,9 +37,9 @@ class User_Properties extends React.Component
           />
           <CardText>
             <TextField
-              ref="User_Password"
+              ref="User_AccountPassword"
               type="password"
-              defaultValue={ this.props.Viewer.User_Password }
+              defaultValue={ this.props.Viewer.User_AccountPassword }
               floatingLabelText="Password"
               fullWidth={ true }
             />

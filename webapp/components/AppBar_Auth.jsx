@@ -156,7 +156,7 @@ class AppBar_Auth extends React.Component
           onEnterKeyDown={ this._handle_onEnterKeyDown_AuthenticationChallenge_UserName }
         />
         <TextField
-          ref="password"
+          ref="User_AccountPassword"
           type="password"
           floatingLabelText="Password"
           fullWidth={ true }
@@ -176,7 +176,7 @@ class AppBar_Auth extends React.Component
 
   _handle_onEnterKeyDown_AuthenticationChallenge_UserName = ( ) =>
   {
-    this.refs.password.focus( );
+    this.refs.User_AccountPassword.focus( );
   };
 
   _handle_onEnterKeyDown_AuthenticationChallenge_Password = ( ) =>
@@ -198,7 +198,7 @@ class AppBar_Auth extends React.Component
       host + '/auth/login',
       {
         User_AccountName: this.refs.User_AccountName.getValue( ),
-        password: this.refs.password.getValue( ),
+        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
       },
       ( response ) => this._handle_Authentication_Response_Success( response ),
       ( response ) => this._handle_Authentication_Response_Failure( response )
@@ -210,7 +210,7 @@ class AppBar_Auth extends React.Component
     this.setState( {
       Dialog_AuthenticationChallenge_IsOpen: false,
       Dialog_CreateUser_IsOpen: true,
-      Dialog_CreateUser_PasswordStrength: 0,
+      Dialog_CreateUser_AccountPasswordStrength: 0,
     } );
   };
 
@@ -286,7 +286,7 @@ class AppBar_Auth extends React.Component
         title="Create New User"
         actions={ [
           <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_CreateUser_Cancel } />,
-          <FlatButton key="Create" label="Create" primary={true} disabled={ this.state.Dialog_CreateUser_PasswordStrength < 60 } onTouchTap={ this._handle_onTouchTap_CreateUser_Create } />,
+          <FlatButton key="Create" label="Create" primary={true} disabled={ this.state.Dialog_CreateUser_AccountPasswordStrength < 60 } onTouchTap={ this._handle_onTouchTap_CreateUser_Create } />,
         ] }
       >
         <TextField
@@ -295,17 +295,17 @@ class AppBar_Auth extends React.Component
           fullWidth={ true }
         />
         <TextField
-          ref="password"
+          ref="User_AccountPassword"
           type="password"
           floatingLabelText="Password"
           fullWidth={ true }
-          onChange={ this._handle_onChange_CreateUser_Password }
+          onChange={ this._handle_onChange_CreateUser_AccountPassword }
         />
         <br/><br/>Password strength
         <LinearProgress
           mode="determinate"
-          value={ this.state.Dialog_CreateUser_PasswordStrength }
-          color={ this.state.Dialog_CreateUser_PasswordStrength < 60 ? "#ff0000" : ( this.state.Dialog_CreateUser_PasswordStrength < 80 ? "#c0c000" : "#00d000" ) }
+          value={ this.state.Dialog_CreateUser_AccountPasswordStrength }
+          color={ this.state.Dialog_CreateUser_AccountPasswordStrength < 60 ? "#ff0000" : ( this.state.Dialog_CreateUser_AccountPasswordStrength < 80 ? "#c0c000" : "#00d000" ) }
         />
       </Dialog>
     );
@@ -325,7 +325,7 @@ class AppBar_Auth extends React.Component
       host + '/auth/createuser',
       {
         User_AccountName: this.refs.User_AccountName.getValue( ),
-        password: this.refs.password.getValue( ),
+        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
       },
       ( response ) => this._handle_CreateUser_Response_Success( response ),
       ( response ) => this._handle_CreateUser_Response_Failure( response )
@@ -362,10 +362,10 @@ class AppBar_Auth extends React.Component
     return score;
   }
 
-  _handle_onChange_CreateUser_Password = ( ) =>
+  _handle_onChange_CreateUser_AccountPassword = ( ) =>
   {
     this.setState( {
-      Dialog_CreateUser_PasswordStrength: this.scorePassword( this.refs.password.getValue( ) ),
+      Dialog_CreateUser_AccountPasswordStrength: this.scorePassword( this.refs.User_AccountPassword.getValue( ) ),
     } );
   };
 

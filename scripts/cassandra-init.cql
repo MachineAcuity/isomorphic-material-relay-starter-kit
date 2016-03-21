@@ -26,7 +26,7 @@ CREATE TABLE logs(
 CREATE TABLE "User"(
   id uuid PRIMARY KEY,
   "User_AccountName" varchar,
-  "password" varchar,
+  "User_AccountPassword" varchar,
   "User_DisplayName" varchar,
   "User_ProfilePhoto" varchar,
   "User_Email" varchar,
@@ -35,7 +35,7 @@ CREATE TABLE "User"(
 );
 
 CREATE INDEX "User_User_AccountName_ix"
-ON "User"( User_AccountName );
+ON "User"( "User_AccountName" );
 
 
 

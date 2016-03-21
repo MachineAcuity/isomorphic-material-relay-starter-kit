@@ -16,7 +16,7 @@ require( 'dotenv' ).load( );
 const User_0 = new User( {
   id: Uuid.fromString( '00000000-0000-0000-0000-000000000000' ),
   User_AccountName: '',
-  password: '',
+  User_AccountPassword: '',
   User_DisplayName: 'Anonymous',
   "User_ProfilePhoto": '',
   User_Email: '',

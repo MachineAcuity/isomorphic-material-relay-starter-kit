@@ -19,7 +19,7 @@ auth.post('/login', (req, res, next) =>
   const objectManager = new ObjectManager( );
 
   let User_AccountName = req.body.User_AccountName.toLowerCase( );
-  let password = req.body.password;
+  let User_AccountPassword = req.body.User_AccountPassword;
 
   objectManager.getListBy( 'User', 'User_AccountName', User_AccountName )
   .then( ( arr_Users ) =>
@@ -30,9 +30,9 @@ auth.post('/login', (req, res, next) =>
     {
       const a_User = arr_Users[ 0 ];
 
-      bcrypt.compare( password, a_User.password, function( err, passwordIsCorrect )
+      bcrypt.compare( User_AccountPassword, a_User.User_AccountPassword, function( err, User_AccountPasswordIsCorrect )
       {
-        if( passwordIsCorrect )
+        if( User_AccountPasswordIsCorrect )
         {
           // User has authenticated correctly thus we create a JWT token
           var token = jwt.encode( { user_id: a_User.id }, process.env.JWT_SECRET );
@@ -57,7 +57,7 @@ auth.post('/createuser', (req, res, next) =>
   const objectManager = new ObjectManager( );
 
   let User_AccountName = req.body.User_AccountName.toLowerCase( );
-  let password = req.body.password;
+  let User_AccountPassword = req.body.User_AccountPassword;
 
   objectManager.getListBy( 'User', 'User_AccountName', User_AccountName )
   .then( ( arr_Users ) =>
@@ -66,11 +66,11 @@ auth.post('/createuser', (req, res, next) =>
       return Promise.reject( "User account already exists" );
     else
       return new Promise( ( resolve ) => {
-        bcrypt.hash( password, 8, ( err, passwordHash ) => resolve( passwordHash ) );
+        bcrypt.hash( User_AccountPassword, 8, ( err, User_AccountPassword ) => resolve( User_AccountPassword ) );
       } )
-      .then( ( passwordHash ) => objectManager.add( 'User', {
+      .then( ( User_AccountPassword ) => objectManager.add( 'User', {
         User_AccountName: User_AccountName,
-        password: passwordHash,
+        User_AccountPassword: User_AccountPassword,
         User_DisplayName: 'New User',
         User_ProfilePhoto: '',
         User_Email: '',

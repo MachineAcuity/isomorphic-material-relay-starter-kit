@@ -3297,7 +3297,7 @@
               "defaultValue": null
             },
             {
-              "name": "User_Password",
+              "name": "User_AccountPassword",
               "description": null,
               "type": {
                 "kind": "NON_NULL",
