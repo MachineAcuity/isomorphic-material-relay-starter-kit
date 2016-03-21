@@ -6,10 +6,8 @@ import React from 'react';
 import Relay from 'react-relay';
 
 import AppCanvas from 'material-ui/lib/app-canvas';
-import Badge from 'material-ui/lib/badge';
 import getMuiTheme from 'material-ui/lib/styles/getMuiTheme';
 import IconButton from 'material-ui/lib/icon-button';
-import IconNotificationsEventAvailable from 'material-ui/lib/svg-icons/notification/event-available';
 import LeftNav from 'material-ui/lib/left-nav';
 import List from 'material-ui/lib/lists/list';
 import ListItem from 'material-ui/lib/lists/list-item';
@@ -24,6 +22,7 @@ const SelectableList = SelectableContainerEnhance(List);
 
 import AppBar_Auth from '../../units/user-management/webapp/components/AppBar_Auth.jsx';
 import AppBar_Language from './AppBar_Language.jsx';
+import AppBar_ToDo_OpenIndicator from '../../units/imrsk-example-todo/webapp/components/AppBar_ToDo_OpenIndicator.jsx';
 import ActiveTheme from '../mui-themes/active-theme.js';
 
 
@@ -60,11 +59,6 @@ class Chrome extends React.Component
     } );
   };
 
-  _handle_onTouchTap_IncompleteTODOs = ( ) =>
-  {
-    this.context.router.push( '/ToDos/active' );
-  };
-
   _handle_onRequestChangeList = ( event, value ) =>
   {
     this.context.router.push( value );
@@ -73,19 +67,6 @@ class Chrome extends React.Component
 
   render( )
   {
-    let incompleteCount = this.props.Viewer.ToDo_TotalCount - this.props.Viewer.ToDo_CompletedCount;
-
-    let incompleteNotification = [ ];
-
-    if( incompleteCount > 0 )
-      incompleteNotification.push(
-        <Badge key="top-incomplete" style={ { marginTop: -11, marginBottom: -17 } } badgeContent={ incompleteCount } primary={ true } badgeStyle={{top:20, right:16}}>
-          <IconButton tooltip="Incomplete TODOs" onTouchTap={ this._handle_onTouchTap_IncompleteTODOs }>
-            <IconNotificationsEventAvailable />
-          </IconButton>
-        </Badge>
-      );
-
     // TODO Temporary example how to modify the menu depending on whether the user has logged in or not.
     // Later integrate with example of requesting login and
     // https://github.com/codefoundries/isomorphic-material-relay-starter-kit/issues/36
@@ -149,7 +130,7 @@ class Chrome extends React.Component
             <ToolbarTitle text="IMRSK" />
           </ToolbarGroup>
           <ToolbarGroup float="right">
-            { incompleteNotification }
+            <AppBar_ToDo_OpenIndicator Viewer={this.props.Viewer} />
             <ToolbarSeparator />
             <AppBar_Auth Viewer={this.props.Viewer} />
             <AppBar_Language Viewer={this.props.Viewer} />
@@ -175,6 +156,8 @@ Chrome.childContextTypes = {
   muiTheme: React.PropTypes.object,
 };
 
+//
+
 // It is important to retrieve User_AuthToken, since it is used in app.js
 export default Relay.createContainer( Chrome, {
   fragments: {
@@ -182,9 +165,8 @@ export default Relay.createContainer( Chrome, {
       fragment on Viewer {
         User_IsAnonymous,
         User_AuthToken,
-        ToDo_TotalCount,
-        ToDo_CompletedCount,
         ${AppBar_Auth.getFragment('Viewer')},
+        ${AppBar_ToDo_OpenIndicator.getFragment('Viewer')},
       }
     `,
   },
