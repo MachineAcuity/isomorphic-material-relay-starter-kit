@@ -22,7 +22,7 @@ import User_Properties from '../units/user-management/webapp/components/User_Pro
 import User_UpdatePassword from '../units/user-management/webapp/components/User_UpdatePassword.jsx';
 
 
-const queries = {
+export const queries = {
   Viewer: () => Relay.QL`query { Viewer }`,
 };
 
