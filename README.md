@@ -10,18 +10,36 @@ IMRSK started as an off-shoot of multiple projects and boilerplates we use at [C
 | Run on [Heroku](https://www.heroku.com/nodejs) | [Heroku Setup](#heroku-setup) |
 
 
-## Help wanted
 
-If you like to help, please review the list of items where [help is needed](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/labels/Help%20wanted).
+## Features
+
+| **Feature** | **Details**|
+|-------------|------------|
+| SPA | The IMRSK is a Single Page Application. It has all the advantages that come with SPA, while using isomorphism and the Relay features allows to offset practically all negatives that come with this approach. |
+| React and React Native | The use of both React (for the web) and React Native (for mobile apps), connected to the same GraphQL backend, allows for maximum reuse of code and developer skills. |
+| Isomorphism | The kit is designed to be fully isomorphic. This allows for very quick rendering when the users first access a page in the application. All content is designed to be accessed in an isomorphic way allowing the use and sharing of links to any part of the SPA. |
+| SEO | The combination of isomorphism with the use of the react helmet allows all the content in the application to be SEO ready. Samples will be added to the kit later. |
+| ES6, ES7 | The IMRSK uses features of ES6 and ES7 extensively. All react components are implemented as ES6 classes. |
+| JWT Tokens | JWT tokens are used for authentication. They are stored in server-only cookies which, together with the use of GraphQL, provides a fair amount of protection against several possible attacks. |
+| CSRF Tokens | Tokens are passed with each GraphQL request to prevent Cross Site Request Forgery exploits. |
+| HTTP Only cookies | The HTTP only cookies are currently the safest way to handle authentication in a web application. The JWT tokens are stored in HTTP only cookies making it harder for attackers to access. |
+| Material Design | Expanding upon the "card" motifs that debuted in Google Now, Material Design makes more liberal use of grid-based layouts, responsive animations and transitions, padding, and depth effects such as lighting and shadows. |
+| Responsive Design | Mainly through the features of the Material UI library, the examples in IMRSK work well on different form factors, ranging from desktop browsers to mobile phones. |
+| Hot Reload | The webpack development server supports hot reload when components are changed, greatly improving developer productivity. The IMRSK is configured with hot reload. |
+| Built for speed | The starter kit is configured to use established practices for optimizing speed like caching and compression. This entails certain requirements about how it is used, read in the Speed and Building section below. |
+| Units | The examples are broken into semi-independent units containing all client and server side code necessary. Adding and removing units can be done fairly easily without affecting the application in a major way. |
+| Cassandra/In Memory | The starter kit can be used with both Cassandra-based data storage, as well as in-memory structures. The latter are right now used only for testing, but can be later used for setting up mock tests cases for unit and regression testing. |
 
 
-## Articles
 
-The following articles explain in detail certain aspects of this repository:
+## Detailed explanation
+
+The following documents explain in detail certain aspects of this repository:
 
 * [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html).
 * [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html).
 * [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html).
+
 
 
 ## Underlying technologies
@@ -29,6 +47,7 @@ The following articles explain in detail certain aspects of this repository:
 | **Technology** | **Description**|
 |----------------|----------------|
 | [React](https://facebook.github.io/react/) | Library for building SPA. |
+| [React Native](https://facebook.github.io/react-native/) | React Native enables you to build world-class application experiences on native platforms using a consistent developer experience based on JavaScript and React. |
 | [Material UI](http://www.material-ui.com/) | Library for implementing Material Design in React. All user interface in this kit is built exclusively with Material UI components. |
 | [material-ui-country-flags](https://github.com/codefoundries/material-ui-country-flags) | Library with flag icons for Material-UI, used for the language selector. |
 | [Relay](https://facebook.github.io/relay/) | A Javascript framework for building data-driven react applications. |
@@ -48,21 +67,9 @@ The following articles explain in detail certain aspects of this repository:
 
 
 
-## Features
+## Security considerations
 
-| **Feature** | **Details**|
-|-------------|------------|
-| SPA | The IMRSK is a Single Page Application. It has all the advantages that come with SPA, while using isomorphism and the Relay features allows to offset practically all negatives that come with this approach. |
-| Isomorphism | The kit is designed to be fully isomorphic. This allows for very quick rendering when the users first access a page in the application. All content is designed to be accessed in an isomorphic way allowing the use and sharing of links to any part of the SPA. |
-| SEO | The combination of isomorphism with the use of the react helmet allows all the content in the application to be SEO ready. Samples will be added to the kit later. |
-| ES6, ES7 | The IMRSK uses features of ES6 and ES7 extensively. All react components are implemented as ES6 classes. |
-| JWT Tokens | JWT tokens are used for authentication. They are stored in server-only cookies which, together with the use of GraphQL, provides a fair amount of protection against several possible attacks. |
-| HTTP Only cookies | The HTTP only cookies are currently the safest way to handle authentication in a web application. The JWT tokens are stored in HTTP only cookies making it harder for attackers to access. Why this is the best place is explained in [Where to Store Your JWTs - Cookies vs HTML5 Web Storage](https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage/). |
-| Material Design | Expanding upon the "card" motifs that debuted in Google Now, Material Design makes more liberal use of grid-based layouts, responsive animations and transitions, padding, and depth effects such as lighting and shadows. |
-| Responsive Design | Mainly through the features of the Material UI library, the examples in IMRSK work well on different form factors, ranging from desktop browsers to mobile phones. |
-| Hot Reload | The webpack development server supports hot reload when components are changed. The IMRSK is configured with hot reload. |
-| Built for speed | The starter kit is configured to use established practices for optimizing speed like caching and compression. This entails certain requirements about how it is used, read in the Speed and Building section below. |
-| Cassandra/In Memory | The starter kit can be used with both Cassandra-based data storage, as well as in-memory structures. The latter are right now used only for testing, but can be later used for setting up mock tests cases for unit and regression testing. |
+* **Use of HTTP Only cookies** Why this is the best place is explained in [Where to Store Your JWTs - Cookies vs HTML5 Web Storage](https://stormpath.com/blog/where-to-store-your-jwts-cookies-vs-html5-web-storage/).
 
 
 
@@ -228,7 +235,8 @@ Below is the list of the main files and folders for this project. Asterisk on th
 
 | Folder/File                                   | Description                                                    |  |
 | --------------------------------------------- | ---------------------------------------------------------------| --- |
-| `data/`                                       | Methods and data access functions | [*](./data/) |
+| `app/`                                        | Root for the react-native app. | [*](./app/) |
+| `data/`                                       | Methods and data access functions. | [*](./data/) |
 | `data/lib/`                                   | Wrappers around data loader, cassandra driver and in-memory persistence. | [*](./data/lib/) |
 | `data/lib/CassandraClient.js`                 | Promisified Cassandra client. | [*](./data/lib/CassandraClient.js) |
 | `data/lib/CassandraOptions.js`                | Options for connecting to Cassandra used by client and logger. | [*](./data/lib/CassandraOptions.js) |
@@ -290,6 +298,9 @@ The structure of each unit is as follows:
 | `relay/`                                      | All Relay client side files shared between react DOM and native. | [*](./units/imrsk-example-compendium/relay/) |
 | `webapp/`                                     | React DOM files. | [*](./units/imrsk-example-compendium/webapp/) |
 
+
+
+
 ## Customizing the look and feel
 
 Material-UI provides powerful means for [customizing the colors and the overall look of the application](http://www.material-ui.com/#/customization/themes). The IMRSK uses a custom theme as indicated in [./webapp/mui-themes/active-theme.js](./webapp/mui-themes/active-theme.js). The `active-theme.js` file itself simply imports and re-exports one of the themes in the folder. By convention, all components will be importing `active-theme.js` whenever theme information is required on the component level. Here is an example of some of the settings from the [webapp/mui-themes/grayBlue.js](./webapp/mui-themes/grayBlue.js)
@@ -330,18 +341,10 @@ If you add other static content, you might want to revisit how caching of static
 
 ## Credits and Sources
 
-This project serves as a starter kit for projects utilizing the following technologies:
-
-* [React JS](https://facebook.github.io/react/)
-* [Relay / GrpahQL](https://facebook.github.io/relay/)
-* [Isomorphic Relay](https://github.com/denvned/isomorphic-relay)
-* [Material-UI](http://www.material-ui.com/)
-* [JSON Web Tokens](https://jwt.io/)
-* [Apache Cassandra](http://cassandra.apache.org/).
-
-It contains a boilerplate with several simple code examples. It consists of modified versions of the following projects:
+This project contains a boilerplate with several simple code examples. It consists of modified versions of the following projects:
 
 * [Facebook Relay Starter Kit TODO example](https://github.com/facebook/relay/tree/master/examples/todo). Implementation of the TODO MVC using Relay. In this kit the TODO example has been re-implemented with material UI.
+* [Facebook Relay Todo MVC example](https://github.com/facebook/relay/tree/master/examples/TodoMVC). Implementation of the TODO MVC using Relay and React Native.
 * [Isomorphic react-router-relay TODO example](https://github.com/denvned/isomorphic-relay-router/tree/master/examples/todo). The Facebook TODO example in this project has been modified to support isomorphism.
 * [Xpepermint's isomorphic-react-relay-boilerplate](https://github.com/xpepermint/isomorphic-react-relay-boilerplate). The project organization was initially borrowed from this project, although it has since diverged.
 * [coryhouse's react-slingshot](https://github.com/coryhouse/react-slingshot). Ideas about he documentation are borrowed from this project.
@@ -352,6 +355,7 @@ Examples from other open source projects have also been incorporated.
 
 
 
-## Final word of caution
 
-This project is not guaranteed to be suitable for production deployment. While we strive to make it as good and bug-free as possible, it is up to you to modify it until it is fit for the purposes of your project.
+## Help wanted
+
+If you like to help, please review the list of items where [help is needed](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/labels/Help%20wanted).
