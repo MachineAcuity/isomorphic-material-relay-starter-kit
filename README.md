@@ -11,11 +11,22 @@ IMRSK started as an off-shoot of multiple projects and boilerplates we use at [C
 
 
 
+## Documentation
+
+The following documents explain in detail certain aspects of this repository in depth:
+
+* [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html). Explanation of how Cassandra and Express GraphQL work together.
+* [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html). Using variables and settings in an isomorphic application - client rendering, server rendering.
+* [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html). How to make SEO-friendly pages with React, Relay and Helmet.
+
+
+
+
 ## Features
 
 | **Feature** | **Details**|
 |-------------|------------|
-| SPA | The IMRSK is a Single Page Application. It has all the advantages that come with SPA, while using isomorphism and the Relay features allows to offset practically all negatives that come with this approach. |
+| Single Page Application | The IMRSK is a Single Page Application. It has all the advantages that come with SPA, while using isomorphism and the Relay features allows to offset practically all negatives that come with this approach. |
 | React and React Native | The use of both React (for the web) and React Native (for mobile apps), connected to the same GraphQL backend, allows for maximum reuse of code and developer skills. |
 | Isomorphism | The kit is designed to be fully isomorphic. This allows for very quick rendering when the users first access a page in the application. All content is designed to be accessed in an isomorphic way allowing the use and sharing of links to any part of the SPA. |
 | SEO | The combination of isomorphism with the use of the react helmet allows all the content in the application to be SEO ready. Samples will be added to the kit later. |
@@ -29,16 +40,8 @@ IMRSK started as an off-shoot of multiple projects and boilerplates we use at [C
 | Built for speed | The starter kit is configured to use established practices for optimizing speed like caching and compression. This entails certain requirements about how it is used, read in the Speed and Building section below. |
 | Units | The examples are broken into semi-independent units containing all client and server side code necessary. Adding and removing units can be done fairly easily without affecting the application in a major way. |
 | Cassandra/In Memory | The starter kit can be used with both Cassandra-based data storage, as well as in-memory structures. The latter are right now used only for testing, but can be later used for setting up mock tests cases for unit and regression testing. |
+| User management | The starter kit contains code for managing user accounts. The different parts of the application can be accessed by anonymous or authenticated users, or both. |
 
-
-
-## Detailed explanation
-
-The following documents explain in detail certain aspects of this repository:
-
-* [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html).
-* [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html).
-* [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html).
 
 
 
