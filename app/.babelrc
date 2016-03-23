@@ -1,0 +1,20 @@
+{
+  "env": {
+    "development": {
+      "passPerPreset": true,
+      "presets": [
+        {
+          "plugins": [ "babel-relay-plugin-loader" ]
+        },
+        "react-native"
+      ]
+    },
+    "server": {
+      "plugins": [ "babel-relay-plugin-loader" ],
+      "presets": [
+        "es2015",
+        "stage-0"
+      ]
+    }
+  }
+}
