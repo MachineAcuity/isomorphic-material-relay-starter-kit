@@ -1,10 +1,10 @@
 {
   "name": "isomorphic-material-relay-starter-kit",
-  "description": "Starter kit for isomorphic SPA using React/Relay, Material-UI, JWT authentication, Apache Cassandra and samples",
+  "description": "Starter kit for isomorphic SPA using React/Relay, iOS and Android apps using React Native, featuring Material-UI, JWT authentication, Apache Cassandra, and examples",
   "author": "Aleksandar Chalakov, Code Foundries and contributors",
   "license": "MIT",
   "homepage": "https://github.com/codefoundries/isomorphic-material-relay-starter-kit",
-  "version": "0.12.1",
+  "version": "1.0.0",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/codefoundries/isomorphic-material-relay-starter-kit.git"

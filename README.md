@@ -1,6 +1,12 @@
-# Isomorphic Material Relay Starter Kit (IMRSK)
+# React web, iOS and Android starter kit using React, React Native, Relay, Node.js and Cassandra
 
-IMRSK started as an off-shoot of multiple projects and boilerplates we use at [Code Foundries](http://codefoundries.com) and is developed with the help of the [contributors](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/graphs/contributors). It is an attempt to provide and organize a well thought out starting point for future projects. It also contains samples of techniques that tie all the underlying technologies together. Baseline functionality like user log in, authentication, etc. is included.
+The Isomorphic Material Relay Starter Kit (IMRSK) project started as an off-shoot of multiple projects and boilerplates we use at [Code Foundries](http://codefoundries.com) and is developed with the help of the [contributors](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/graphs/contributors). It was an attempt to provide and organize a well thought out starting point for future projects.
+
+Since then it has added on several features and support for React Native, which makes it into a starter kit for web and native mobile applications with a common backend (native still without authentication and samples). It also contains samples of techniques that tie all the underlying technologies together. Baseline functionality like user log in, authentication, etc. is included.
+
+
+
+## Demo
 
 | How to try     | **Link**|
 |----------------|----------------|
@@ -18,7 +24,6 @@ The following documents explain in detail certain aspects of this repository in 
 * [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html). Explanation of how Cassandra and Express GraphQL work together.
 * [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html). Using variables and settings in an isomorphic application - client rendering, server rendering.
 * [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html). How to make SEO-friendly pages with React, Relay and Helmet.
-
 
 
 
