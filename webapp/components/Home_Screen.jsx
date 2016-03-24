@@ -25,7 +25,7 @@ class Home_Screen extends React.Component
         <CardText>
           The purpose of this project is:
           <ul>
-            <li>To server as a starting point for projects involving react/relay, materual-ui and Cassandra.</li>
+            <li>To serve as a starting point for projects involving react/relay, materual-ui and Cassandra.</li>
             <li>To host examples of using those technologies together.</li>
             <li>To implement some common functionality like user authentication using react/relay while storing user accounts in Cassandra.</li>
           </ul>
