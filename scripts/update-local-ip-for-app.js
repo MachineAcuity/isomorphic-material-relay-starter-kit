@@ -1,8 +1,6 @@
 const os = require('os');
 const fs = require('fs');
 
-const appDelegateFileName = './app/ios/CodeFoundriesApp/AppDelegate.m';
-
 // Find out IP address
 var interfaces = os.networkInterfaces();
 var addresses = [];
@@ -16,28 +14,45 @@ for (var k in interfaces)
 
 if( addresses.length >= 0 )
 {
-  // Update App Delegate
+  updateIPInFile(
+    './app/ios/CodeFoundriesApp/AppDelegate.m',
+    'jsCodeLocation = [NSURL URLWithString:@"http:',
+    '  jsCodeLocation = [NSURL URLWithString:@"http://' +  addresses[ 0 ] + ':8081/index.ios.bundle?platform=ios&dev=true"];'
+  );
+  updateIPInFile(
+    './app/app.js',
+    'let graphQLServerURL = "http://',
+    'let graphQLServerURL = "http://' +  addresses[ 0 ] + ':4444/graphql";'
+  );
+  updateIPInFile(
+    './.env',
+    'HOST=',
+    'HOST=' +  addresses[ 0 ]
+  );
+}
 
-  let fileLines = fs.readFileSync( appDelegateFileName, 'utf8' ).split( '\n' );
+function updateIPInFile( fileName, searchString, newContentOfLine )
+{
+  let fileLines = fs.readFileSync( fileName, 'utf8' ).split( '\n' );
   let index = 0;
 
   while( index < fileLines.length )
   {
-    if( fileLines[ index ].indexOf( 'jsCodeLocation = [NSURL URLWithString:@"http:' ) > -1 )
+    if( fileLines[ index ].indexOf( searchString ) > -1 )
     {
-      const newContentOfLine = '  jsCodeLocation = [NSURL URLWithString:@"http://' +  addresses[ 0 ] + ':8081/index.ios.bundle?platform=ios&dev=true"];';
       if( fileLines[ index ] == newContentOfLine )
-        console.log( 'AppDelegate.m is already up to date' );
+        console.log( '[' + fileName + '] is already up to date' );
       else
       {
         fileLines[ index ] = newContentOfLine;
-        fs.writeFileSync( appDelegateFileName, fileLines.join( '\n' ) );
+        fs.writeFileSync( fileName, fileLines.join( '\n' ) );
 
-        console.log( 'AppDelegate.m has been updated with local IP ' + addresses[ 0 ] );
+        console.log( '[' + fileName + '] has been updated with local IP ' + addresses[ 0 ] );
       }
       break;
     }
     else
       index++;
   }
+
 }
