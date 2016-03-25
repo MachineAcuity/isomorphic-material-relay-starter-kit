@@ -20,9 +20,10 @@ If you like to help, please review the list of items where [help is needed](http
 
 The following articles explain in detail certain aspects of this repository:
 
-* [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html).
-* [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html).
-* [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html).
+* [Isomorphic React Relay](http://codefoundries.com/developer/single-page-application/isomorphic-react-relay.html) Describes the approach to isomorphism in this project.
+* [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html) Describes different approaches towards working with Cassandra. In this project both have been superceded by using Data Loader.
+* [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html) Describes how to use certain configuration variables for both client and server rendering.
+* [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html) Describes the approach to SEO using isomorphism and React Helmet.
 
 
 ## Underlying technologies
