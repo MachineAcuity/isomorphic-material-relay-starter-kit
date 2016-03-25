@@ -12,8 +12,8 @@ Since then it has added on several features and support for React Native, which 
 |----------------|----------------|
 | Live Demo on [Heroku](https://www.heroku.com/) | [http://isomorphic-material-relay.herokuapp.com/](http://isomorphic-material-relay.herokuapp.com/). Configured with in-memory data store. This is a free dyno, so give it some time to spin up. |
 | Live Demo on [Open Shift](https://www.openshift.com/) | [http://app-imrsk.rhcloud.com/](http://app-imrsk.rhcloud.com/). Configured with Cassandra data store. Under active development, might be down. |
-| Run locally | [Local Setup](#local-setup) |
-| Run on [Heroku](https://www.heroku.com/nodejs) | [Heroku Setup](#heroku-setup) |
+| Run locally | [Local Setup](#local-setup). MacOS X. |
+| Run on [Heroku](https://www.heroku.com/nodejs) | [Heroku Setup](#heroku-setup). With Heroku-specific troubleshooting instructions. |
 
 
 
