@@ -70,7 +70,7 @@ let sourceCode = [
   `  fragments: {`,
   `    Viewer: () => Relay.QL\``,
   `      fragment on Viewer {`,
-  `        ToDo_TotalCount,`,
+  `        User_IsAnonymous,`,
   `      }`,
   `    \`,`,
   `  },`,

@@ -107,6 +107,7 @@ class Chrome extends React.Component
                 <ListItem primaryText="Ensayo Public" value="/Ensayo_PublicListing" />,
                 <ListItem primaryText="MUI" value="/mui" />,
                 <ListItem primaryText="MUI Icons" value="/mui/icons" />,
+                <ListItem primaryText="Country Flags" value="/mui/icons_country_glags" />,
                 <ListItem primaryText="To Do" value="/ToDos" />,
                 <ListItem primaryText="Translaticiarum" value="/Translaticiarums" />,
                 <ListItem primaryText="Translaticiarums Grid" value="/TranslaticiarumsGrid" />,

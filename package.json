@@ -109,6 +109,7 @@
     "jwt-simple": "^0.5.0",
     "material-ui": "^0.14.4",
     "material-ui-country-flags": "^1.0.0",
+    "material-ui-credit-card-icons": "git+https://github.com/codefoundries/material-ui-credit-card-icons.git",
     "nib": "^1.1.0",
     "node-fetch": "^1.4.0",
     "nodemon": "^1.9.1",
