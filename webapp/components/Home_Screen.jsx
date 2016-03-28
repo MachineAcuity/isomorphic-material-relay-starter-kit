@@ -102,6 +102,15 @@ class Home_Screen extends React.Component
           version: { isoVars.version }
         </CardText>
       </Card>
+      <Card>
+        <CardHeader
+          title="User_AuthToken"
+          subtitle="For testing only! This token serves to protect against CSRF"
+        />
+        <CardText>
+          { this.props.Viewer.User_AuthToken }
+        </CardText>
+      </Card>
     </div> );
   }
 }
@@ -111,6 +120,7 @@ export default Relay.createContainer( Home_Screen, {
     Viewer: () => Relay.QL`
       fragment on Viewer {
         User_IsAnonymous,
+        User_AuthToken
       }
     `,
   },
