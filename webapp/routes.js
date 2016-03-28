@@ -13,6 +13,7 @@ import Ensayo_PublicListing from '../units/imrsk-example-ensayo/webapp/component
 import Home_Screen from './components/Home_Screen.jsx';
 import MUI_Icons from '../units/imrsk-example-mui/webapp/components/MUI_Icons.jsx';
 import MUI_Icons_CountryFlags from '../units/imrsk-example-mui/webapp/components/MUI_Icons_CountryFlags.jsx';
+import MUI_Icons_CreditCards from '../units/imrsk-example-mui/webapp/components/MUI_Icons_CreditCards.jsx';
 import MUI_Home from '../units/imrsk-example-mui/webapp/components/MUI_Home.jsx';
 import ToDo_List from '../units/imrsk-example-todo/webapp/components/ToDo_List.jsx';
 import ToDo_Screen from '../units/imrsk-example-todo/webapp/components/ToDo_Screen.jsx';
@@ -43,7 +44,8 @@ export default createRoutes(
     <Route path="mui">
       <IndexRoute component={MUI_Home} queries={queries} />
       <Route path="icons" component={MUI_Icons} queries={queries} />
-      <Route path="icons_country_glags" component={MUI_Icons_CountryFlags} queries={queries} />
+      <Route path="icons_country_flags" component={MUI_Icons_CountryFlags} queries={queries} />
+      <Route path="icons_credit_cards" component={MUI_Icons_CreditCards} queries={queries} />
     </Route>
     <Route path="Translaticiarums" component={Translaticiarum_Screen} queries={queries}>
       <IndexRoute component={Translaticiarum_List} queries={queries} />
