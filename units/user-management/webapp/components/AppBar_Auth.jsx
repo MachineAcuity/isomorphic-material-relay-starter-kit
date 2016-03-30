@@ -153,14 +153,14 @@ class AppBar_Auth extends React.Component
           ref="User_AccountName"
           floatingLabelText="E-Mail"
           fullWidth={ true }
-          onEnterKeyDown={ this._handle_onEnterKeyDown_AuthenticationChallenge_UserName }
+          onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_UserName }
         />
         <TextField
           ref="User_AccountPassword"
           type="password"
           floatingLabelText="Password"
           fullWidth={ true }
-          onEnterKeyDown={ this._handle_onEnterKeyDown_AuthenticationChallenge_Password }
+          onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_Password }
         />
         If you are running the in-memory implementation, your users accounts will be lost upon app restart / heroku sleep.
       </Dialog>
@@ -174,14 +174,16 @@ class AppBar_Auth extends React.Component
     } );
   };
 
-  _handle_onEnterKeyDown_AuthenticationChallenge_UserName = ( ) =>
+  _handle_onKeyDown_AuthenticationChallenge_UserName = ( e ) =>
   {
-    this.refs.User_AccountPassword.focus( );
+    if (e.keyCode === 13)
+      this.refs.User_AccountPassword.focus( );
   };
 
-  _handle_onEnterKeyDown_AuthenticationChallenge_Password = ( ) =>
+  _handle_onKeyDown_AuthenticationChallenge_Password = ( e ) =>
   {
-    this._handle_onTouchTap_AuthenticationChallenge_LogIn( );
+    if (e.keyCode === 13)
+      this._handle_onTouchTap_AuthenticationChallenge_LogIn( );
   };
 
   _handle_onTouchTap_AuthenticationChallenge_LogIn = ( ) =>

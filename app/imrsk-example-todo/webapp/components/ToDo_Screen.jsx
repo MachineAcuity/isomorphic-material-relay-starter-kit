@@ -22,18 +22,21 @@ class ToDo_Screen extends React.Component
    }
 
 
-  _handle_onEnterKeyDown_AddToDo = ( ) =>
+  _handle_onKeyDown_AddToDo = ( e ) =>
   {
-    Relay.Store.commitUpdate(
-      new ToDo_addMutation( {
-        ToDo_Text: this.state.ToDo_Text_New,
-        Viewer: this.props.Viewer
-      } )
-    );
+    if (e.keyCode === 13)
+    {
+      Relay.Store.commitUpdate(
+        new ToDo_addMutation( {
+          ToDo_Text: this.state.ToDo_Text_New,
+          Viewer: this.props.Viewer
+        } )
+      );
 
-    this.setState({
-      ToDo_Text_New: '',
-    });
+      this.setState( {
+        ToDo_Text_New: '',
+      } );
+    }
   };
 
   _handle_OnChange = ( event ) =>
@@ -57,7 +60,7 @@ class ToDo_Screen extends React.Component
             floatingLabelText="What needs to be done?"
             value={ this.state.ToDo_Text_New }
             fullWidth={ true }
-            onEnterKeyDown={ this._handle_onEnterKeyDown_AddToDo }
+            onKeyDown={ this._handle_onKeyDown_AddToDo }
             onChange={ this._handle_OnChange }
           />
         </div>
