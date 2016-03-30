@@ -1,4 +1,4 @@
-# React web, iOS and Android starter kit using React, React Native, Relay, Node.js and Cassandra
+# React [universal](https://medium.com/@mjackson/universal-javascript-4761051b7ae9#.oc9y0i2py) web, iOS and Android starter kit using React, React Native, Relay, Node.js and Cassandra
 
 The Isomorphic Material Relay Starter Kit (IMRSK) project started as an off-shoot of multiple projects and boilerplates we use at [Code Foundries](http://codefoundries.com) and is developed with the help of the [contributors](https://github.com/codefoundries/isomorphic-material-relay-starter-kit/graphs/contributors). It was an attempt to provide and organize a well thought out starting point for future projects.
 
