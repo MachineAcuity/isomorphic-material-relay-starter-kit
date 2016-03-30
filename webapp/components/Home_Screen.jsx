@@ -20,7 +20,7 @@ class Home_Screen extends React.Component
       <Card>
         <CardHeader
           title="Isomorphic Material-UI Relay starter kit"
-          subtitle={ "Version " + isoVars.version }
+          subtitle={ "Version " + isoVars.npm_package_version }
         />
         <CardText>
           The purpose of this project is:
@@ -98,8 +98,8 @@ class Home_Screen extends React.Component
           subtitle="Available both for client and server rendering"
         />
         <CardText>
-          public_url: { isoVars.public_url }<br/>
-          version: { isoVars.version }
+          PUBLIC_URL: { isoVars.PUBLIC_URL }<br/>
+          npm_package_version: { isoVars.npm_package_version }
         </CardText>
       </Card>
       <Card>

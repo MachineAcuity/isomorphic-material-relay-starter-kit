@@ -7,8 +7,8 @@ export function isomorphicVars( )
     // Running on server.
     return {
       // Modify the code below to set the variables >>>
-      version: process.env.npm_package_version,
-      public_url: process.env.PUBLIC_URL,
+      npm_package_version: process.env.npm_package_version,
+      PUBLIC_URL: process.env.PUBLIC_URL,
       // <<< Modify the code above to set the variables
     }
   }

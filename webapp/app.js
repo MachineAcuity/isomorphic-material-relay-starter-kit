@@ -46,7 +46,7 @@ if( User_AuthToken.length == 0 )
   alert( 'Authentication token retrieval failed' );
 
 // Ensure that on the client Relay is passing the HttpOnly cookie with auth, and the user auth token
-let GraphQL_URL = ( isoVars.public_url == null ) ? '/graphql' : isoVars.public_url + '/graphql';
+let GraphQL_URL = ( isoVars.PUBLIC_URL == null ) ? '/graphql' : isoVars.PUBLIC_URL + '/graphql';
 Relay.injectNetworkLayer( new Relay.DefaultNetworkLayer(
   GraphQL_URL,
   {
