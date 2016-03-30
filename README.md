@@ -314,18 +314,18 @@ The structure of each unit is as follows:
 Material-UI provides powerful means for [customizing the colors and the overall look of the application](http://www.material-ui.com/#/customization/themes). The IMRSK uses a custom theme as indicated in [./webapp/mui-themes/active-theme.js](./webapp/mui-themes/active-theme.js). The `active-theme.js` file itself simply imports and re-exports one of the themes in the folder. By convention, all components will be importing `active-theme.js` whenever theme information is required on the component level. Here is an example of some of the settings from the [webapp/mui-themes/grayBlue.js](./webapp/mui-themes/grayBlue.js)
 
 ``` Javascript
-primary1Color: Colors.blue500,
-primary2Color: Colors.blue700,
-primary3Color: Colors.lightBlack,
-accent1Color: Colors.purpleA200,
-accent2Color: Colors.blueGrey100,
-accent3Color: Colors.blueGrey500,
-textColor: Colors.darkBlack,
-alternateTextColor: Colors.white,
-canvasColor: Colors.white,
-borderColor: Colors.grey300,
-disabledColor: ColorManipulator.fade(Colors.darkBlack, 0.3),
-pickerHeaderColor: Colors.blue500,
+primary1Color: blue500,
+primary2Color: blue700,
+primary3Color: lightBlack,
+accent1Color: purpleA200,
+accent2Color: blueGrey100,
+accent3Color: blueGrey500,
+textColor: darkBlack,
+alternateTextColor: white,
+canvasColor: white,
+borderColor: grey300,
+disabledColor: ColorManipulator.fade(darkBlack, 0.3),
+pickerHeaderColor: blue500,
 ```
 
 
