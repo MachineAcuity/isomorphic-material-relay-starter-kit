@@ -11,7 +11,7 @@ import IsomorphicRouter from 'isomorphic-relay-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import {isomorphicVars} from './scripts/isomorphicVars';
+import isomorphicVars from './scripts/isomorphicVars';
 import routes from './routes';
 
 import './styles/main.css';

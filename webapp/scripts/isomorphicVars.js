@@ -1,6 +1,6 @@
 /* @flow weak */
 
-export function isomorphicVars( )
+export default function( )
 {
   if( typeof( window ) == 'undefined' )
   {

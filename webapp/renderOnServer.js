@@ -12,7 +12,7 @@ import {match} from 'react-router';
 import seqqueue from 'seq-queue';
 
 import { getUserByCookie, serveAuthenticationFailed } from '../server/credentials_check.js';
-import {isomorphicVars} from './scripts/isomorphicVars';
+import isomorphicVars from './scripts/isomorphicVars';
 import ObjectManager from '../data/ObjectManager';
 import routes from './routes';
 import schema from '../graphql/schema'; // Schema for GraphQL server
