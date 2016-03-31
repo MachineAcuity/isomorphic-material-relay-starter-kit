@@ -27,10 +27,6 @@ const isoVars = JSON.stringify( isomorphicVars( ) );
 // is a static
 const queue = seqqueue.createQueue( 2000 );
 
-// Render on server will assume always that it can use localhost to access the GraphQL server. It is
-// not considered necessary to use the public URL.
-const GRAPHQL_URL = ( isoVars.PUBLIC_URL == null ) ? `http://localhost:${process.env.PORT}/graphql` : isoVars.PUBLIC_URL + '/graphql';
-
 export function serveFailure( type, res, message, err )
 {
   log.log( type, 'Server error: ' + message, err );
@@ -70,8 +66,7 @@ function reunderOnServerCorrectRequest( req, res, next, assetsPath, renderProps 
             new RelayLocalSchema.NetworkLayer( {
               schema,
               rootValue: { user_id, objectManager },
-              onError: (errors, request) => console.error(errors, request),
-              // TODO Implement winston logging here
+              onError: ( errors, request ) => serveFailure( 'error', res, 'local network layer GraphQL failire', { errors, request } )
             } )
           );
 
