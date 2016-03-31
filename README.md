@@ -22,7 +22,7 @@ Since then it has added on several features and support for React Native, which 
 The following documents explain in detail certain aspects of this repository in depth:
 
 * [Cassandra, meet Relay. Relay, meet Cassandra](http://codefoundries.com/developer/cassandra/cassandra-meet-relay.html). Explanation of how Cassandra and Express GraphQL work together.
-* [Isomorphic React Relay](http://codefoundries.com/developer/single-page-application/isomorphic-react-relay.html) Explains the approach to isomorphism taken in implementing the starter kit.
+* [Isomorphic React Relay](http://codefoundries.com/developer/single-page-application/isomorphic-react-relay.html). Explains the approach to isomorphism taken in implementing the starter kit.
 * [Isomorphic Server Variables](http://codefoundries.com/developer/single-page-application/isomorphic-server-variables.html). Using variables and settings in an isomorphic application - client rendering, server rendering.
 * [SEO Using Isomorphic Application With Relay and Helmet](http://codefoundries.com/developer/single-page-application/seo-isomorphic-react-helmet.html). How to make SEO-friendly pages with React, Relay and Helmet.
 
