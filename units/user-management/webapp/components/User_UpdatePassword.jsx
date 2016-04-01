@@ -15,12 +15,53 @@ import Viewer_updatePasswordMutation from '../mutations/Viewer_updatePasswordMut
 
 class User_Properties extends React.Component
 {
+  constructor( props )
+  {
+    super( props );
+
+    this.state = {
+      User_AccountPassword: "",
+      User_AccountPasswordError: "Enter password",
+      User_AccountPasswordConfirmation: "",
+      User_AccountPasswordConfirmationError: "Confirm password",
+    };
+  }
+
+  _handle_onChange_User_AccountPassword = ( event ) =>
+  {
+    this.setState( { User_AccountPassword: event.target.value } );
+
+    this.checkIfPasswordsMatch( event.target.value, this.state.User_AccountPasswordConfirmation );
+  };
+
+  _handle_onChange_User_AccountPasswordConfirmation = ( event ) =>
+  {
+    this.setState( { User_AccountPasswordConfirmation: event.target.value } );
+
+    this.checkIfPasswordsMatch( this.state.User_AccountPassword, event.target.value );
+  };
+
+  checkIfPasswordsMatch( password, passwordConfirmation)
+  {
+    this.setState( { User_AccountPasswordError:
+      password == "" ?
+        "Password can not be empty"
+        : ""
+    } );
+
+    this.setState( { User_AccountPasswordConfirmationError:
+      password != passwordConfirmation ?
+        "Passwords do not match"
+        : ""
+    } );
+  }
+
   _handleUpdate = ( ) =>
   {
     Relay.Store.commitUpdate(
       new Viewer_updatePasswordMutation( {
-        Viewer:             this.props.Viewer,
-        User_AccountPassword:      this.refs.User_AccountPassword.getValue( ),
+        Viewer:               this.props.Viewer,
+        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
       } )
     );
   };
@@ -39,14 +80,26 @@ class User_Properties extends React.Component
             <TextField
               ref="User_AccountPassword"
               type="password"
-              defaultValue={ this.props.Viewer.User_AccountPassword }
               floatingLabelText="Password"
+              value={ this.state.User_AccountPassword }
+              errorText={ this.state.User_AccountPasswordError }
+              onChange={ this._handle_onChange_User_AccountPassword }
+              fullWidth={ true }
+            />
+            <TextField
+              ref="User_AccountPasswordConfirmation"
+              type="password"
+              floatingLabelText="Confirm Password"
+              value={ this.state.User_AccountPasswordConfirmation }
+              errorText={ this.state.User_AccountPasswordConfirmationError }
+              onChange={ this._handle_onChange_User_AccountPasswordConfirmation }
               fullWidth={ true }
             />
             <div>
               <RaisedButton
                 label="Update"
                 secondary={true}
+                disabled={ this.state.User_AccountPasswordError != "" || this.state.User_AccountPasswordConfirmationError != "" }
                 onTouchTap={ ( ) => this._handleUpdate( ) }
               />
             </div>
