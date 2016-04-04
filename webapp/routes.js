@@ -10,6 +10,7 @@ import Ensayo_List from '../units/starter-kit-example-ensayo/webapp/components/E
 import Ensayo_Screen from '../units/starter-kit-example-ensayo/webapp/components/Ensayo_Screen.jsx';
 import Ensayo_PublicItem from '../units/starter-kit-example-ensayo/webapp/components/Ensayo_PublicItem.jsx';
 import Ensayo_PublicListing from '../units/starter-kit-example-ensayo/webapp/components/Ensayo_PublicListing.jsx';
+import ForceLogin from '../units/starter-kit-example-force-login/webapp/components/ForceLogin.jsx';
 import Home_Screen from './components/Home_Screen.jsx';
 import MUI_Icons from '../units/starter-kit-example-mui/webapp/components/MUI_Icons.jsx';
 import MUI_Icons_CountryFlags from '../units/starter-kit-example-mui/webapp/components/MUI_Icons_CountryFlags.jsx';
@@ -40,6 +41,9 @@ export default createRoutes(
     <Route path="Ensayo_PublicListing">
       <IndexRoute component={Ensayo_PublicListing} queries={queries} />
       <Route path=":id" component={Ensayo_PublicItem} queries={queries} />
+    </Route>
+    <Route path="ForceLogin">
+      <IndexRoute component={ForceLogin} queries={queries} />
     </Route>
     <Route path="mui">
       <IndexRoute component={MUI_Home} queries={queries} />
