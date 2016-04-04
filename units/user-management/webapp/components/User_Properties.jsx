@@ -12,6 +12,8 @@ import RaisedButton from 'material-ui/lib/raised-button';
 import SelectField from 'material-ui/lib/select-field';
 import TextField from 'material-ui/lib/text-field';
 
+import { RequiresAuthenticationNotice } from './RequiresAuthentication.js';
+
 import Viewer_updateMutation from '../mutations/Viewer_updateMutation';
 
 
@@ -49,7 +51,7 @@ class User_Properties extends React.Component
   render( )
   {
     if( this.props.Viewer.User_IsAnonymous )
-      return <div/>; // Anonymous users do not get to have a profile
+      return <RequiresAuthenticationNotice />; // Anonymous users do not get to have a profile
     else
       return (
         <Card>

@@ -17,6 +17,8 @@ import ListItem from 'material-ui/lib/lists/list-item';
 import Popover from 'material-ui/lib/popover/popover';
 import TextField from 'material-ui/lib/text-field';
 
+import { registerAuthenticationRequiredCallback } from './RequiresAuthentication.js';
+
 import { postXHR } from '../../../../webapp/scripts/XHR';
 
 const styles = {
@@ -45,6 +47,36 @@ class AppBar_Auth extends React.Component
       Popover_AuthorizedUser_IsOpen : false,
     };
   }
+
+
+
+  // Handle popping open the login dialog if authentication is required
+  componentWillMount( )
+  {
+    registerAuthenticationRequiredCallback( this._callback_OpenAuthenticationChallenge );
+  }
+
+  componentWillUnmount( )
+  {
+    registerAuthenticationRequiredCallback( null );
+  }
+
+  _callback_OpenAuthenticationChallenge = ( ) =>
+  {
+    this.setState( {
+      Dialog_AuthenticationChallenge_IsOpen: true,
+      Dialog_AuthenticationInProgress_IsOpen: false,
+      Dialog_AuthenticationFailed_IsOpen: false,
+      Dialog_CreateUser_IsOpen : false,
+      Dialog_CreateUserInProgress_IsOpen: false,
+      Dialog_CreateUserFailed_IsOpen: false,
+      Dialog_LogOutConfirmation_IsOpen : false,
+      Dialog_LogOutInProgress_IsOpen: false,
+      Dialog_LogOutFailed_IsOpen: false,
+      Popover_AuthorizedUser_IsOpen : false,
+    } );
+  };
+
 
 
 
