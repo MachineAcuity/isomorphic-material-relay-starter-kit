@@ -31,6 +31,8 @@ class Translaticiarum_Screen extends React.Component
 
   render( )
   {
+    const today = new Date( );
+
     return (
       <Card initiallyExpanded={true}>
 
@@ -54,8 +56,8 @@ class Translaticiarum_Screen extends React.Component
         <Translaticiarum_Properties
           ref="Translaticiarum_Properties"
           Translaticiarum_Type={ 1 }
-          Translaticiarum_Date={ new Date( ).toJSON( ) }
-          Translaticiarum_Time={ new Date( ).toJSON( ) }
+          Translaticiarum_Date={ new Date( Date.UTC( today.getFullYear( ), today.getMonth( ), today.getDate( ), 0, 0, 0 ) ).toJSON( ) }
+          Translaticiarum_Time={ new Date( Date.UTC( 1970, 0, 1, 12, 0, 0 ) ).toJSON( ) }
           updateHandler={ this._handle_updateHandler_Translaticiarum_Add }
         />
 

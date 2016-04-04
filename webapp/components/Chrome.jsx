@@ -80,7 +80,7 @@ class Chrome extends React.Component
     return (
       <AppCanvas>
         <Helmet
-          title="Isomorphic Material Relay Starter Kit"
+          title="Universal Relay Starter Kit"
           meta={ [
             { name : "description", content: "Starter kit featuring Cassandra, Relay, React, Material-UI" },
           ] }
@@ -130,7 +130,7 @@ class Chrome extends React.Component
             </IconButton>
           </ToolbarGroup>
           <ToolbarGroup float="left">
-            <ToolbarTitle text="IMRSK" />
+            <ToolbarTitle text="Starter Kit" />
           </ToolbarGroup>
           <ToolbarGroup float="right">
             <AppBar_ToDo_OpenIndicator Viewer={this.props.Viewer} />
