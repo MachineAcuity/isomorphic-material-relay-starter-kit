@@ -1,9 +1,9 @@
-DROP KEYSPACE IF EXISTS imrsk;
+DROP KEYSPACE IF EXISTS starter_kit;
 
-CREATE KEYSPACE imrsk
+CREATE KEYSPACE starter_kit
 WITH replication = {'class':'SimpleStrategy', 'replication_factor' : 1};
 
-USE imrsk;
+USE starter_kit;
 
 
 
