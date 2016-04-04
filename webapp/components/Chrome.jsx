@@ -22,7 +22,7 @@ const SelectableList = SelectableContainerEnhance(List);
 
 import AppBar_Auth from '../../units/user-management/webapp/components/AppBar_Auth.jsx';
 import AppBar_Language from './AppBar_Language.jsx';
-import AppBar_ToDo_OpenIndicator from '../../units/imrsk-example-todo/webapp/components/AppBar_ToDo_OpenIndicator.jsx';
+import AppBar_ToDo_OpenIndicator from '../../units/starter-kit-example-todo/webapp/components/AppBar_ToDo_OpenIndicator.jsx';
 import ActiveTheme from '../mui-themes/active-theme.js';
 
 

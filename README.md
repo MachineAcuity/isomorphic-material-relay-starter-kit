@@ -248,7 +248,7 @@ Naming conventions are used wherever possible. The following tags are used to co
 | `{Entity}`                             | Name of entity in the data store, like User, ToDo item, etc. |
 | `{Mutation}`                           | Indicates type of mutation applied to an entity, like add, delete, update, list_delete, etc. |
 | `{Version}`                            | Version of the project, as specified in `package.json`, like 0.6.3. |
-| `{Unit}`                               | Name of unit, for instance `imrsk-example-compendium`. |
+| `{Unit}`                               | Name of unit, for instance `starter-kit-example-compendium`. |
 
 Below is the list of the main files and folders for this project. Asterisk on the right means link into the repository for quick viewing.
 
@@ -292,7 +292,7 @@ Below is the list of the main files and folders for this project. Asterisk on th
 | `units/_all/`                                 | Files with includes summarizing certain includes of all units. | [*](./units/_all/) |
 | `units/_all/_mutations.js`                    | GraphQL Mutations from all units to be included in the mutation type. | [*](./units/_all/_mutations.js) |
 | `units/_all/_ViewerFields.js`                 | Fields included in the viewer type from all units. | [*](./units/_all/_ViewerFields.js) |
-| `units/{Unit}/`                               | A single unit. See table below for per-unit structure | [*](./units/imrsk-example-compendium/) |
+| `units/{Unit}/`                               | A single unit. See table below for per-unit structure | [*](./units/starter-kit-example-compendium/) |
 | `webapp/`                                     | Root for the entire web application. | [*](./webapp/) |
 | `webapp/components/`                          | All the JSX components used by the web app. | [*](./webapp/components/) |
 | `webapp/mui-themes/`                          | Material-UI themes. | [*](./webapp/mui-themes/) |
@@ -310,12 +310,12 @@ The structure of each unit is as follows:
 
 | Folder/File                                   | Description                                                    |     |
 | --------------------------------------------- | ---------------------------------------------------------------| --- |
-| `/`                                           | Root of unit at relative path `units/{Unit}/` | [*](./units/imrsk-example-compendium/) |
-| `graphql/`                                    | All files included in the express-graphql server schema. | [*](./units/imrsk-example-compendium/graphql/) |
-| `graphql/type/`                               | Object types. | [*](./units/imrsk-example-compendium/graphql/type/) |
+| `/`                                           | Root of unit at relative path `units/{Unit}/` | [*](./units/starter-kit-example-compendium/) |
+| `graphql/`                                    | All files included in the express-graphql server schema. | [*](./units/starter-kit-example-compendium/graphql/) |
+| `graphql/type/`                               | Object types. | [*](./units/starter-kit-example-compendium/graphql/type/) |
 | `graphql/type/*Connection.js`                 | Connection between two types. |
-| `relay/`                                      | All Relay client side files shared between react DOM and native. | [*](./units/imrsk-example-compendium/relay/) |
-| `webapp/`                                     | React DOM files. | [*](./units/imrsk-example-compendium/webapp/) |
+| `relay/`                                      | All Relay client side files shared between react DOM and native. | [*](./units/starter-kit-example-compendium/relay/) |
+| `webapp/`                                     | React DOM files. | [*](./units/starter-kit-example-compendium/webapp/) |
 
 
 
