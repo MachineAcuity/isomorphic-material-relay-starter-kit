@@ -20,6 +20,7 @@ import TextField from 'material-ui/lib/text-field';
 import { registerAuthenticationRequiredCallback } from './RequiresAuthentication.js';
 
 import { postXHR } from '../../../../webapp/scripts/XHR';
+import scorePassword from '../../scripts/scorePassword';
 
 const styles = {
   popover: {
@@ -390,36 +391,6 @@ class AppBar_Auth extends React.Component
     );
   }
 
-  scorePassword( pass ) /*: number*/
-  {
-    let score = 0;
-    if (!pass)
-        return 0;
-
-    // award every unique letter until 5 repetitions
-    let letters = new Object();
-    for (var i=0; i<pass.length; i++) {
-        letters[pass[i]] = (letters[pass[i]] || 0) + 1;
-        score += 5.0 / letters[pass[i]];
-    }
-
-    // bonus points for mixing it up
-    let variations = {
-        digits: /\d/.test(pass),
-        lower: /[a-z]/.test(pass),
-        upper: /[A-Z]/.test(pass),
-        nonWords: /\W/.test(pass),
-    }
-
-    let variationCount = 0;
-    for (var check in variations) {
-        variationCount += (variations[check] == true) ? 1 : 0;
-    }
-    score += (variationCount - 1) * 10;
-
-    return score;
-  }
-
   _handle_onChange_CreateUser_User_AccountName = ( event ) =>
   {
     this.setState( { User_AccountName: event.target.value } );
@@ -446,7 +417,7 @@ class AppBar_Auth extends React.Component
 
   _handle_onChange_CreateUser_User_AccountName_or_Password = ( AccountName, AccountPassword ) =>
   {
-    const passwordScore = this.scorePassword( this.state.User_AccountPassword );
+    const passwordScore = scorePassword( this.state.User_AccountPassword );
     this.setState( {
       Account_information_Supplied: AccountName.length > 3 && AccountPassword.length > 3,
       Dialog_CreateUser_AccountPasswordStrength: passwordScore,
