@@ -21,8 +21,8 @@ import ToDo_Screen from '../units/starter-kit-example-todo/webapp/components/ToD
 import Translaticiarum_List from '../units/starter-kit-example-translaticiarum/webapp/components/Translaticiarum_List.jsx';
 import Translaticiarum_Grid from '../units/starter-kit-example-translaticiarum/webapp/components/Translaticiarum_Grid.jsx';
 import Translaticiarum_Screen from '../units/starter-kit-example-translaticiarum/webapp/components/Translaticiarum_Screen.jsx';
-import User_Properties from '../units/user-management/webapp/components/User_Properties.jsx';
-import User_UpdatePassword from '../units/user-management/webapp/components/User_UpdatePassword.jsx';
+import User_Properties from '../units/sys-account-management/webapp/components/User_Properties.jsx';
+import User_UpdatePassword from '../units/sys-account-management/webapp/components/User_UpdatePassword.jsx';
 
 
 export const queries = {

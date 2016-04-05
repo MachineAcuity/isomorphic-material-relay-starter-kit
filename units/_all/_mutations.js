@@ -1,6 +1,6 @@
 /* @flow */
 
-import UserManagement_mutations from "../user-management/graphql/mutation/_mutations";
+import UserManagement_mutations from "../sys-account-management/graphql/mutation/_mutations";
 
 import Compendium_mutations from "../starter-kit-example-compendium/graphql/mutation/_mutations";
 import Ensayo_mutations from "../starter-kit-example-ensayo/graphql/mutation/_mutations";

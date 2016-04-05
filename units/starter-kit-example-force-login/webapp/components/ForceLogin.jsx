@@ -8,7 +8,7 @@ import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
 
-import { RequiresAuthenticationNotice } from '../../../../units/user-management/webapp/components/RequiresAuthentication.js';
+import { RequiresAuthenticationNotice } from '../../../../units/sys-account-management/webapp/components/RequiresAuthentication.js';
 
 
 class ForceLogin extends React.Component
