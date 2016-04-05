@@ -35,6 +35,9 @@ class AppBar_Auth extends React.Component
     super( props );
 
     this.state = {
+      User_AccountName: '',
+      User_AccountPassword: '',
+      Account_information_Supplied: false,
       Dialog_AuthenticationChallenge_IsOpen: false,
       Dialog_AuthenticationInProgress_IsOpen: false,
       Dialog_AuthenticationFailed_IsOpen: false,
@@ -64,6 +67,9 @@ class AppBar_Auth extends React.Component
   _callback_OpenAuthenticationChallenge = ( ) =>
   {
     this.setState( {
+      User_AccountName: '',
+      User_AccountPassword: '',
+      Account_information_Supplied: false,
       Dialog_AuthenticationChallenge_IsOpen: true,
       Dialog_AuthenticationInProgress_IsOpen: false,
       Dialog_AuthenticationFailed_IsOpen: false,
@@ -169,6 +175,31 @@ class AppBar_Auth extends React.Component
 
   //
 
+
+
+
+_handle_onChange_User_AccountName = ( event ) =>
+{
+  this.setState( { User_AccountName: event.target.value } );
+  this._handle_onChange_User_AccountName_or_Password( event.target.value, this.state.User_AccountPassword );
+};
+
+_handle_onChange_User_AccountPassword = ( event ) =>
+{
+  this.setState( { User_AccountPassword: event.target.value } );
+  this._handle_onChange_User_AccountName_or_Password( this.state.User_AccountName, event.target.value );
+};
+
+_handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword ) =>
+{
+  this.setState( { Account_information_Supplied: AccountName.length > 3 && AccountPassword.length > 3 } );
+};
+
+
+
+
+  //
+
   Dialog_AuthenticationChallenge( )
   {
     return(
@@ -178,21 +209,24 @@ class AppBar_Auth extends React.Component
         actions={ [
           <FlatButton key="CreateUser" label="Create User" secondary={true} onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_CreateUser } />,
           <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_Cancel } />,
-          <FlatButton key="LogIn" label="Log In" primary={true} onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_LogIn } />,
+          <FlatButton key="LogIn" label="Log In" primary={true} onTouchTap={ this._handle_onTouchTap_AuthenticationChallenge_LogIn } disabled={ ! this.state.Account_information_Supplied } />,
         ] }
       >
         <TextField
-          ref="User_AccountName"
           floatingLabelText="E-Mail"
           fullWidth={ true }
+          value={ this.state.User_AccountName }
           onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_UserName }
+          onChange={ this._handle_onChange_User_AccountName }
         />
         <TextField
-          ref="User_AccountPassword"
           type="password"
           floatingLabelText="Password"
           fullWidth={ true }
+          value={ this.state.User_AccountPassword }
           onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_Password }
+          onChange={ this._handle_onChange_User_AccountPassword }
+          ref="User_AccountPassword"
         />
         If you are running the in-memory implementation, your users accounts will be lost upon app restart / heroku sleep.
       </Dialog>
@@ -231,12 +265,14 @@ class AppBar_Auth extends React.Component
     postXHR(
       host + '/auth/login',
       {
-        User_AccountName: this.refs.User_AccountName.getValue( ),
-        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
+        User_AccountName: this.state.User_AccountName,
+        User_AccountPassword: this.state.User_AccountPassword,
       },
       ( response ) => this._handle_Authentication_Response_Success( response ),
       ( response ) => this._handle_Authentication_Response_Failure( response )
     );
+
+    this.setState( { User_AccountPassword: '' } );
   };
 
   _handle_onTouchTap_AuthenticationChallenge_CreateUser = ( ) =>
