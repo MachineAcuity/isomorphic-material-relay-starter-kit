@@ -178,22 +178,6 @@ class AppBar_Auth extends React.Component
 
 
 
-_handle_onChange_User_AccountName = ( event ) =>
-{
-  this.setState( { User_AccountName: event.target.value } );
-  this._handle_onChange_User_AccountName_or_Password( event.target.value, this.state.User_AccountPassword );
-};
-
-_handle_onChange_User_AccountPassword = ( event ) =>
-{
-  this.setState( { User_AccountPassword: event.target.value } );
-  this._handle_onChange_User_AccountName_or_Password( this.state.User_AccountName, event.target.value );
-};
-
-_handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword ) =>
-{
-  this.setState( { Account_information_Supplied: AccountName.length > 3 && AccountPassword.length > 3 } );
-};
 
 
 
@@ -216,16 +200,16 @@ _handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword )
           floatingLabelText="E-Mail"
           fullWidth={ true }
           value={ this.state.User_AccountName }
-          onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_UserName }
-          onChange={ this._handle_onChange_User_AccountName }
+          onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_User_AccountName }
+          onChange={ this._handle_onChange_AuthenticationChallenge_User_AccountName }
         />
         <TextField
           type="password"
           floatingLabelText="Password"
           fullWidth={ true }
           value={ this.state.User_AccountPassword }
-          onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_Password }
-          onChange={ this._handle_onChange_User_AccountPassword }
+          onKeyDown={ this._handle_onKeyDown_AuthenticationChallenge_User_AccountPassword }
+          onChange={ this._handle_onChange_AuthenticationChallenge_User_AccountPassword }
           ref="User_AccountPassword"
         />
         If you are running the in-memory implementation, your users accounts will be lost upon app restart / heroku sleep.
@@ -240,16 +224,33 @@ _handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword )
     } );
   };
 
-  _handle_onKeyDown_AuthenticationChallenge_UserName = ( e ) =>
+  _handle_onChange_AuthenticationChallenge_User_AccountName = ( event ) =>
+  {
+    this.setState( { User_AccountName: event.target.value } );
+    this._handle_onChange_AuthenticationChallenge_User_AccountName_or_Password( event.target.value, this.state.User_AccountPassword );
+  };
+
+  _handle_onKeyDown_AuthenticationChallenge_User_AccountName = ( e ) =>
   {
     if (e.keyCode === 13)
       this.refs.User_AccountPassword.focus( );
   };
 
-  _handle_onKeyDown_AuthenticationChallenge_Password = ( e ) =>
+  _handle_onChange_AuthenticationChallenge_User_AccountPassword = ( event ) =>
+  {
+    this.setState( { User_AccountPassword: event.target.value } );
+    this._handle_onChange_AuthenticationChallenge_User_AccountName_or_Password( this.state.User_AccountName, event.target.value );
+  };
+
+  _handle_onKeyDown_AuthenticationChallenge_User_AccountPassword = ( e ) =>
   {
     if (e.keyCode === 13)
       this._handle_onTouchTap_AuthenticationChallenge_LogIn( );
+  };
+
+  _handle_onChange_AuthenticationChallenge_User_AccountName_or_Password = ( AccountName, AccountPassword ) =>
+  {
+    this.setState( { Account_information_Supplied: AccountName.length > 3 && AccountPassword.length > 3 } );
   };
 
   _handle_onTouchTap_AuthenticationChallenge_LogIn = ( ) =>
@@ -281,6 +282,7 @@ _handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword )
       Dialog_AuthenticationChallenge_IsOpen: false,
       Dialog_CreateUser_IsOpen: true,
       Dialog_CreateUser_AccountPasswordStrength: 0,
+      User_AccountPassword: '',
     } );
   };
 
@@ -353,23 +355,30 @@ _handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword )
     return(
       <Dialog
         open={ this.state.Dialog_CreateUser_IsOpen }
-        title="Create New User"
+        title="Sign Up"
         actions={ [
           <FlatButton key="Cancel" label="Cancel" onTouchTap={ this._handle_onTouchTap_CreateUser_Cancel } />,
-          <FlatButton key="Create" label="Create" primary={true} disabled={ this.state.Dialog_CreateUser_AccountPasswordStrength < 60 } onTouchTap={ this._handle_onTouchTap_CreateUser_Create } />,
+          <FlatButton key="Create" label="Create" primary={true}
+            onTouchTap={ this._handle_onTouchTap_CreateUser_Create }
+            disabled={ this.state.Dialog_CreateUser_AccountPasswordStrength < 60 || this.state.User_AccountName.length < 4 }
+          />,
         ] }
       >
         <TextField
-          ref="User_AccountName"
           floatingLabelText="E-Mail"
           fullWidth={ true }
+          value={ this.state.User_AccountName }
+          onKeyDown={ this._handle_onKeyDown_CreateUser_User_AccountName }
+          onChange={ this._handle_onChange_CreateUser_User_AccountName }
         />
         <TextField
-          ref="User_AccountPassword"
           type="password"
           floatingLabelText="Password"
           fullWidth={ true }
-          onChange={ this._handle_onChange_CreateUser_AccountPassword }
+          value={ this.state.User_AccountPassword }
+          onKeyDown={ this._handle_onKeyDown_CreateUser_User_AccountPassword }
+          onChange={ this._handle_onChange_CreateUser_User_AccountPassword }
+          ref="User_AccountPassword"
         />
         <br/><br/>Password strength
         <LinearProgress
@@ -380,27 +389,6 @@ _handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword )
       </Dialog>
     );
   }
-
-  _handle_onTouchTap_CreateUser_Create = ( ) =>
-  {
-    this.setState( {
-      Dialog_CreateUser_IsOpen: false,
-      Dialog_CreateUserInProgress_IsOpen: true,
-    } );
-
-    var loc = window.location;
-    var host = loc.protocol + "//" + loc.hostname + ":" + loc.port;
-
-    postXHR(
-      host + '/auth/createuser',
-      {
-        User_AccountName: this.refs.User_AccountName.getValue( ),
-        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
-      },
-      ( response ) => this._handle_CreateUser_Response_Success( response ),
-      ( response ) => this._handle_CreateUser_Response_Failure( response )
-    );
-  };
 
   scorePassword( pass ) /*: number*/
   {
@@ -432,11 +420,58 @@ _handle_onChange_User_AccountName_or_Password = ( AccountName, AccountPassword )
     return score;
   }
 
-  _handle_onChange_CreateUser_AccountPassword = ( ) =>
+  _handle_onChange_CreateUser_User_AccountName = ( event ) =>
+  {
+    this.setState( { User_AccountName: event.target.value } );
+    this._handle_onChange_CreateUser_User_AccountName_or_Password( event.target.value, this.state.User_AccountPassword );
+  };
+
+  _handle_onKeyDown_CreateUser_User_AccountName = ( e ) =>
+  {
+    if (e.keyCode === 13)
+      this.refs.User_AccountPassword.focus( );
+  };
+
+  _handle_onChange_CreateUser_User_AccountPassword = ( event ) =>
+  {
+    this.setState( { User_AccountPassword: event.target.value } );
+    this._handle_onChange_CreateUser_User_AccountName_or_Password( this.state.User_AccountName, event.target.value );
+  };
+
+  _handle_onKeyDown_CreateUser_User_AccountPassword = ( e ) =>
+  {
+    if (e.keyCode === 13)
+      this._handle_onTouchTap_CreateUser_Create( );
+  };
+
+  _handle_onChange_CreateUser_User_AccountName_or_Password = ( AccountName, AccountPassword ) =>
+  {
+    const passwordScore = this.scorePassword( this.state.User_AccountPassword );
+    this.setState( {
+      Account_information_Supplied: AccountName.length > 3 && AccountPassword.length > 3,
+      Dialog_CreateUser_AccountPasswordStrength: passwordScore,
+    } );
+  };
+
+  _handle_onTouchTap_CreateUser_Create = ( ) =>
   {
     this.setState( {
-      Dialog_CreateUser_AccountPasswordStrength: this.scorePassword( this.refs.User_AccountPassword.getValue( ) ),
+      Dialog_CreateUser_IsOpen: false,
+      Dialog_CreateUserInProgress_IsOpen: true,
     } );
+
+    var loc = window.location;
+    var host = loc.protocol + "//" + loc.hostname + ":" + loc.port;
+
+    postXHR(
+      host + '/auth/createuser',
+      {
+        User_AccountName: this.refs.User_AccountName.getValue( ),
+        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
+      },
+      ( response ) => this._handle_CreateUser_Response_Success( response ),
+      ( response ) => this._handle_CreateUser_Response_Failure( response )
+    );
   };
 
   _handle_onTouchTap_CreateUser_Cancel = ( ) =>
