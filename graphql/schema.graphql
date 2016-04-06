@@ -302,6 +302,7 @@ input Viewer_updatePasswordInput {
 
 type Viewer_updatePasswordPayload {
   Viewer: Viewer
+  ErrorMessage: String
   clientMutationId: String!
 }
 

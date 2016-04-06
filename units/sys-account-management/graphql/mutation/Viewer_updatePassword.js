@@ -19,10 +19,15 @@ export default mutationWithClientMutationId( {
       type: ViewerType,
       resolve: ( parent, args, { rootValue: {user_id, objectManager} } ) => objectManager.getOneById( 'User', user_id )
     },
+    ErrorMessage: {
+      type: GraphQLString,
+      resolve: ( parent ) => parent.ErrorMessage,
+    }
   },
   mutateAndGetPayload: ( { id, User_AccountPassword_Current, User_AccountPassword }, { rootValue: {user_id, objectManager} } ) =>
   {
-    var local_id = fromGlobalId( id ).id;
+    let local_id = fromGlobalId( id ).id;
+    let ErrorMessage = ''; // No error if empty
 
     console.log( 'TODO: Must verify current password:' + User_AccountPassword_Current );
 
@@ -36,7 +41,7 @@ export default mutationWithClientMutationId( {
       User_AccountPassword,
     } ) )
     .then( ( ) => {
-      return {local_id};
+      return { ErrorMessage };
     } )
     ;
   },

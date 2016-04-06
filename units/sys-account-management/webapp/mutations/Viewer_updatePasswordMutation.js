@@ -25,10 +25,12 @@ export default class Viewer_updatePasswordMutation extends Relay.Mutation
   }
   getConfigs( ) {
     return [{
-      type: 'FIELDS_CHANGE',
-      fieldIDs: {
-        Viewer: this.props.Viewer.id,
-      },
+      type: 'REQUIRED_CHILDREN',
+      children: [Relay.QL`
+        fragment on Viewer_updatePasswordPayload {
+          ErrorMessage
+        }
+      `],
     }];
   }
   getVariables( ) {

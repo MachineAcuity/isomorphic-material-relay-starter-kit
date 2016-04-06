@@ -83,12 +83,23 @@ class User_Properties extends React.Component
 
   _handleUpdate = ( ) =>
   {
+    var onFailure = () => {
+      alert( 'failure' );
+    };
+
+    var onSuccess = (response) => {
+      //var response = response;
+
+      alert( 'success:' + JSON.stringify( response.Viewer_updatePassword.ErrorMessage ) );
+    };
+
     Relay.Store.commitUpdate(
       new Viewer_updatePasswordMutation( {
         Viewer:                       this.props.Viewer,
         User_AccountPassword_Current: this.state.User_AccountPassword_Current,
         User_AccountPassword:         this.state.User_AccountPassword,
-      } )
+      } ),
+      {onSuccess, onFailure}
     );
   };
 
