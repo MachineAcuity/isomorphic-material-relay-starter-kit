@@ -417,7 +417,7 @@ class AppBar_Auth extends React.Component
 
   _handle_onChange_CreateUser_User_AccountName_or_Password = ( AccountName, AccountPassword ) =>
   {
-    const passwordScore = scorePassword( this.state.User_AccountPassword );
+    const passwordScore = scorePassword( AccountPassword );
     this.setState( {
       Account_information_Supplied: AccountName.length > 3 && AccountPassword.length > 3,
       Dialog_CreateUser_AccountPasswordStrength: passwordScore,
@@ -437,8 +437,8 @@ class AppBar_Auth extends React.Component
     postXHR(
       host + '/auth/createuser',
       {
-        User_AccountName: this.refs.User_AccountName.getValue( ),
-        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
+        User_AccountName: this.state.User_AccountName,
+        User_AccountPassword: this.state.User_AccountPassword,
       },
       ( response ) => this._handle_CreateUser_Response_Success( response ),
       ( response ) => this._handle_CreateUser_Response_Failure( response )

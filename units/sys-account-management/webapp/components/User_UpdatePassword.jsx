@@ -7,10 +7,12 @@ import Relay from 'react-relay';
 import Card from 'material-ui/lib/card/card';
 import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
+import LinearProgress from 'material-ui/lib/linear-progress';
 import RaisedButton from 'material-ui/lib/raised-button';
 import TextField from 'material-ui/lib/text-field';
 
 import { RequiresAuthenticationNotice } from './RequiresAuthentication.js';
+import scorePassword from '../../scripts/scorePassword';
 
 import Viewer_updatePasswordMutation from '../mutations/Viewer_updatePasswordMutation';
 
@@ -26,12 +28,18 @@ class User_Properties extends React.Component
       User_AccountPasswordError: "Enter password",
       User_AccountPasswordConfirmation: "",
       User_AccountPasswordConfirmationError: "Confirm password",
+      User_AccountPasswordStrength: 0,
     };
   }
 
   _handle_onChange_User_AccountPassword = ( event ) =>
   {
-    this.setState( { User_AccountPassword: event.target.value } );
+    const passwordScore = scorePassword( event.target.value );
+
+    this.setState( {
+      User_AccountPassword: event.target.value,
+      User_AccountPasswordStrength: passwordScore,
+    } );
 
     this.checkIfPasswordsMatch( event.target.value, this.state.User_AccountPasswordConfirmation );
   };
@@ -97,6 +105,13 @@ class User_Properties extends React.Component
               onChange={ this._handle_onChange_User_AccountPasswordConfirmation }
               fullWidth={ true }
             />
+            <br/><br/>Password strength
+            <LinearProgress
+              mode="determinate"
+              value={ this.state.User_AccountPasswordStrength }
+              color={ this.state.User_AccountPasswordStrength < 60 ? "#ff0000" : ( this.state.User_AccountPasswordStrength < 80 ? "#c0c000" : "#00d000" ) }
+            />
+            <br/>
             <div>
               <RaisedButton
                 label="Update"
