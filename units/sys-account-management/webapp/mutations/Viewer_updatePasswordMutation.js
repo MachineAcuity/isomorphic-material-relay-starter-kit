@@ -33,8 +33,9 @@ export default class Viewer_updatePasswordMutation extends Relay.Mutation
   }
   getVariables( ) {
     return {
-      id:                 this.props.Viewer.id,
-      User_AccountPassword:      this.props.User_AccountPassword,
+      id:                           this.props.Viewer.id,
+      User_AccountPassword_Current: this.props.User_AccountPassword_Current,
+      User_AccountPassword:         this.props.User_AccountPassword,
     };
   }
   getOptimisticResponse( ) {

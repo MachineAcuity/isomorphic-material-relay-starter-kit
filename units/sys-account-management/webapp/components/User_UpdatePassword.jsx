@@ -24,7 +24,8 @@ class User_Properties extends React.Component
     super( props );
 
     this.state = {
-      User_AccountPassword_Old: "",
+      User_AccountPassword_Current: "",
+      User_AccountPassword_CurrentError: "",
       User_AccountPassword: "",
       User_AccountPasswordError: "Enter password",
       User_AccountPasswordConfirmation: "",
@@ -32,6 +33,13 @@ class User_Properties extends React.Component
       User_AccountPasswordStrength: 0,
     };
   }
+
+  _handle_onChange_User_AccountPassword_Current = ( event ) =>
+  {
+    this.setState( { User_AccountPassword_Current: event.target.value } );
+
+    this.checkIfPasswordsMatch( event.target.value, this.state.User_AccountPassword, this.state.User_AccountPasswordConfirmation );
+  };
 
   _handle_onChange_User_AccountPassword = ( event ) =>
   {
@@ -42,18 +50,24 @@ class User_Properties extends React.Component
       User_AccountPasswordStrength: passwordScore,
     } );
 
-    this.checkIfPasswordsMatch( event.target.value, this.state.User_AccountPasswordConfirmation );
+    this.checkIfPasswordsMatch( this.state.User_AccountPassword_Current, event.target.value, this.state.User_AccountPasswordConfirmation );
   };
 
   _handle_onChange_User_AccountPasswordConfirmation = ( event ) =>
   {
     this.setState( { User_AccountPasswordConfirmation: event.target.value } );
 
-    this.checkIfPasswordsMatch( this.state.User_AccountPassword, event.target.value );
+    this.checkIfPasswordsMatch( this.state.User_AccountPassword_Current, this.state.User_AccountPassword, event.target.value );
   };
 
-  checkIfPasswordsMatch( password, passwordConfirmation)
+  checkIfPasswordsMatch( currentPassword, password, passwordConfirmation)
   {
+    this.setState( { User_AccountPassword_CurrentError:
+      currentPassword == "" ?
+        "Enter current password"
+        : ""
+    } );
+
     this.setState( { User_AccountPasswordError:
       password == "" ?
         "Password can not be empty"
@@ -71,8 +85,9 @@ class User_Properties extends React.Component
   {
     Relay.Store.commitUpdate(
       new Viewer_updatePasswordMutation( {
-        Viewer:               this.props.Viewer,
-        User_AccountPassword: this.refs.User_AccountPassword.getValue( ),
+        Viewer:                       this.props.Viewer,
+        User_AccountPassword_Current: this.state.User_AccountPassword_Current,
+        User_AccountPassword:         this.state.User_AccountPassword,
       } )
     );
   };
@@ -89,9 +104,18 @@ class User_Properties extends React.Component
           />
           <CardText>
             <TextField
+              ref="User_AccountPassword_Current"
+              type="password"
+              floatingLabelText="Current Password"
+              value={ this.state.User_AccountPassword_Current }
+              errorText={ this.state.User_AccountPassword_CurrentError }
+              onChange={ this._handle_onChange_User_AccountPassword_Current }
+              fullWidth={ true }
+            />
+            <TextField
               ref="User_AccountPassword"
               type="password"
-              floatingLabelText="Password"
+              floatingLabelText="New Password"
               value={ this.state.User_AccountPassword }
               errorText={ this.state.User_AccountPasswordError }
               onChange={ this._handle_onChange_User_AccountPassword }
@@ -100,7 +124,7 @@ class User_Properties extends React.Component
             <TextField
               ref="User_AccountPasswordConfirmation"
               type="password"
-              floatingLabelText="Confirm Password"
+              floatingLabelText="Confirm New Password"
               value={ this.state.User_AccountPasswordConfirmation }
               errorText={ this.state.User_AccountPasswordConfirmationError }
               onChange={ this._handle_onChange_User_AccountPasswordConfirmation }
@@ -117,7 +141,13 @@ class User_Properties extends React.Component
               <RaisedButton
                 label="Update"
                 secondary={true}
-                disabled={ this.state.User_AccountPasswordError != "" || this.state.User_AccountPasswordConfirmationError != "" }
+                disabled={
+                  this.state.User_AccountPassword_CurrentError != ""
+                  ||
+                  this.state.User_AccountPasswordError != ""
+                  ||
+                  this.state.User_AccountPasswordConfirmationError != ""
+                }
                 onTouchTap={ ( ) => this._handleUpdate( ) }
               />
             </div>

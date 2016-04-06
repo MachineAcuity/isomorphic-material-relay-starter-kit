@@ -295,6 +295,7 @@ input Viewer_updateInput {
 
 input Viewer_updatePasswordInput {
   id: ID!
+  User_AccountPassword_Current: String!
   User_AccountPassword: String!
   clientMutationId: String!
 }
