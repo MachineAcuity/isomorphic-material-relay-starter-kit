@@ -6,6 +6,8 @@ import { GraphQLString, GraphQLID, GraphQLNonNull } from "graphql";
 
 import ViewerType from '../../../../graphql/type/ViewerType';
 
+import delayPromise from '../../../../scripts/delayPromise';
+
 
 export default mutationWithClientMutationId( {
   name: 'Viewer_updatePassword',
@@ -31,11 +33,10 @@ export default mutationWithClientMutationId( {
 
     console.log( 'TODO: Must verify current password:' + User_AccountPassword_Current );
 
-    // TODO: Also introduce a second delay
-
-    return new Promise( ( resolve ) => {
+    return delayPromise( 1000 ) // Wait for a second to slow down a possible potential force attack
+    .then( new Promise( ( resolve ) => {
       bcrypt.hash( User_AccountPassword, 8, ( err, User_AccountPassword ) => resolve( User_AccountPassword ) );
-    } )
+    } ) )
     .then( ( User_AccountPassword ) => objectManager.update( 'User', {
       id: local_id,
       User_AccountPassword,
