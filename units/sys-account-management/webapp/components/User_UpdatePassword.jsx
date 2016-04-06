@@ -24,6 +24,7 @@ class User_Properties extends React.Component
     super( props );
 
     this.state = {
+      User_AccountPassword_Old: "",
       User_AccountPassword: "",
       User_AccountPasswordError: "Enter password",
       User_AccountPasswordConfirmation: "",
