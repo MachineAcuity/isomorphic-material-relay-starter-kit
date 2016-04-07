@@ -29,21 +29,36 @@ export default mutationWithClientMutationId( {
   mutateAndGetPayload: ( { id, User_AccountPassword_Current, User_AccountPassword }, { rootValue: {user_id, objectManager} } ) =>
   {
     let local_id = fromGlobalId( id ).id;
-    let ErrorMessage = ''; // No error if empty
-
-    console.log( 'TODO: Must verify current password:' + User_AccountPassword_Current );
+    let ErrorMessage = ""; // No error if empty
 
     return delayPromise( 1000 ) // Wait for a second to slow down a possible potential force attack
-    .then( new Promise( ( resolve ) => {
-      bcrypt.hash( User_AccountPassword, 8, ( err, User_AccountPassword ) => resolve( User_AccountPassword ) );
-    } ) )
-    .then( ( User_AccountPassword ) => objectManager.update( 'User', {
-      id: local_id,
-      User_AccountPassword,
-    } ) )
+    .then( ( ) => objectManager.getOneById( 'User', local_id ) )
+    .then( ( a_User ) =>
+      new Promise( (resolve, reject) =>
+        bcrypt.compare( User_AccountPassword_Current, a_User.User_AccountPassword, ( err, User_AccountPasswordIsCorrect ) =>
+        {
+          if( User_AccountPasswordIsCorrect )
+          {
+            resolve(
+              new Promise( ( resolve ) => {
+                bcrypt.hash( User_AccountPassword, 8, ( err, User_AccountPassword ) => resolve( User_AccountPassword ) );
+              } )
+              .then( ( User_AccountPassword ) => objectManager.update( 'User', {
+                id: local_id,
+                User_AccountPassword,
+              } ) )
+            );
+          }
+          else
+          {
+            ErrorMessage = "Incorrect current password";
+            resolve( );
+          }
+        } )
+      )
+    )
     .then( ( ) => {
       return { ErrorMessage };
     } )
-    ;
   },
 } );
