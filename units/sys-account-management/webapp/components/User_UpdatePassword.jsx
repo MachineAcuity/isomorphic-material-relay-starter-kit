@@ -14,7 +14,7 @@ import TextField from 'material-ui/lib/text-field';
 import { RequiresAuthenticationNotice } from './RequiresAuthentication.js';
 import scorePassword from '../../scripts/scorePassword';
 
-import Viewer_updatePasswordMutation from '../mutations/Viewer_updatePasswordMutation';
+import Viewer_updatePasswordMutation from '../../relay/Viewer_updatePasswordMutation';
 
 
 class User_Properties extends React.Component
