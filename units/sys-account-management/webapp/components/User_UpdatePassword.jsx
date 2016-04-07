@@ -9,6 +9,7 @@ import CardHeader from 'material-ui/lib/card/card-header';
 import CardText from 'material-ui/lib/card/card-text';
 import LinearProgress from 'material-ui/lib/linear-progress';
 import RaisedButton from 'material-ui/lib/raised-button';
+import Snackbar from 'material-ui/lib/snackbar';
 import TextField from 'material-ui/lib/text-field';
 
 import { RequiresAuthenticationNotice } from './RequiresAuthentication.js';
@@ -31,14 +32,21 @@ class User_Properties extends React.Component
       User_AccountPasswordConfirmation: "",
       User_AccountPasswordConfirmationError: "Confirm password",
       User_AccountPasswordStrength: 0,
+      SnackbarOpen: false,
+      SnackbarMessage: "",
     };
   }
+
+  _handle_Close_Snackbar = () =>
+  {
+    this.setState( { SnackbarOpen: false } );
+  };
 
   _handle_onChange_User_AccountPassword_Current = ( event ) =>
   {
     this.setState( { User_AccountPassword_Current: event.target.value } );
 
-    this.checkIfPasswordsMatch( event.target.value, this.state.User_AccountPassword, this.state.User_AccountPasswordConfirmation );
+    this.validateInputs( event.target.value, this.state.User_AccountPassword, this.state.User_AccountPasswordConfirmation );
   };
 
   _handle_onChange_User_AccountPassword = ( event ) =>
@@ -50,17 +58,17 @@ class User_Properties extends React.Component
       User_AccountPasswordStrength: passwordScore,
     } );
 
-    this.checkIfPasswordsMatch( this.state.User_AccountPassword_Current, event.target.value, this.state.User_AccountPasswordConfirmation );
+    this.validateInputs( this.state.User_AccountPassword_Current, event.target.value, this.state.User_AccountPasswordConfirmation );
   };
 
   _handle_onChange_User_AccountPasswordConfirmation = ( event ) =>
   {
     this.setState( { User_AccountPasswordConfirmation: event.target.value } );
 
-    this.checkIfPasswordsMatch( this.state.User_AccountPassword_Current, this.state.User_AccountPassword, event.target.value );
+    this.validateInputs( this.state.User_AccountPassword_Current, this.state.User_AccountPassword, event.target.value );
   };
 
-  checkIfPasswordsMatch( currentPassword, password, passwordConfirmation)
+  validateInputs( currentPassword, password, passwordConfirmation)
   {
     this.setState( { User_AccountPassword_CurrentError:
       currentPassword == "" ?
@@ -79,18 +87,42 @@ class User_Properties extends React.Component
         "Passwords do not match"
         : ""
     } );
+
+    // Close snackbar since user is obviously typing
+    this.setState( { SnackbarOpen: false } );
   }
 
   _handleUpdate = ( ) =>
   {
     var onFailure = () => {
-      alert( 'failure' );
+      this.setState( {
+        SnackbarOpen: true,
+        SnackbarMessage: "Failed to update password",
+        User_AccountPassword_Current: "",
+        User_AccountPassword_CurrentError: "",
+        User_AccountPassword: "",
+        User_AccountPasswordError: "Enter password",
+        User_AccountPasswordConfirmation: "",
+        User_AccountPasswordConfirmationError: "Confirm password",
+        User_AccountPasswordStrength: 0,
+      } );
     };
 
-    var onSuccess = (response) => {
-      //var response = response;
+    var onSuccess = (response) =>
+    {
+      const ErrorMessage = response.Viewer_updatePassword.ErrorMessage;
 
-      alert( 'success:' + JSON.stringify( response.Viewer_updatePassword.ErrorMessage ) );
+      this.setState( {
+        SnackbarOpen: true,
+        SnackbarMessage: ErrorMessage.length > 0 ? "Failed to update password: " + ErrorMessage : "Password updated successfully",
+        User_AccountPassword_Current: "",
+        User_AccountPassword_CurrentError: "",
+        User_AccountPassword: "",
+        User_AccountPasswordError: "Enter password",
+        User_AccountPasswordConfirmation: "",
+        User_AccountPasswordConfirmationError: "Confirm password",
+        User_AccountPasswordStrength: 0,
+      } );
     };
 
     Relay.Store.commitUpdate(
@@ -163,6 +195,12 @@ class User_Properties extends React.Component
               />
             </div>
           </CardText>
+          <Snackbar
+            open={ this.state.SnackbarOpen }
+            message={ this.state.SnackbarMessage }
+            autoHideDuration={ 15000 }
+            onRequestClose={ this._handle_Close_Snackbar }
+          />
         </Card>
       );
   }
