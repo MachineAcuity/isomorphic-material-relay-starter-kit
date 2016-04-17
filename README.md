@@ -314,7 +314,7 @@ The structure of each unit is as follows:
 | `/helper/`                                    | Helper functions, usually performing specific data retrieval and modification tasks `units/{Unit}/helper/` | [*](./units/starter-kit-example-compendium/helper/) |
 | `graphql/`                                    | All files included in the express-graphql server schema. | [*](./units/starter-kit-example-compendium/graphql/) |
 | `graphql/mutation/`                           | Mutations. | [*](./units/starter-kit-example-compendium/graphql/mutation/) |
-| `graphql/mutation/_mutations.js`              | Include with all mutations for this unit. | [*](./units/starter-kit-example-compendium/graphql/mutation/_mutation.js) |
+| `graphql/mutation/_mutations.js`              | Include with all mutations for this unit. | [*](./units/starter-kit-example-compendium/graphql/mutation/_mutations.js) |
 | `graphql/type/`                               | Object types. | [*](./units/starter-kit-example-compendium/graphql/type/) |
 | `graphql/type/{unit}_ViewerFields.js`         | Fields from this unit to be used in the viewer object. |
 | `graphql/type/*Connection.js`                 | Connection between two types. |
