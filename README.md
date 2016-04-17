@@ -311,9 +311,14 @@ The structure of each unit is as follows:
 | Folder/File                                   | Description                                                    |     |
 | --------------------------------------------- | ---------------------------------------------------------------| --- |
 | `/`                                           | Root of unit at relative path `units/{Unit}/` | [*](./units/starter-kit-example-compendium/) |
+| `/helper/`                                    | Helper functions, usually performing specific data retrieval and modification tasks `units/{Unit}/helper/` | [*](./units/starter-kit-example-compendium/helper/) |
 | `graphql/`                                    | All files included in the express-graphql server schema. | [*](./units/starter-kit-example-compendium/graphql/) |
+| `graphql/mutation/`                           | Mutations. | [*](./units/starter-kit-example-compendium/graphql/mutation/) |
+| `graphql/mutation/_mutations.js`              | Include with all mutations for this unit. | [*](./units/starter-kit-example-compendium/graphql/mutation/_mutation.js) |
 | `graphql/type/`                               | Object types. | [*](./units/starter-kit-example-compendium/graphql/type/) |
+| `graphql/type/{unit}_ViewerFields.js`         | Fields from this unit to be used in the viewer object. |
 | `graphql/type/*Connection.js`                 | Connection between two types. |
+| `graphql/type/*Type.js`                       | GraphQL Object Type definition. |
 | `relay/`                                      | All Relay client side files shared between react DOM and native. | [*](./units/starter-kit-example-compendium/relay/) |
 | `webapp/`                                     | React DOM files. | [*](./units/starter-kit-example-compendium/webapp/) |
 
@@ -365,10 +370,8 @@ This project contains a boilerplate with several simple code examples. It consis
 * [Facebook Relay Starter Kit TODO example](https://github.com/facebook/relay/tree/master/examples/todo). Implementation of the TODO MVC using Relay. In this kit the TODO example has been re-implemented with material UI.
 * [Facebook Relay Todo MVC example](https://github.com/facebook/relay/tree/master/examples/TodoMVC). Implementation of the TODO MVC using Relay and React Native.
 * [Isomorphic react-router-relay TODO example](https://github.com/denvned/isomorphic-relay-router/tree/master/examples/todo). The Facebook TODO example in this project has been modified to support isomorphism.
-* [Xpepermint's isomorphic-react-relay-boilerplate](https://github.com/xpepermint/isomorphic-react-relay-boilerplate). The project organization was initially borrowed from this project, although it has since diverged.
 * [coryhouse's react-slingshot](https://github.com/coryhouse/react-slingshot). Ideas about he documentation are borrowed from this project.
-* [ryancole's league](https://github.com/ryancole/league). The organization of the GraphQL schema is borrowed from this project.
-* [itayadler's cassandra-paginating-static-columns](https://github.com/itayadler/cassandra-paginating-static-columns/blob/master/index.js). The general approach to working with Cassandra was initially borrowed from this project. However, over time the implementation became very different.
+* [ryancole's league](https://github.com/ryancole/league). The initial organization of the GraphQL schema is borrowed from this project.
 
 Examples from other open source projects have also been incorporated.
 
