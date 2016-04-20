@@ -37,6 +37,9 @@
 # Ignore jest
 .*/node_modules/jest-cli/.*
 
+# The react native app is its own project
+.*/app/.*
+
 [include]
 
 [libs]
