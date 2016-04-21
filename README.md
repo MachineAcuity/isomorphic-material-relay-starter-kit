@@ -10,4 +10,4 @@ Because of the above, we will suspend the active work on this starter kit and in
 
 Also, if there is any interest in further development, PRs will be happily accepted.
 
-If you would like you can review the [previous version of the documentation](./README_old.md)
+If you would like you can review the [previous version of the documentation](./README_old.md).
