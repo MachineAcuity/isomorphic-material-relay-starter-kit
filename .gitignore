@@ -2,11 +2,6 @@
 #
 .DS_Store
 
-# node.js
-#
-node_modules/
-npm-debug.log
-
 # Server
 #
 .env
@@ -38,3 +33,8 @@ project.xcworkspace
 .idea
 .gradle
 local.properties
+
+# node.js
+#
+node_modules/
+npm-debug.log

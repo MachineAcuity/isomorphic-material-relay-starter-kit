@@ -1,6 +1,8 @@
 'use strict';
 
+//import TodoApp from './components/TodoAppSmall';
 import TodoApp from './starter-kit-example-todo/app/components/ToDoApp';
+//import TodoApp from './starter-kit-example-todo/app/components/TodoAppSmall';
 import TodoAppRoute from './routes/TodoAppRoute';
 import React, {
   Component,
