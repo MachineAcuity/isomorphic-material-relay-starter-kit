@@ -1,4 +1,6 @@
-# This project is superseded by [UniversalRelayBoilerplate](https://github.com/codefoundries/UniversalRelayBoilerplate)
+# Isomorphic Material Relay Starter Kit
+
+**This project is no longer developed and is superseded by [UniversalRelayBoilerplate](https://github.com/codefoundries/UniversalRelayBoilerplate)**.
 
 The Isomorphic Material Relay Starter Kit started from humble beginnings and initially the title represented properly what it was. However, over the course of time, several things happened:
 
