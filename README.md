@@ -1,5 +1,3 @@
-# This repository will be deleted soon
-
 # Isomorphic Material Relay Starter Kit
 
 **This project is no longer developed and is superseded by [UniversalRelayBoilerplate](https://github.com/codefoundries/UniversalRelayBoilerplate)**.
