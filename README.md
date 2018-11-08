@@ -1,6 +1,6 @@
 # Isomorphic Material Relay Starter Kit
 
-**This project is no longer developed and is superseded by [UniversalRelayBoilerplate](https://github.com/codefoundries/UniversalRelayBoilerplate)**.
+**This project is no longer developed and is superseded by [Rebar](https://github.com/MachineAcuity/rebar)**.
 
 The Isomorphic Material Relay Starter Kit started from humble beginnings and initially the title represented properly what it was. However, over the course of time, several things happened:
 
@@ -8,7 +8,7 @@ The Isomorphic Material Relay Starter Kit started from humble beginnings and ini
 * The project was restructured in a way where it can be much more efficiently used as a boilerplate than it was in the beginning.
 * With the introduction of React Native, it made a lot of sense to merge the React Native and regular React clients into one project.
 
-Because of the above, we will suspend the active work on this starter kit and invest time into developing the [UniversalRelayBoilerplate](https://github.com/codefoundries/UniversalRelayBoilerplate). However, this project will be kept as is, since it might be more convenient for some developers to have the React and React Native projects separated.
+Because of the above, we will suspend the active work on this starter kit and invest time into developing the [Rebar](https://github.com/MachineAcuity/rebar). However, this project will be kept as is, since it might be more convenient for some developers to have the React and React Native projects separated.
 
 Also, if there is any interest in further development, PRs will be happily accepted.
 
